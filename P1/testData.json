@@ -1,0 +1,131 @@
+{
+    "userProfile": [
+        {
+            "username": "bobross",
+            "firstName": "Bob",
+            "lastName": "Ross",
+            "email": "bobross@gmail.com",
+            "avatar": "???",
+            "phoneNumber": "647-111-1111"
+        },
+        {
+            "username": "patrickstar",
+            "firstName": "Patrick",
+            "lastName": "Star",
+            "email": "patrickstar@gmail.com",
+            "avatar": "???",
+            "phoneNumber": "647-222-2222"
+        },
+        {
+            "username": "superman",
+            "firstName": "Super",
+            "lastName": "Man",
+            "email": "superman@gmail.com",
+            "avatar": "???",
+            "phoneNumber": "647-333-3333"
+        }
+    ],
+    "hostRating": [
+        {
+            "hostRatingID": "1",
+            "hostUsername": "patrickstar",
+            "customerUsername": "bobross",
+            "rating": "5",
+            "comment": "Very nice and respectful!",
+            "property": "rock house",
+            "dateRated": "2022-10-14"
+        }
+    ],
+    "customerRating": [
+        {
+            "customerRatingID": "1",
+            "customerUsername": "bobross",
+            "hostUsername": "patrickstar",
+            "rating": "5",
+            "comment": "Great place to stay.",
+            "property": "rock house",
+            "dateStayedStart": "2021-10-12",
+            "dateStayedEnd": "2021-10-13",
+            "dateRated": "2021-10-14"
+        }
+    ],
+    "properties": [
+        {
+            "propertyID": "1",
+            "hostUsername": "patrickstar",
+            "property": "rock house",
+            "address": "120 Conch Street",
+            "numGuestAllowed": "1",
+            "numBeds": "1",
+            "numBats": "1",
+            "image": "???",
+            "description": "The most cozy rock house you could ever stay at.",
+            "amenitiesAvailable": "Coffee Machine"
+        }
+    ],
+    "propertyDatePrice": [
+        {
+            "propertyID": "1",
+            "dateAvailableStart": "2022-02-30",
+            "dateAvailableEnd": "2022-04-30",
+            "price": "$1000"
+        },
+        {
+            "propertyID": "1",
+            "dateAvailableStart": "2022-05-30",
+            "dateAvailableEnd": "2022-06-30",
+            "price": "$2000"
+        }
+    ],
+    "reservationRequests": [
+        {
+            "requestID": "1",
+            "customerUsername": "superman",
+            "propertyID": "1"
+        }
+    ],
+    "cancellationRequests": [
+        {
+            "cancellationID": "1",
+            "customerUsername": "superman",
+            "propertyID": "1"
+        }
+    ],
+    "hostComment": [
+        {
+            "hostCommentID": "1",
+            "hostUsername": "patrickstar",
+            "customerRatingID": "1",
+            "comment": "Thank you Bob!"
+        }
+    ],
+    "customerFollowUpComment": [
+        {
+            "customerFollowUpCommentID": "1",
+            "customerUsername": "bobross",
+            "customerRatingID": "1",
+            "comment": "You're welcome!"
+        }
+    ],
+
+    "hostNotification":[
+        {
+            "hostNotificationID": "1",
+            "hostUsername": "patrickstar",
+            "notificationStatus": "Someone has rated your property!"
+        }
+
+    ],
+
+    "customerNotification":[
+        {
+            "customerNotificationID": "1",
+            "customerUsername": "superman",
+            "notificationStatus": "Your reservation has been cancelled!"
+        }
+
+    ]
+
+
+
+}
