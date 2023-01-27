@@ -7,10 +7,102 @@
     <title>My Website</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   </head>
   <body>
+    <nav class="navbar navbar-expand-md" style="background: lightblue;">
+      <div class="container">
+          <a href="#" class="navbar-brand">Restify</a>
+          <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-label="Expand Navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav me-auto my-2 my-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Stay</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a href="#" class="dropdown-item">Upcoming</a>
+                  </li>
+                  <li>
+                    <a href="#" class="dropdown-item">Past</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Host</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a href="#" class="dropdown-item">Upcoming</a>
+                  </li>
+                  <li>
+                    <a href="#" class="dropdown-item">Past</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a href="#" class="dropdown-item">Profile</a>
+                  </li>
+                  <li>
+                    <a href="#" class="dropdown-item">Log out</a>
+                  </li>
+                </ul>
+              </li>
+              <!-- <li class="nav-item">
+                <a href="#" class="nav-link">Host</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">User</a>
+              </li> -->
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>  
+      </div>
+    </nav>
     <main>
-        <h1>Search/Home</h1>  
+      <div class="album py-5 bg-light">
+        <div class="container">
+    
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+              <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Property" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Property</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Property</text></svg>
+                <div class="card-body">
+                  <p class="card-text">
+                    Cool House
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Reserve!</button>
+                    <small class="text-muted">$99/night</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Property" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Property</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Property</text></svg>
+                <div class="card-body">
+                  <p class="card-text">
+                    Cooler House
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Reserve!</button>
+                    <small class="text-muted">$299/night</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>
