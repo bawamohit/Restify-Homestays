@@ -20,7 +20,52 @@
     <div id="nav-placeholder"></div>
     <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
     <main>
-        <h1>View Profile</h1>  
+      <div class="container">
+        <div class="form">
+          <div class="row">
+            <div class="col-md-8 pt-5">
+              <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" class="form-control form-control-plaintext" id="first-name" placeholder="Joe">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 pt-5">
+              <div class="pb-0">
+                <div class="form-group">
+                  <label for="last-name">Last Name:</label>
+                  <input type="text" class="form-control form-control-plaintext" id="last-name" placeholder="Biden">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 pt-5">
+                  <div class="form-group">
+                    <label for="inputEmail3">Email:</label>
+                    <input type="email" class="form-control form-control-plaintext" id="email" placeholder="example@gmail.com">
+                  </div>
+                </div>
+                <div class="col-md-12 pt-5">
+                  <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" class="form-control form-control-plaintext" id="phone" placeholder="xxx-xxxx-xxxx">
+                  </div>
+                </div>
+                <div class="col-md-12 pt-5">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 pt-5">      
+                <div class="form-group">
+                  <img src="200x200.png" class="rounded mx-auto d-flex">
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>
