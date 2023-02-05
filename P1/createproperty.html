@@ -1,72 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Restify</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <!-- Bootstrap Links -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <!-- Font Awesome Link -->
-    <script src="https://kit.fontawesome.com/de0f11bea7.js" crossorigin="anonymous"></script>
-    <!-- jquery Link -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  </head>
-  <body>
-    <!-- Load Navbar -->
-    <div id="nav-placeholder"></div>
-    <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
-    <main>
-        <h1>Create a New Property</h1>  
 
-        <div class = "container d-flex justify-content-center">
-        <form>
-          <div>
-            <label for="propertyNameInput">Property Name</label>
-            <input type="text" class="form-control" id="propertyNameInput" placeholder="Enter the property name">
-          </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Restify</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <!-- Bootstrap Links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <!-- Font Awesome Link -->
+  <script src="https://kit.fontawesome.com/de0f11bea7.js" crossorigin="anonymous"></script>
+  <!-- jquery Link -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
 
-          <div>
-            <label for="descriptionInput">Description</label>
-            <input type="text" class="form-control" id="propertyNameInput" placeholder="Enter the description">
-          </div>
+<body>
+  <!-- Load Navbar -->
+  <div id="nav-placeholder"></div>
+  <script>$(function () { $("#nav-placeholder").load("./Components/usernav.html"); });</script>
+  <main>
+    <h1>Create a New Property</h1>
 
-          <div>
-            <label for="guestInput">Number of Guests</label>
-            <input type="text" class="form-control" id="guestInput" placeholder="Enter the number of guests">
-          </div>
+    <div class="container d-flex justify-content-center">
+      <form>
+        <div>
+          <label for="propertyNameInput">Property Name</label>
+          <input type="text" class="form-control" id="propertyNameInput" placeholder="Enter Property">
+        </div>
 
-          <div>
-            <label for="imageInput">Images</label>
-            <input type="file" class="form-control" id="imageInput" placeholder="Enter the number of guests">
-          </div>
+        <div>
+          <label for="descriptionInput">Description</label>
+          <input type="text" class="form-control" id="propertyNameInput" placeholder="Enter Description">
+        </div>
+
+        
 
           <div class="container">
-            <a class="btn btn-secondary" href="/p1/host.html" role="button">Previous Page</a>
-            <a class="btn btn-primary" href="/p1/address.html" role="button">Next Page</a>
-            
+            <div class="row">
+              <div class="col-sm">
+                <label for="guestInput">Guests</label>
+              </div>
+              <div class="col-sm d-flex justify-content-end">
+                <div class="rounded-circle circleIcon"> - </div>
+              </div>
+              <div class="col-sm d-flex justify-content-end">
+                <div> 2 </div>
+              </div>
+              <div class="col-sm d-flex justify-content-end">
+                <div class="rounded-circle circleIcon "> + </div>
+              </div>
+            </div>
           </div>
 
-          <!-- 
+          <div>bed</div>
+          <div>list of dates and asking price</div>
 
-            # of beds and bathrooms
-            images
-            descriptions
+        <div>
+          <label for="imageInput">Images</label>
+          <input type="file" class="form-control" id="imageInput" placeholder="Enter the number of guests">
+        </div>
 
-            list of dates and asking price
+        <div class="container">
+          <a class="btn btn-secondary" href="/p1/host.html" role="button">Previous Page</a>
+          <a class="btn btn-primary" href="/p1/address.html" role="button">Next Page</a>
 
-
-          -->
-
-        </form>
-
-      </div>
-
-    </main>
-  </body>
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
 </html>
 
 <!--
