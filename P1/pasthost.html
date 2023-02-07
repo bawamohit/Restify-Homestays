@@ -21,7 +21,31 @@
     <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
     <main>
       <div class="container">
-        <div class="accordion pt-5" id="reservationList">
+        <div class="modal fade" id="user-rate-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rate This User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body justify-content-between">
+                    <div class="mb-3">
+                        How would you rate this user?
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-secondary">1</button>
+                        <button type="button" class="btn btn-secondary">2</button>
+                        <button type="button" class="btn btn-secondary">3</button>
+                        <button type="button" class="btn btn-secondary">4</button>
+                        <button type="button" class="btn btn-secondary">5</button>
+                    </div>
+                    <a href="#" class="btn btn-success">Confirm</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="pt-5 pb-5" style="color: #85bded;">Past Guests</h2>
+        <div class="accordion" id="reservationList">
           <div class="accordion-item" >
             <h2 class="accordion-header" id="headingOne">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -46,7 +70,7 @@
                 </div>
                 <div class="d-flex justify-content-between pt-4" >
                   <a href="#" class="btn btn-info float-left" style="background: #85bded;">Details</a>
-                  <a href="#" class="btn btn-danger float-right">Cancel</a>
+                  <a href="#" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#user-rate-modal">Rate this user</a>
                 </div>
               </div>
             </div>
@@ -75,7 +99,7 @@
                 </div>
                 <div class="d-flex justify-content-between pt-4" >
                   <a href="#" class="btn btn-info float-left" style="background: #85bded;">Details</a>
-                  <a href="#" class="btn btn-danger float-right">Cancel</a>
+                  <a href="#" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#user-rate-modal">Rate this user</a>
                 </div>
               </div>
             </div>

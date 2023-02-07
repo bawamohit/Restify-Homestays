@@ -18,14 +18,10 @@
   <body>
     <!-- Load Navbar -->
     <div id="nav-placeholder"></div>
-    <script>
-      $(function(){
-        $("#nav-placeholder").load("./Components/usernav.html");
-      });
-    </script>
+    <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
     <main>
       <div class="container">
-        <h2 class="pt-5 pb-5" style="color: #85bded;">Upcoming Guests</h2>
+        <h2 class="pt-5 pb-5" style="color: #85bded;">Past Stays</h2>
         <div class="accordion" id="reservationList">
           <div class="accordion-item" >
             <h2 class="accordion-header" id="headingOne">
@@ -51,7 +47,6 @@
                 </div>
                 <div class="d-flex justify-content-between pt-4" >
                   <a href="#" class="btn btn-info float-left" style="background: #85bded;">Details</a>
-                  <a href="#" class="btn btn-danger float-right">Cancel</a>
                 </div>
               </div>
             </div>
@@ -80,7 +75,6 @@
                 </div>
                 <div class="d-flex justify-content-between pt-4" >
                   <a href="#" class="btn btn-info float-left" style="background: #85bded;">Details</a>
-                  <a href="#" class="btn btn-danger float-right">Cancel</a>
                 </div>
               </div>
             </div>
