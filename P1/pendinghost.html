@@ -21,7 +21,8 @@
     <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
     <main>
       <div class="container">
-        
+        <div id="request-placeholder"></div>
+        <script>$(function(){$("#request-placeholder").load("./Components/request.html");});</script>
         <h2 class="pt-5 pb-5" style="color: #85bded;">Pending Guests</h2>
         <div class="accordion" id="reservationList">
           <div class="accordion-item" >
@@ -34,26 +35,26 @@
               <div class="accordion-body bg-light">
                 <div class="row pt-2">
                   <div class="col-lg-3 col-md-4 col-6">
-                    Start Date: February 14th, 2022
+                    Start Date: February 20th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    End Date: February 18th, 2022
+                    End Date: February 22th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
                     No.Guests: 2
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    Price: $299
+                    Price: $99
                   </div>
                 </div>
                 <div class="d-flex pt-4 justify-content-between" >
                   <div>
-                    <a href="#" class="btn btn-info">Details</a>
-                    <a href="#" class="btn btn-info">Guests</a>
+                    <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                    <a href="#" class="btn float-right" style="background: #85bded;" data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
                   </div>
                   <div>
-                    <a href="#" class="btn btn-success">Accept</a>
-                    <a href="#" class="btn btn-danger">Deny</a>
+                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#accept-modal">Accept</a>
+                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deny-modal">Deny</a>
                   </div>
                 </div>
               </div>
@@ -69,26 +70,26 @@
               <div class="accordion-body bg-light">
                 <div class="row pt-2">
                   <div class="col-lg-3 col-md-4 col-6">
-                    Start Date: February 14th, 2022
+                    Start Date: February 23th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    End Date: February 18th, 2022
+                    End Date: February 24th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
                     No.Guests: 2
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    Price: $299
+                    Price: $99
                   </div>
                 </div>
                 <div class="d-flex pt-4 justify-content-between" >
                   <div>
-                    <a href="#" class="btn btn-info">Details</a>
-                    <a href="#" class="btn btn-info">Guests</a>
+                    <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                    <a href="#" class="btn float-right" style="background: #85bded;" data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
                   </div>
                   <div>
-                    <a href="#" class="btn btn-success">Accept</a>
-                    <a href="#" class="btn btn-danger">Deny</a>
+                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#accept-modal">Accept</a>
+                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deny-modal">Deny</a>
                   </div>
                 </div>
               </div>

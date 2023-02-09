@@ -21,32 +21,43 @@
     <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
     <main>
       <div class="container">
+        <div id="request-placeholder"></div>
+        <script>$(function(){$("#request-placeholder").load("./Components/request.html");});</script>
+
         <h2 class="pt-5 pb-5" style="color: #85bded;">Past Stays</h2>
         <div class="accordion" id="reservationList">
           <div class="accordion-item" >
             <h2 class="accordion-header" id="headingOne">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Reservation at Rock house 120 Couch Street
+                <div class="text-success">
+                    <div class="col-12">
+                        Reservation at Pineapple House 124 Conch Street
+                    </div>
+                    <div class="col-12">
+                        Status: Completed 
+                    </div>
+                </div>
               </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#reservationList">
               <div class="accordion-body bg-light">
                 <div class="row pt-2">
                   <div class="col-lg-3 col-md-4 col-6">
-                    Start Date: February 14th, 2022
+                    Start Date: January 14th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    End Date: February 18th, 2022
+                    End Date: January 18th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
                     No.Guests: 2
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    Price: $299
+                    Price: $99
                   </div>
                 </div>
                 <div class="d-flex justify-content-between pt-4" >
-                  <a href="#" class="btn btn-info float-left" style="background: #85bded;">Details</a>
+                  <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                  <a href="#" class="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#host-rate-modal">Rate this host</a>
                 </div>
               </div>
             </div>
@@ -54,17 +65,24 @@
           <div class="accordion-item" >
             <h2 class="accordion-header" id="headingTwo">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Reservation at Rock house 120 Couch Street
+                <div class="text-secondary">
+                    <div class="col-12">
+                        Reservation at Pineapple House 124 Conch Street
+                    </div>
+                    <div class="col-12">
+                        Status: Expired 
+                    </div>
+                </div>
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#reservationList">
               <div class="accordion-body bg-light">
                 <div class="row pt-2">
                   <div class="col-lg-3 col-md-4 col-6">
-                    Start Date: February 14th, 2022
+                    Start Date: January 18th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    End Date: February 18th, 2022
+                    End Date: January 19th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
                     No.Guests: 2
@@ -74,7 +92,117 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between pt-4" >
-                  <a href="#" class="btn btn-info float-left" style="background: #85bded;">Details</a>
+                  <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item" >
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <div class="text-secondary">
+                    <div class="col-12">
+                        Reservation at Pineapple House 124 Conch Street
+                    </div>
+                    <div class="col-12">
+                        Status: Canceled 
+                    </div>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#reservationList">
+              <div class="accordion-body bg-light">
+                <div class="row pt-2">
+                  <div class="col-lg-3 col-md-4 col-6">
+                    Start Date: January 18th, 2022
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    End Date: January 19th, 2022
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    No.Guests: 2
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    Price: $299
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between pt-4" >
+                  <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item" >
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <div class="text-danger">
+                    <div class="col-12">
+                        Reservation at Pineapple House 124 Conch Street
+                    </div>
+                    <div class="col-12">
+                        Status: Terminated 
+                    </div>
+                </div>
+              </button>
+              
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#reservationList">
+              <div class="accordion-body bg-light">
+                <div class="row pt-2">
+                  <div class="col-lg-3 col-md-4 col-6">
+                    Start Date: January 18th, 2022
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    End Date: January 19th, 2022
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    No.Guests: 2
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    Price: $299
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between pt-4" >
+                  <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                  <a href="#" class="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#host-rate-modal">Rate this host</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-item" >
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                <div class="text-danger">
+                    <div class="col-12">
+                        Reservation at Pineapple House 124 Conch Street
+                    </div>
+                    <div class="col-12">
+                        Status: Denied 
+                    </div>
+                </div>
+              </button>
+              
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#reservationList">
+              <div class="accordion-body bg-light">
+                <div class="row pt-2">
+                  <div class="col-lg-3 col-md-4 col-6">
+                    Start Date: January 18th, 2022
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    End Date: January 19th, 2022
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    No.Guests: 2
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-6">
+                    Price: $299
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between pt-4" >
+                  <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
                 </div>
               </div>
             </div>

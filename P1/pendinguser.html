@@ -21,6 +21,8 @@
     <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
     <main>
       <div class="container">
+        <div id="request-placeholder"></div>
+        <script>$(function(){$("#request-placeholder").load("./Components/request.html");});</script>
         <h2 class="pt-5 pb-5" style="color: #85bded;">Pending Requests</h2>
         <div class="accordion" id="reservationList">
           <div class="accordion-item" >
@@ -42,12 +44,12 @@
                     No.Guests: 2
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    Price: $299
+                    Price: $99
                   </div>
                 </div>
                 <div class="d-flex justify-content-between pt-4" >
-                  <a href="#" class="btn btn-info float-left" style="background: #85bded;">Details</a>
-                  <a href="#" class="btn btn-danger float-right">Cancel</a>
+                  <a href="#" class="btn" style="background: #85bded;">Details</a>
+                  <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancel-pending-modal">Cancel</a>
                 </div>
               </div>
             </div>
@@ -55,17 +57,17 @@
           <div class="accordion-item" >
             <h2 class="accordion-header" id="headingTwo">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Reservation at Rock house 120 Couch Street
+                Reservation at Pineapple House 124 Conch Street
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#reservationList">
               <div class="accordion-body bg-light">
                 <div class="row pt-2">
                   <div class="col-lg-3 col-md-4 col-6">
-                    Start Date: February 14th, 2022
+                    Start Date: February 18th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
-                    End Date: February 18th, 2022
+                    End Date: February 19th, 2022
                   </div>
                   <div class="col-lg-3 col-md-4 col-6">
                     No.Guests: 2
@@ -75,8 +77,8 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between pt-4" >
-                  <a href="#" class="btn btn-info float-left" style="background: #85bded;">Details</a>
-                  <a href="#" class="btn btn-danger float-right">Cancel</a>
+                  <a href="#" class="btn" style="background: #85bded;">Details</a>
+                  <a href="#"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancel-pending-modal">Cancel</a>
                 </div>
               </div>
             </div>

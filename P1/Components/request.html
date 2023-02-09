@@ -1,5 +1,73 @@
+<div class="modal fade" id="cancel-pending-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-body">
+            <div class="mb-3">
+                Are you sure you want to cancel this pending request?
+            </div>
+            <a href="#" class="btn btn-danger float-right">Confirm</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="terminate-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-body">
+            <div class="mb-3">
+                Are you sure you want to terminate this upcoming stay?
+            </div>
+            <a href="#" class="btn btn-danger float-right">Confirm</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="terminate-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-body">
+            <div class="mb-3">
+                Are you sure you want to terminate this upcoming stay?
+            </div>
+            <a href="#" class="btn btn-danger float-right">Confirm</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="accept-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-body">
+            <div class="mb-3">
+                Are you sure you want to accept this request for stay?
+            </div>
+            <a href="#" class="btn btn-success float-right">Confirm</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="deny-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-body">
+            <div class="mb-3">
+                Are you sure you want to deny this request for stay?
+            </div>
+            <a href="#" class="btn btn-danger float-right">Confirm</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="cancel-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Cancel</h5>
@@ -14,6 +82,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <div class="modal fade" id="user-rate-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
@@ -47,67 +117,81 @@
 </div>
 
 
-<div class="modal fade" id="guests-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+<div class="modal fade" id="host-rate-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Guests</h5>
+            <h5 class="modal-title">Rate This Host</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body justify-content-between">
-            <div class="accordion" id="reservationList">
-                <div class="accordion-item" >
-                  <h2 class="accordion-header" id="guestOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Guest 1
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#reservationList">
-                    <div class="accordion-body bg-light">
-                      <div class="row pt-2">
-                        <div class="col-lg-3 col-md-4 col-6">
-                          Start Date: February 14th, 2022
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-6">
-                          End Date: February 18th, 2022
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-6">
-                          No.Guests: 2
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-6">
-                          Price: $299
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <div class="mb-3">
+                How would you rate this host?
+            </div>
+            <form class= "pb-2">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-secondary">1</button>
+                    <button type="button" class="btn btn-secondary">2</button>
+                    <button type="button" class="btn btn-secondary">3</button>
+                    <button type="button" class="btn btn-secondary">4</button>
+                    <button type="button" class="btn btn-secondary">5</button>
                 </div>
-                <div class="accordion-item" >
-                  <h2 class="accordion-header" id="guestTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Guest 2
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#reservationList">
-                    <div class="accordion-body bg-light">
-                      <div class="row pt-2">
-                        <div class="col-lg-3 col-md-4 col-6">
-                          Start Date: February 14th, 2022
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-6">
-                          End Date: February 18th, 2022
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-6">
-                          No.Guests: 2
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-6">
-                          Price: $299
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Leave a comment</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
+            </form>
+            <a href="#" class="btn btn-success">Confirm</a>
         </div>
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="guests-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="color: #85bded;">Average Rating: 1 Stars</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body justify-content-between">
+                <div class="card card-body border-0">
+                  <div class="row">
+                    <div class="col-sm-2 col-3 p-0 ">
+                      <img src="host1.png" alt="Host 1"
+                        class="profile1css img-fluid rounded-circle">
+                    </div>
+                    <div class="col-sm-10 col-9 p-0">
+                      <div class="bold">
+                        Spongebob Squarepants
+                      </div>
+                      <div class="text-secondary">
+                        Rating: 1 Star
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row pb-3">
+                    Squidward was so rude and didn't clean up!
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2 col-3 p-0">
+                      <img src="patrick.png" alt="Patrick" class="profile1css img-fluid rounded-circle">
+                    </div>
+                    <div class="col-sm-10 col-9 p-0">
+                      <div class="bold">
+                        Patrick Star
+                      </div>
+                      <div class="text-secondary">
+                        Rating: 5 Stars
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    I love this place!
+                  </div>
+                </div>
+          </div>
+        </div>
+    </div>
+  </div>
