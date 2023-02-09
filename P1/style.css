@@ -13,9 +13,24 @@
   height: 500px;
   width: 500px;
   object-fit: contain;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 .profile1css{
   height: 45px;
   width: 45px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form-check-input{
+  transform: scale(1.1);
+}
+
+.bold{
+  font-weight: 500;
+}
+
+ul{
+  padding-left: 0;
+  list-style-type: circle;
 }
