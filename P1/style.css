@@ -10,10 +10,16 @@
 }
 
 .house1css{
-  height: 500px;
-  width: 500px;
+  height: 560px;
+  width: 560px;
   object-fit: contain;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.housemodalcss{
+  height: 560px;
+  width: 560px;
+  object-fit: contain;
 }
 
 .profile1css{
@@ -21,6 +27,14 @@
   width: 45px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
+
+.inside1css{
+  height: 250px;
+  width: 250px;
+  object-fit: contain;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
 
 .form-check-input{
   transform: scale(1.1);
@@ -33,4 +47,43 @@
 ul{
   padding-left: 0;
   list-style-type: circle;
+}
+
+.pad-move{
+  padding-left: 0px;
+}
+
+/* md*/ 
+@media (min-width: 768px) { 
+  .pad-move{
+       padding-left: 10px;
+   }
+}
+
+/* lg*/ 
+@media (min-width: 992px) { 
+  .pad-move{
+       padding-left: 40px;
+   }
+
+   .house1css{
+    height: 700px;
+    width: 700px;
+    object-fit: contain;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* xl*/ 
+@media (min-width: 1200px) { 
+  .pad-move{
+       padding-left: 20px;
+   }
+}
+
+/* xxl*/ 
+@media (min-width: 1400px) { 
+  .pad-move{
+       padding-left: 80px;
+   }
 }
