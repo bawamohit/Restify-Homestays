@@ -57,23 +57,7 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-2">
-          </div>
-          <div class="col-md-8">
-            <div class="form-group pb-3">
-              <label for="countryInput">Country</label>
-              <!-- <input type="text" class="form-control" id="countryInput" placeholder="Country"> -->
-              <select class="form-select text-muted">
-                <option>Canada</option>
-                <option>United States</option>
-                <option>Fiji</option>
-                <option>Mexico</option>
-                <option>France</option>
-              </select>
-            </div>
-          </div>
-        </div>
+
 
         <div class="row">
           <div class="col-2">
@@ -94,6 +78,24 @@
             <div class="form-group pb-3">
               <label for="cityInput">City</label>
               <input type="text" class="form-control" id="cityInput" placeholder="City">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <label for="countryInput">Country</label>
+              <!-- <input type="text" class="form-control" id="countryInput" placeholder="Country"> -->
+              <select class="form-select text-muted">
+                <option>Canada</option>
+                <option>United States</option>
+                <option>Fiji</option>
+                <option>Mexico</option>
+                <option>France</option>
+              </select>
             </div>
           </div>
         </div>
@@ -181,6 +183,8 @@
           </div>
         </div>
 
+
+
         <div class="row">
           <div class="col-2">
           </div>
@@ -225,48 +229,77 @@
               <div class="row">
                 <div class="col-12 col-sm-4 border border-danger">
                   <label for="priceInput">Price/Currency</label>
-
                 </div>
-
-
-
-
                 <div class="col-7 col-sm-5 border border-danger">
                   <input type="text" class="form-control" id="priceInput" placeholder="Price">
                 </div>
                 <div class="col-5 col-sm-3 border border-danger">
-                    <select class="form-select text-muted" id="currencyInput">
-                      <option>CAD</option>
-                      <option>USD</option>
-                      <option>FJD</option>
-                      <option>MXN</option>
-                      <option>EUR</option>
-                    </select>
+                  <select class="form-select text-muted" id="currencyInput">
+                    <option>CAD</option>
+                    <option>USD</option>
+                    <option>FJD</option>
+                    <option>MXN</option>
+                    <option>EUR</option>
+                  </select>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-
-        <div class="row">
+        <div class="row pb-3">
           <div class="col-2 border border-danger">
           </div>
-          <div class="col-md-4 border border-danger">
-            <div class="form-group pb-3">
-              <label for="imageInput">Images</label>
-              <input type="file" class="form-control" id="imageInput" placeholder="Enter the number of guests">
-            </div>
-          </div>
-          <div class="col-4 border border-danger">
-            <img src="house1.png" alt="House 1" class="house1createproperty">
+          <div class="col-md-8 border border-danger">
+            <button class="btn btn-light border border-1 float-end">Add Date & Price</button>
           </div>
         </div>
 
-        <div class="container">
-          <a class="btn btn-secondary" href="/p1/host.html" role="button">Previous Page</a>
-          <a class="btn btn-primary float-end" href="/p1/amenities.html" role="button">Next Page</a>
-        </div>
+          <div class="row pb-3">
+            <div class="col-2 border border-danger">
+            </div>
+            <div class="col-md-8 border border-danger">
+
+              <u>
+                Selected Availablity Dates and Price
+              </u>
+              <div>
+                <strong>x</strong> 13/02/2023 - 15/02/2023 | $500 CAD
+              </div>
+              <div>
+                <strong>x</strong> 17/03/2023 - 19/02/2023 | $700 CAD
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-2 border border-danger">
+            </div>
+            <div class="col-md-6 border border-danger">
+              <div class="form-group pb-3">
+                <label for="imageInput">Images</label>
+                <input type="file" class="form-control" id="imageInput" placeholder="Enter the number of guests">
+              </div>
+            </div>
+            <div class="col-4 border border-danger">
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-2 border border-danger">
+            </div>
+            <div class="col-md-6 border border-danger">
+              <img src="PropertyData/Pineapple1.png" alt="House 1" class="house1createproperty">
+              <img src="PropertyData/Pineapple2.png" alt="House 2" class="house1createproperty">
+              <img src="PropertyData/Pineapple3.png" alt="House 3" class="house1createproperty">
+            </div>
+
+            <div class="container">
+              <a class="btn btn-secondary" href="/p1/host.html" role="button">Previous Page</a>
+              <a class="btn btn-primary float-end" href="/p1/amenities.html" role="button">Next Page</a>
+            </div>
 
       </form>
     </div>
