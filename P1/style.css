@@ -10,8 +10,8 @@
 }
 
 .house1css{
-  height: 560px;
-  width: 560px;
+  height: 500px;
+  width: 500px;
   object-fit: contain;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
@@ -57,7 +57,11 @@ ul{
   filter: brightness(92%);
 }
 
-
+.house1createproperty{
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+}
 
 /* md*/ 
 @media (min-width: 768px) { 
