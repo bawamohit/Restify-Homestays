@@ -20,39 +20,12 @@
     <div id="nav-placeholder"></div>
     <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
     <main>
-      <div class="album py-5 bg-light">
-        <div class="container">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col">
-              <div class="card shadow-sm">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Property" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Property</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Property</text></svg>
-                <div class="card-body">
-                  <p class="card-text">
-                    Cool House
-                  </p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Reserve!</button>
-                    <small class="text-muted">$99/night</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card shadow-sm">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Property" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Property</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Property</text></svg>
-                <div class="card-body">
-                  <p class="card-text">
-                    Cooler House
-                  </p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Reserve!</button>
-                    <small class="text-muted">$299/night</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="container">
+        <div id="search-placeholder"></div>
+        <script>$(function(){$("#search-placeholder").load("./Components/search.html");});</script>
+
+        <div id="cards-placeholder"></div>
+        <script>$(function(){$("#cards-placeholder").load("./Components/cards.html");});</script>
       </div>
     </main>
   </body>

@@ -22,82 +22,11 @@
     
     <main>
       <div class="container">
-        <div class="input-group mw-100 my-4 ms-auto me-auto">
-          <div class="form-floating">
-            <input type="search" class="form-control" id="search" placeholder="Location" aria-label="Search" aria-describedby="search-addon2">
-            <label for="search">Location</label>
-          </div>
-          <div class="form-floating">
-            <input type="date" class="form-control" id=checkIn>
-            <label for="checkIn">Check-in</label>
-          </div>
-          <div class="form-floating">
-            <input type="date" class="form-control" id=checkOut>
-            <label for="checkOut">Check-out</label>
-          </div>
-          <div class="form-floating">
-            <select class="form-select" id="guests" aria-label="select guests">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4+</option>
-            </select>
-            <label for="guests">Guests</label>
-          </div>
-          <button class="btn btn-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-        </div>
-        
-        <div class="text-center">
-          <form class="ms-auto me-auto">
-            <input type="checkbox" class="btn-check" id="wifi-filter" autocomplete="off">
-            <label class="btn btn-outline-primary" for="wifi-filter">Wifi</label>
+        <div id="search-placeholder"></div>
+        <script>$(function(){$("#search-placeholder").load("./Components/search.html");});</script>
 
-            <input type="checkbox" class="btn-check" id="pet-filter" autocomplete="off">
-            <label class="btn btn-outline-primary" for="pet-filter">Pet Friendly</label>
-
-            <input type="checkbox" class="btn-check" id="tv-filter" autocomplete="off">
-            <label class="btn btn-outline-primary" for="tv-filter">TV</label>
-
-            <input type="checkbox" class="btn-check" id="parking-filter" autocomplete="off">
-            <label class="btn btn-outline-primary" for="parking-filter">Parking</label>
-          </form>
-        </div>
-
-        <div class="album my-4">
-          <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div class="col">
-                <div class="card h-100 shadow-sm">
-                  <img src="PropertyData/Pineapple1.png" alt="...">
-                  <div class="card-body">
-                    <p class="card-text">
-                      Pineapple
-                    </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Reserve!</button>
-                      <small class="text-muted">$99/night</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card h-100 shadow-sm">
-                  <div id="carousel-placeholder"></div>
-                  <script>$(function(){$("#carousel-placeholder").load("./Components/carousel.html");});</script>
-                  <div class="card-body">
-                    <p class="card-text">
-                      Cooler House
-                    </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Reserve!</button>
-                      <small class="text-muted">$299/night</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="cards-placeholder"></div>
+        <script>$(function(){$("#cards-placeholder").load("./Components/cards.html");});</script>
       </div>
     </main>
     
