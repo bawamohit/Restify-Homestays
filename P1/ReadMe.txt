@@ -9,17 +9,20 @@ https://getbootstrap.com/docs/5.2/components/carousel/
 
 Images:
 
-Squidward (Profile1)
+Squidward
 https://knowyourmeme.com/memes/squidward-tentacles
 
-Spongebob (Host1)
+Spongebob
 https://en.wikipedia.org/wiki/SpongeBob_SquarePants_%28character%29
 
-Pineapple House (house1)
+Patrick
+https://imgflip.com/memegenerator/342995669/Patrick-Star-sitting-on-couch
+
+Pineapple House (Exterior)
 https://thespongeclub.com/lore/spongebob-house-guide/
 
-Kitchen
-https://static.wikia.nocookie.net/spongebob/images/d/df/Spongebob_house_collage.jpg/revision/latest?cb=20190915162500
+Pineapple House (Kitchen)
+https://www.youtube.com/watch?v=D-ib-OESVRQ
 
-Living room
+Pineapple House (Living room)
 https://dygtyjqp7pi0m.cloudfront.net/i/7919/9617834_2.jpg?v=8CCE2C9055B4A10
