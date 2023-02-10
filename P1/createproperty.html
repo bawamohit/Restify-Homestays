@@ -64,8 +64,12 @@
             <div class="form-group pb-3">
               <label for="countryInput">Country</label>
               <!-- <input type="text" class="form-control" id="countryInput" placeholder="Country"> -->
-              <select class="form-control text-muted">
-                <option>Country</option>
+              <select class="form-select text-muted">
+                <option>Canada</option>
+                <option>United States</option>
+                <option>Fiji</option>
+                <option>Mexico</option>
+                <option>France</option>
               </select>
             </div>
           </div>
@@ -112,7 +116,7 @@
             <div class="row pb-3">
               <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
                 <label for="guestInput">Guests</label>
-                
+
               </div>
               <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                 <div class="rounded-circle circleIcon"> - </div>
@@ -128,7 +132,7 @@
           <div class="col-2 col-sm-2 col-md-4 col-lg-4">
           </div>
         </div>
-        
+
         <div class="row">
           <div class="col-2 col-sm-2 col-md-4 col-lg-4">
           </div>
@@ -136,7 +140,7 @@
             <div class="row pb-3">
               <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
                 <label for="guestInput">Beds</label>
-                
+
               </div>
               <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                 <div class="rounded-circle circleIcon"> - </div>
@@ -160,7 +164,7 @@
             <div class="row pb-3">
               <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
                 <label for="guestInput">Baths</label>
-                
+
               </div>
               <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                 <div class="rounded-circle circleIcon"> - </div>
@@ -182,21 +186,80 @@
           </div>
           <div class="col-md-8">
             <div class="form-group pb-3">
-              <label for="postalCodeInput">List of Dates and Asking Price</label>
-              <input type="text" class="form-control" id="postalCodeInput" placeholder="Date and price">
+              <div class="row">
+                <div class="col-12 col-sm-4 border border-danger">
+                  <label for="dateInInput">Check In Date Availablity</label>
+                </div>
+                <div class="col-12 col-sm-8 border border-danger">
+                  <input type="date" class="form-control" id="dateInInput" placeholder="Check In Date" min="2023-02-01"
+                    max="2026-12-31">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <div class="row">
+                <div class="col-12 col-sm-4 border border-danger">
+                  <label for="dateOutInput">Check Out Date Availablity</label>
+                </div>
+                <div class="col-12 col-sm-8 border border-danger">
+                  <input type="date" class="form-control" id="dateOutInput" placeholder="Check Out Date"
+                    min="2023-02-01" max="2026-12-31">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <div class="row">
+                <div class="col-12 col-sm-4 border border-danger">
+                  <label for="priceInput">Price/Currency</label>
+
+                </div>
+
+
+
+
+                <div class="col-7 col-sm-5 border border-danger">
+                  <input type="text" class="form-control" id="priceInput" placeholder="Price">
+                </div>
+                <div class="col-5 col-sm-3 border border-danger">
+                    <select class="form-select text-muted" id="currencyInput">
+                      <option>CAD</option>
+                      <option>USD</option>
+                      <option>FJD</option>
+                      <option>MXN</option>
+                      <option>EUR</option>
+                    </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
 
         <div class="row">
-          <div class="col-2">
+          <div class="col-2 border border-danger">
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4 border border-danger">
             <div class="form-group pb-3">
               <label for="imageInput">Images</label>
               <input type="file" class="form-control" id="imageInput" placeholder="Enter the number of guests">
             </div>
+          </div>
+          <div class="col-4 border border-danger">
+            <img src="house1.png" alt="House 1" class="house1createproperty">
           </div>
         </div>
 
@@ -212,13 +275,3 @@
 </body>
 
 </html>
-
-<!--
-
-  Name, Description, Images, list of dates and asking price,   Guests, bed, bathroom
-  Address
-  Amenities
-
-
-
--->

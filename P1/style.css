@@ -57,7 +57,11 @@ ul{
   filter: brightness(92%);
 }
 
-
+.house1createproperty{
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+}
 
 /* md*/ 
 @media (min-width: 768px) { 
