@@ -35,41 +35,43 @@
             <input type="date" class="form-control" id=checkOut>
             <label for="checkOut">Check-out</label>
           </div>
+          <div class="form-floating">
+            <select class="form-select" id="guests" aria-label="select guests">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4+</option>
+            </select>
+            <label for="guests">Guests</label>
+          </div>
           <button class="btn btn-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
         </div>
-      
+        
+        <div class="text-center">
+          <form class="ms-auto me-auto">
+            <input type="checkbox" class="btn-check" id="wifi-filter" autocomplete="off">
+            <label class="btn btn-outline-primary" for="wifi-filter">Wifi</label>
 
-        <div class="col-md-12 text-center mb-3" data-mdb-filter="color">
-          <div class="form-check form-check-inline">
-            <input class="btn-check" type="radio" name="colorRadio" id="colorRadio1" value="red">
-            <label class="btn bg-danger btn-rounded p-4" for="colorRadio1"></label>
-          </div>
+            <input type="checkbox" class="btn-check" id="pet-filter" autocomplete="off">
+            <label class="btn btn-outline-primary" for="pet-filter">Pet Friendly</label>
 
-          <div class="form-check form-check-inline">
-            <input class="btn-check" type="radio" name="colorRadio" id="colorRadio2" value="blue">
-            <label class="btn bg-primary btn-rounded p-4" for="colorRadio2"></label>
-          </div>
+            <input type="checkbox" class="btn-check" id="tv-filter" autocomplete="off">
+            <label class="btn btn-outline-primary" for="tv-filter">TV</label>
 
-          <div class="form-check form-check-inline">
-            <input class="btn-check" type="radio" name="colorRadio" id="colorRadio3" value="black">
-            <label class="btn bg-dark text-white btn-rounded p-4" for="colorRadio3"></label>
-          </div>
-
-          <div class="form-check form-check-inline">
-            <input class="btn-check" type="radio" name="colorRadio" id="colorRadio4" value="gray">
-            <label class="btn btn-rounded p-4" for="colorRadio4" style="background-color: #bdbdbd"></label>
-          </div>
+            <input type="checkbox" class="btn-check" id="parking-filter" autocomplete="off">
+            <label class="btn btn-outline-primary" for="parking-filter">Parking</label>
+          </form>
         </div>
 
-        <div class="album bg-light mb-5">
+        <div class="album my-4">
           <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col">
-                <div class="card shadow-sm">
-                  <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Property" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Property</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Property</text></svg>
+                <div class="card h-100 shadow-sm">
+                  <img src="PropertyData/Pineapple1.png" alt="...">
                   <div class="card-body">
                     <p class="card-text">
-                      Cool House
+                      Pineapple
                     </p>
                     <div class="d-flex justify-content-between align-items-center">
                       <button type="button" class="btn btn-sm btn-outline-secondary">Reserve!</button>
@@ -79,8 +81,9 @@
                 </div>
               </div>
               <div class="col">
-                <div class="card shadow-sm">
-                  <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Property" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Property</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Property</text></svg>
+                <div class="card h-100 shadow-sm">
+                  <div id="carousel-placeholder"></div>
+                  <script>$(function(){$("#carousel-placeholder").load("./Components/carousel.html");});</script>
                   <div class="card-body">
                     <p class="card-text">
                       Cooler House
