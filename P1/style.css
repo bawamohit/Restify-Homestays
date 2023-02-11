@@ -69,6 +69,10 @@ ul{
   filter: brightness(92%);
 }
 
+.button-darken:hover{
+  filter: brightness(92%);
+}
+
 .house1createproperty{
   height: 200px;
   width: 200px;

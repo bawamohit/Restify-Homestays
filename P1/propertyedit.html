@@ -1,319 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Restify</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <!-- Bootstrap Links -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <!-- Font Awesome Link -->
-    <script src="https://kit.fontawesome.com/de0f11bea7.js" crossorigin="anonymous"></script>
-    <!-- jquery Link -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  </head>
-  <body>
-    <!-- Load Navbar -->
-    <div id="nav-placeholder"></div>
-    <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
-    <main>
-      <h1 class="d-flex justify-content-center pt-3 pb-3">Edit Property</h1>
 
- <!-- TODO: make all fields required -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Restify</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <!-- Bootstrap Links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <!-- Font Awesome Link -->
+  <script src="https://kit.fontawesome.com/de0f11bea7.js" crossorigin="anonymous"></script>
+  <!-- jquery Link -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- Load Navbar -->
+  <div id="nav-placeholder"></div>
+  <script>$(function () { $("#nav-placeholder").load("./Components/usernav.html"); });</script>
+  <main>
+    <h1 class="d-flex justify-content-center pt-3 pb-3">Edit Property</h1>
+
+    <!-- TODO: make all fields required -->
 
 
- <div class="container">
-  <form>
+    <div class="container">
+      <form>
 
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <label for="propertyNameInput">Property Name</label>
-          <input type="text" class="form-control" id="propertyNameInput" placeholder="Enter Property" value="Pineapple House">
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <label for="propertyNameInput">Property Name</label>
+              <input type="text" class="form-control" id="propertyNameInput" placeholder="Enter Property"
+                value="Pineapple House">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <label for="descriptionInput">Description</label>
-          <textarea type="text" class="form-control" id="propertyNameInput" placeholder="Enter Description" rows="3">
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <label for="descriptionInput">Description</label>
+              <textarea type="text" class="form-control" id="propertyNameInput" placeholder="Enter Description"
+                rows="3">
 This Pineapple house is the most luxurious place you will stay at. With a fruit-like exterior and modern decor, I promise you will love your stay here! You also get to see Gary! But don't worry, he won't bite! Although he has been getting a little grumpy lately - I wonder if I should see a vet? Also, this location is close to the... Krusty Krab (where I work :>), home to the most delicious food, the Krabby Patty! Anyways, this is a great house. :) </textarea>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <label for="addressInput">Address</label>
-          <input type="text" class="form-control" id="addressInput" placeholder="Address" value="124 Conch Street">
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <label for="cityInput">City</label>
-          <input type="text" class="form-control" id="cityInput" placeholder="City" value="Bikini Bottom">
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <label for="countryInput">Country</label>
-          <!-- <input type="text" class="form-control" id="countryInput" placeholder="Country"> -->
-          <select class="form-select text-muted">
-            <option>Canada</option>
-            <option>United States</option>
-            <option selected>Fiji</option>
-            <option>Mexico</option>
-            <option>France</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <label for="postalCodeInput">Postal Code</label>
-          <input type="text" class="form-control" id="postalCodeInput" placeholder="Postal Code" value="N1S 8G5">
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-2 col-sm-2 col-md-4 col-lg-4">
-      </div>
-      <div class="col-8 col-sm-8 col-md-4 col-lg-4">
-        <div class="row pb-3">
-          <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
-            <label for="guestInput">Guests</label>
-
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div class="rounded-circle circleIcon"> - </div>
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div> 2 </div>
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div class="rounded-circle circleIcon "> + </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-2 col-sm-2 col-md-4 col-lg-4">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-2 col-sm-2 col-md-4 col-lg-4">
-      </div>
-      <div class="col-8 col-sm-8 col-md-4 col-lg-4">
-        <div class="row pb-3">
-          <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
-            <label for="guestInput">Beds</label>
-
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div class="rounded-circle circleIcon"> - </div>
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div> 2 </div>
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div class="rounded-circle circleIcon "> + </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-2 col-sm-2 col-md-4 col-lg-4">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-2 col-sm-2 col-md-4 col-lg-4">
-      </div>
-      <div class="col-8 col-sm-8 col-md-4 col-lg-4">
-        <div class="row pb-3">
-          <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
-            <label for="guestInput">Baths</label>
-
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div class="rounded-circle circleIcon"> - </div>
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div> 2 </div>
-          </div>
-          <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-            <div class="rounded-circle circleIcon "> + </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-2 col-sm-2 col-md-4 col-lg-4">
-      </div>
-    </div>
-
-
-
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <div class="row">
-            <div class="col-12 col-sm-4 ">
-              <label for="dateInInput">Check In Date Availablity</label>
-            </div>
-            <div class="col-12 col-sm-8 ">
-              <input type="date" class="form-control" id="dateInInput" placeholder="Check In Date" min="2023-02-01"
-                max="2026-12-31">
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <div class="row">
-            <div class="col-12 col-sm-4 ">
-              <label for="dateOutInput">Check Out Date Availablity</label>
-            </div>
-            <div class="col-12 col-sm-8 ">
-              <input type="date" class="form-control" id="dateOutInput" placeholder="Check Out Date"
-                min="2023-02-01" max="2026-12-31">
+
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <label for="addressInput">Address</label>
+              <input type="text" class="form-control" id="addressInput" placeholder="Address" value="124 Conch Street">
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-md-8">
-        <div class="form-group pb-3">
-          <div class="row">
-            <div class="col-12 col-sm-4 ">
-              <label for="priceInput">Price/Currency</label>
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <label for="cityInput">City</label>
+              <input type="text" class="form-control" id="cityInput" placeholder="City" value="Bikini Bottom">
             </div>
-            <div class="col-7 col-sm-5 ">
-              <input type="text" class="form-control" id="priceInput" placeholder="Price per day">
-            </div>
-            <div class="col-5 col-sm-3 ">
-              <select class="form-select text-muted" id="currencyInput">
-                <option>CAD</option>
-                <option>USD</option>
-                <option>FJD</option>
-                <option>MXN</option>
-                <option>EUR</option>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <label for="countryInput">Country</label>
+              <!-- <input type="text" class="form-control" id="countryInput" placeholder="Country"> -->
+              <select class="form-select text-muted">
+                <option>Canada</option>
+                <option>United States</option>
+                <option selected>Fiji</option>
+                <option>Mexico</option>
+                <option>France</option>
               </select>
             </div>
           </div>
         </div>
-      </div>
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <label for="postalCodeInput">Postal Code</label>
+              <input type="text" class="form-control" id="postalCodeInput" placeholder="Postal Code" value="N1S 8G5">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          </div>
+          <div class="col-8 col-sm-8 col-md-4 col-lg-4">
+            <div class="row pb-3">
+              <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
+                <label for="guestInput">Guests</label>
+
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div class="rounded-circle circleIcon"> - </div>
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div> 2 </div>
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div class="rounded-circle circleIcon "> + </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          </div>
+          <div class="col-8 col-sm-8 col-md-4 col-lg-4">
+            <div class="row pb-3">
+              <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
+                <label for="guestInput">Beds</label>
+
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div class="rounded-circle circleIcon"> - </div>
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div> 2 </div>
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div class="rounded-circle circleIcon "> + </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          </div>
+          <div class="col-8 col-sm-8 col-md-4 col-lg-4">
+            <div class="row pb-3">
+              <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
+                <label for="guestInput">Baths</label>
+
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div class="rounded-circle circleIcon"> - </div>
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div> 2 </div>
+              </div>
+              <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div class="rounded-circle circleIcon "> + </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <div class="row">
+                <div class="col-12 col-sm-4 ">
+                  <label for="dateInInput">Check In Date Availablity</label>
+                </div>
+                <div class="col-12 col-sm-8 ">
+                  <input type="date" class="form-control" id="dateInInput" placeholder="Check In Date" min="2023-02-01"
+                    max="2026-12-31">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <div class="row">
+                <div class="col-12 col-sm-4 ">
+                  <label for="dateOutInput">Check Out Date Availablity</label>
+                </div>
+                <div class="col-12 col-sm-8 ">
+                  <input type="date" class="form-control" id="dateOutInput" placeholder="Check Out Date"
+                    min="2023-02-01" max="2026-12-31">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-md-8">
+            <div class="form-group pb-3">
+              <div class="row">
+                <div class="col-12 col-sm-4 ">
+                  <label for="priceInput">Price/Currency</label>
+                </div>
+                <div class="col-7 col-sm-5 ">
+                  <input type="text" class="form-control" id="priceInput" placeholder="Price per day">
+                </div>
+                <div class="col-5 col-sm-3 ">
+                  <select class="form-select text-muted" id="currencyInput">
+                    <option>CAD</option>
+                    <option>USD</option>
+                    <option>FJD</option>
+                    <option>MXN</option>
+                    <option>EUR</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row pb-3">
+          <div class="col-2 ">
+          </div>
+          <div class="col-md-8 ">
+            <button class="btn btn-light border border-1 float-end">Add Date & Price</button>
+          </div>
+        </div>
+
+        <div class="row pb-3">
+          <div class="col-2 ">
+          </div>
+          <div class="col-md-8 ">
+
+            <u>
+              Selected Availablity Dates and Price
+            </u>
+            <div>
+              <strong>x</strong> 13/02/2023 - 15/02/2023 | $200 CAD
+            </div>
+            <div>
+              <strong>x</strong> 17/03/2023 - 19/02/2023 | $300 CAD
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-2 ">
+          </div>
+          <div class="col-md-6 ">
+            <div class="form-group pb-3">
+              <label for="imageInput">Images</label>
+              <input type="file" class="form-control" id="imageInput" placeholder="Enter the number of guests">
+            </div>
+          </div>
+          <div class="col-4 ">
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2 ">
+          </div>
+          <div class="col-md-6 ">
+            <img src="PropertyData/Pineapple1.jpg" alt="House 1" class="house1createproperty img-darken">
+            <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken">
+            <img src="PropertyData/Pineapple3.jpg" alt="House 3" class="house1createproperty img-darken">
+          </div>
+
+          <div class="container pb-3">
+            <a class="btn btn-secondary" href="/propertycreated.html" role="button">Previous Page</a>
+            <a class="btn float-end border-0 button-darken" style="background: #85bded;" href="/amenitiesedit.html"
+              role="button">Next Page</a>
+          </div>
+      </form>
     </div>
+  </main>
+  <!-- Load Footer -->
+  <div id="foot-placeholder"></div>
+  <script>$(function () { $("#foot-placeholder").load("./Components/foot.html"); });</script>
+</body>
 
-    <div class="row pb-3">
-      <div class="col-2 ">
-      </div>
-      <div class="col-md-8 ">
-        <button class="btn btn-light border border-1 float-end">Add Date & Price</button>
-      </div>
-    </div>
-
-      <div class="row pb-3">
-        <div class="col-2 ">
-        </div>
-        <div class="col-md-8 ">
-
-          <u>
-            Selected Availablity Dates and Price
-          </u>
-          <div>
-            <strong>x</strong> 13/02/2023 - 15/02/2023 | $200 CAD
-          </div>
-          <div>
-            <strong>x</strong> 17/03/2023 - 19/02/2023 | $300 CAD
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-2 ">
-        </div>
-        <div class="col-md-6 ">
-          <div class="form-group pb-3">
-            <label for="imageInput">Images</label>
-            <input type="file" class="form-control" id="imageInput" placeholder="Enter the number of guests">
-          </div>
-        </div>
-        <div class="col-4 ">
-
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-2 ">
-        </div>
-        <div class="col-md-6 ">
-          <img src="PropertyData/Pineapple1.jpg" alt="House 1" class="house1createproperty img-darken">
-          <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken">
-          <img src="PropertyData/Pineapple3.jpg" alt="House 3" class="house1createproperty img-darken">
-        </div>
-
-        <div class="container pb-3">
-          <a class="btn btn-secondary" href="/propertycreated.html" role="button">Previous Page</a>
-          <a class="btn btn-primary float-end border-0" style="background: #85bded;" href="/amenitiesedit.html" role="button">Next Page</a>
-        </div>
-
-  </form>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </main>
-    <!-- Load Footer -->
-    <div id="foot-placeholder"></div>
-    <script>$(function(){$("#foot-placeholder").load("./Components/foot.html");});</script>
-  </body>
 </html>
