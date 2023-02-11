@@ -25,16 +25,20 @@
     <div id="nav-placeholder"></div>
     <script>$(function () { $("#nav-placeholder").load("./Components/usernav.html"); });</script>
     <main>
-        <h1 class="d-flex justify-content-center">My Properties (Property Created/Edited)</h1>
         <div class="container">
-            <a class="btn btn-primary" href="/createproperty.html" role="button">Create New Property</a>
-            <a class="btn btn-primary" href="/viewproperty.html" role="button">View property</a>
-            <a class="btn btn-primary" href="/propertyedit.html" role="button">Edit property</a>
-            
+            <div class="container d-flex justify-content-center my-4">
+                <h1 class="d-flex justify-content-center text-secondary">My Properties</h1>
+            </div>
+            <div class="d-flex justify-content-center my-4">
+                <a class="btn btn-light border border-1" href="/createproperty.html" role="button">Create New Property</a>
+            </div>
+            <div id="host-properties-placeholder"></div>
+            <script>$(function(){$("#host-properties-placeholder").load("./Components/hostproperties.html");});</script>
         </div>
-        insert cards here
-
     </main>
+    <!-- Load Footer -->
+    <div id="foot-placeholder"></div>
+    <script>$(function(){$("#foot-placeholder").load("./Components/foot.html");});</script>
 </body>
 
 </html>

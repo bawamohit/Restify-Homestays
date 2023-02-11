@@ -25,11 +25,11 @@
   <div id="nav-placeholder"></div>
   <script>$(function () { $("#nav-placeholder").load("./Components/usernav.html"); });</script>
   <main>
-    <div class="container d-flex justify-content-start">
-      <a class="btn btn-primary" href="/host.html" role="button">Go back to host page</a>
+    <div class="container d-flex justify-content-start pt-3">
+      <a class="btn" style="background: #85bded;" href="host.html" role="button">❮ Go back to host page</a>
     </div>
 
-    
+
 
 
     <h1 class="container d-flex justify-content-center">Pineapple House</h1>
@@ -40,7 +40,7 @@
       <div class="px-2 d-flex align-self-center">Hosted by Spongebob Squarepants</div>
     </div>
 
-    <div id="pineapple-placeholder" class="w-50 me-auto ms-auto"></div>
+    <div id="pineapple-placeholder" class="img-max-width me-auto ms-auto"></div>
     <script>$(function () { $("#pineapple-placeholder").load("./Components/pineapple.html"); });</script>
 
 
@@ -77,98 +77,8 @@
     </div>
 -->
 
-    <div class="container">
-      <div class="row">
-        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
-        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 col-xxl-8 ">
-          <div class="pad-move">
-            <h5 class="d-flex justify-content-start pt-3">Reserve</h5>
-            <h6 class="d-flex justify-content-start">
-              $200 CAD/day | ★ 3.0
-            </h6>
 
 
-            <div class="">
-              <div class="row">
-                <div class="col-3">
-                  <div>
-                    <label for="guestSelect">Guests</label>
-                  </div>
-                </div>
-                <div class="col-6 ">
-                  <div>
-                    <select class="form-select" id="guestSelect">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-3 ">
-                  <div>Check-in Date</div>
-                </div>
-                <div class="col-6 ">
-                  <input type="date" class="form-control" id="reserveDateInInput" placeholder="Check In Date"
-                    min="2023-02-01" max="2026-12-31">
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-3 ">
-                  <div>Check-out Date</div>
-                </div>
-                <div class="col-6 ">
-                  <input type="date" class="form-control" id="reserveDateOutInput" placeholder="Check In Date"
-                    min="2023-02-01" max="2026-12-31">
-                </div>
-              </div>
-
-              <div class="row pt-3">
-                <div class="col-3 ">
-                  <div>$200 CAD * 3 Days</div>
-                </div>
-                <div class="col-6 ">
-                  <div>$600 CAD</div>
-                </div>
-              </div>
-
-              <div class="row">
-
-                <div class="col-3 ">
-                  <div>Taxes</div>
-                </div>
-                <div class="col-6 ">
-                  <div>$100 CAD</div>
-                </div>
-              </div>
-
-
-              <div class="row">
-                <div class="col-3 bold">
-                  <div>Total</div>
-                </div>
-                <div class="col-6 bold">
-                  <div>$700 CAD</div>
-                </div>
-              </div>
-
-
-
-
-            </div>
-            <button class="btn btn-primary border-0" style="background: #85bded;">Reserve</button>
-
-          </div>
-
-
-        </div>
-      </div>
-      <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
-    </div>
-    </div>
 
     <div class="container">
       <div class="row">
@@ -208,7 +118,7 @@
             </div>
             <div class="d-flex justify-content-start">
               <div class="d-flex justify-content-start">
-                <a href="#" class="text-secondary pt-1" data-bs-toggle="modal" data-bs-target="#desc-see-more-modal">See
+                <a href="#" class="text-primary pt-1" data-bs-toggle="modal" data-bs-target="#desc-see-more-modal">See
                   More</a>
                 <div class="modal fade" id="desc-see-more-modal">
                   <div class="modal-dialog modal-dialog-scrollable">
@@ -304,7 +214,7 @@
         <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
         <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 col-xxl-8 ">
           <div class="pad-move">
-            <h5 class="d-flex justify-content-start pt-3 ">Reviews</h5>
+            <h5 class="d-flex justify-content-start pt-3 pb-2">Reviews</h5>
             <div class="d-flex justify-content-start">
               <div class="container">
                 <div class="row">
@@ -321,7 +231,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row ">
+                <div class="row pb-3">
                   This place sucks! The host is also so annoying!
                 </div>
 
@@ -339,7 +249,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row ">
+                <div class="row pb-3">
                   I love this place!
                 </div>
 
@@ -437,7 +347,12 @@
       </div>
     </div>
 
+    <div class="pb-3"></div>
+
   </main>
+  <!-- Load Footer -->
+  <div id="foot-placeholder"></div>
+  <script>$(function () { $("#foot-placeholder").load("./Components/foot.html"); });</script>
 </body>
 
 </html>

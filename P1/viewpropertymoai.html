@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Restify</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <!-- Bootstrap Links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <!-- Font Awesome Link -->
+    <script src="https://kit.fontawesome.com/de0f11bea7.js" crossorigin="anonymous"></script>
+    <!-- jquery Link -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- Load Navbar -->
+    <div id="nav-placeholder"></div>
+    <script>$(function () { $("#nav-placeholder").load("./Components/usernav.html"); });</script>
+    <main>
+        <div class="container d-flex justify-content-start pt-3">
+            <a class="btn" style="background: #85bded;" href="dashboard.html" role="button">❮ Go back to home page</a>
+        </div>
+
+
+
+
+        <h1 class="container d-flex justify-content-center">Moai House</h1>
+        <h6 class="container d-flex justify-content-center">Bikini Bottom, Pacific Ocean, Fiji</h6>
+
+        <div class="container d-flex justify-content-center pb-3 pt-1">
+            <img src="userdata/Squidward.png" alt="Host 1" class="profile1css img-fluid rounded-circle">
+            <div class="px-2 d-flex align-self-center">Hosted by Squidward Tentacles</div>
+        </div>
+
+        <div id="pineapple-placeholder" class="img-max-width me-auto ms-auto"></div>
+        <script>$(function () { $("#pineapple-placeholder").load("./Components/moai.html"); });</script>
+
+
+
+        <!-- OLD PROPERTY DISPLAY
+    <div class="container d-flex justify-content-center">
+      <a href="#" data-bs-toggle="modal" data-bs-target="#photo-modal">
+        <img src="propertyData/Pineapple1.png" alt="House 1" class="house1css img-fluid img-darken">
+      </a>
+      <div class="modal fade" id="photo-modal">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Photos</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body mx-auto d-block">
+              <div class="row mx-auto d-block">
+                <div col="col">
+                  <img src="propertyData/house1.png" alt="House 1" class="housemodalcss img-fluid pb-2">
+                </div>
+                <div col="col">
+                  <img src="propertyData/inside2.png" alt="House 3" class="housemodalcss img-fluid">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+-->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 col-xxl-8 ">
+                    <div class="pad-move">
+                        <h5 class="d-flex justify-content-start pt-3">Reserve</h5>
+                        <h6 class="d-flex justify-content-start">
+                            $200 CAD/day | ★ 3.0
+                        </h6>
+
+
+                        <div class="">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div>
+                                        <label for="guestSelect">Guests</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 ">
+                                    <div>
+                                        <select class="form-select" id="guestSelect">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3 ">
+                                    <div>Check-in Date</div>
+                                </div>
+                                <div class="col-6 ">
+                                    <input type="date" class="form-control" id="reserveDateInInput"
+                                        placeholder="Check In Date" min="2023-02-01" max="2026-12-31">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3 ">
+                                    <div>Check-out Date</div>
+                                </div>
+                                <div class="col-6 ">
+                                    <input type="date" class="form-control" id="reserveDateOutInput"
+                                        placeholder="Check In Date" min="2023-02-01" max="2026-12-31">
+                                </div>
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col-3 ">
+                                    <div>$200 CAD * 3 Days</div>
+                                </div>
+                                <div class="col-6 ">
+                                    <div>$600 CAD</div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-3 ">
+                                    <div>Taxes</div>
+                                </div>
+                                <div class="col-6 ">
+                                    <div>$100 CAD</div>
+                                </div>
+                            </div>
+
+
+                            <div class="row pb-2">
+                                <div class="col-3 bold">
+                                    <div>Total</div>
+                                </div>
+                                <div class="col-6 bold">
+                                    <div>$700 CAD</div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <button class="btn btn-primary border-0" style="background: #85bded;">Reserve</button>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+        </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 col-xxl-8 ">
+                    <div class="pad-move">
+                        <h5 class="d-flex justify-content-start pt-3 ">Details</h5>
+                        <div class="d-flex justify-content-start">
+                            Host Email: squidward@gmail.com
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            Host Phone Number: 647-111-2223
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            Address: 122 Conch Street, N1S 8G3, Bikini Bottom, Fiji
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            House Information: 5 Guests | 3 Beds | 2 Baths
+                        </div>
+                    </div>
+                </div>
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 col-xxl-8 ">
+                    <div class="pad-move">
+                        <h5 class="d-flex justify-content-start pt-3 ">Description</h5>
+                        <div class="d-flex justify-content-start">
+                            This Moai house is the most luxurious place you will stay at. With a Moai-like exterior and
+                            non-modern
+                            decor, I promise you will be love your stay here! Ignore the neighbours though, they are
+                            very annoying.
+                            But it's okay, just don't look or talk to them. One is a yellow sponge that looks like a box.
+                            There's also
+                            a starfish that's pink...
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="d-flex justify-content-start">
+                                <a href="#" class="text-primary pt-1" data-bs-toggle="modal"
+                                    data-bs-target="#desc-see-more-modal">See
+                                    More</a>
+                                <div class="modal fade" id="desc-see-more-modal">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3>Description</h3>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                This Moai house is the most luxurious place you will stay at. With a
+                                                Moai-like exterior and non-modern
+                                                decor, I promise you will be love your stay here! Ignore the neighbours
+                                                though, they are very annoying.
+                                                But it's okay, just don't look or talk to them. One is a yellow sponge
+                                                that looks like a box. There's also
+                                                a starfish that's pink. (*sigh) I wish my career as an artist took off.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 col-xxl-8 ">
+                    <div class="pad-move">
+                        <h5 class="d-flex justify-content-start pt-3 ">Amenities</h5>
+                        <h6 class="d-flex justify-content-start text-secondary">Some Amenities Include:</h6>
+                        <div class="d-flex justify-content-start">
+                            <div class="container d-flex justify-content-start">
+                                <ul>
+                                    <li>Wifi</li>
+                                    <li>Pet Friendly</li>
+                                    <li>TV</li>
+                                    <li>Coffee Machine</li>
+                                    <li>Heating</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="d-flex justify-content-start">
+                                <button class="btn btn-primary border-0" style="background: #85bded;"
+                                    data-bs-toggle="modal" data-bs-target="#amenities-modal">See All
+                                    Amenities</button>
+                                <div class="modal fade" id="amenities-modal">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3>Amenities</h3>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body p-2">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">Wifi</li>
+                                                    <li class="list-group-item">Pet Friendly</li>
+                                                    <li class="list-group-item">TV</li>
+                                                    <li class="list-group-item">Coffee Machine</li>
+                                                    <li class="list-group-item">Heating</li>
+                                                    <li class="list-group-item">Towels</li>
+                                                    <li class="list-group-item">Washing Machine</li>
+                                                    <li class="list-group-item">Pillows</li>
+                                                    <li class="list-group-item">Bed Sheets</li>
+                                                </ul>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 col-xxl-8 ">
+                    <div class="pad-move">
+                        <h5 class="d-flex justify-content-start pt-3 pb-2">Reviews</h5>
+                        <div class="d-flex justify-content-start">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-2 col-3  p-0">
+                                        <img src="userdata/Spongebob.png" alt="Spongebob"
+                                            class="profile1css img-fluid rounded-circle mx-auto d-block">
+                                    </div>
+                                    <div class="col-sm-10 col-9 p-0">
+                                        <div class=" bold">
+                                            Spongebob Squarepants
+                                        </div>
+                                        <div class="">
+                                            Rating: 1
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pb-3">
+                                    Could be better.
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2 col-3  p-0">
+                                        <img src="userdata/Patrick.png" alt="Patrick"
+                                            class="profile1css img-fluid rounded-circle mx-auto d-block">
+                                    </div>
+                                    <div class="col-sm-10 col-9 p-0">
+                                        <div class=" bold">
+                                            Patrick Star
+                                        </div>
+                                        <div class="">
+                                            Rating: 5
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pb-3">
+                                    I love this place!
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="">
+                                <button class="btn btn-primary border-0" style="background: #85bded;"
+                                    data-bs-toggle="modal" data-bs-target="#modal">See All Reviews</button>
+                                <div class="modal fade" id="modal">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3>Reviews</h3>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5 class="pb-3">Average Rating: 3 Stars</h5>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm-2 col-3 p-0 ">
+                                                            <img src="userdata/Spongebob.png" alt="Profile 1"
+                                                                class="profile1css img-fluid rounded-circle">
+                                                        </div>
+                                                        <div class="col-sm-10 col-9 p-0">
+                                                            <div class="bold">
+                                                                Spongebob Squarepants
+                                                            </div>
+                                                            <div class="text-secondary">
+                                                                Rating: 1 Star
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        Could be better.
+                                                    </div>
+                                                </div>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm-1 col-1 p-0">
+                                                        </div>
+                                                        <div class="col-sm-2 col-3 p-0">
+                                                            <img src="userdata/Squidward.png" alt="Host 1"
+                                                                class="profile1css img-fluid rounded-circle">
+                                                        </div>
+                                                        <div class="col-sm-9 col-8 p-0">
+                                                            <div class="bold ">
+                                                                Squidward Tentacles
+                                                            </div>
+                                                            <div class="text-secondary">
+                                                                (Host Reply)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-1 col-1 p-0">
+                                                        </div>
+                                                        You're wrong. Also never come here again.
+                                                    </div>
+
+                                                    <div class="row pb-4">
+                                                        <div class="col-sm-1 col-1 p-0">
+                                                        </div>
+                                                        <div class="col-sm-2 col-2 p-0">
+                                                       
+                                                            <a href="#" onclick="return false;">    Reply ↰</a>
+                                                        </div>
+                                                    </div>
+
+                                                    
+
+
+                                                </div>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm-2 col-3 p-0">
+                                                            <img src="userdata/patrick.png" alt="Patrick"
+                                                                class="profile1css img-fluid rounded-circle">
+                                                        </div>
+                                                        <div class="col-sm-10 col-9 p-0">
+                                                            <div class="bold">
+                                                                Patrick Star
+                                                            </div>
+                                                            <div class="text-secondary">
+                                                                Rating: 5 Stars
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        I love this place!
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2 col-xxl-2 "></div>
+            </div>
+        </div>
+
+        <div class="pb-3"></div>
+
+    </main>
+    <!-- Load Footer -->
+    <div id="foot-placeholder"></div>
+    <script>$(function () { $("#foot-placeholder").load("./Components/foot.html"); });</script>
+</body>
+
+</html>

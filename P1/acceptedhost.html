@@ -32,7 +32,7 @@
           <div class="accordion-item" >
             <h2 class="accordion-header" id="headingOne">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Reservation at Rock house 120 Couch Street
+                Reservation by Squidward Tentacles at Pineapple House 124 Conch Street
               </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#reservationList">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="d-flex pt-4 justify-content-between" >
                   <div>
-                    <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                    <a href="viewproperty.html" class="btn float-left" style="background: #85bded;">Details</a>
                     <a href="#" class="btn float-right" style="background: #85bded;" data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
                   </div>
                   <div>
@@ -66,7 +66,7 @@
           <div class="accordion-item" >
             <h2 class="accordion-header" id="headingTwo">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Reservation at Rock house 120 Couch Street
+                Reservation by Squidward Tentacles at Pineapple House 124 Conch Street
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#reservationList">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="d-flex pt-4 justify-content-between" >
                   <div>
-                    <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                    <a href="viewproperty.html" class="btn float-left" style="background: #85bded;">Details</a>
                     <a href="#" class="btn float-right" style="background: #85bded;" data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
                   </div>
                   <div>
@@ -100,5 +100,9 @@
         </div>
       </div>
     </main>
+    
+    <!-- Load Footer -->
+    <div id="foot-placeholder"></div>
+    <script>$(function(){$("#foot-placeholder").load("./Components/foot.html");});</script>
   </body>
 </html>

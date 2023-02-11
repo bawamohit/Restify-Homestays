@@ -21,12 +21,13 @@
     <script>$(function(){$("#nav-placeholder").load("./Components/usernav.html");});</script>
     <main>
       <div class="container">
-        <div class="form p-5">
+        <h2 class="pt-5" style="color: #85bded;">View Profile</h2>
+        <div class="form pt-5">
           <div class="row">
             <div class="col-md-8 pt-5">
               <div class="form-group">
                 <label for="first-name">First Name:</label>
-                <input type="text" class="form-control form-control-plaintext" id="first-name" placeholder="Spongebob">
+                <input type="text" class="form-control form-control-plaintext" id="first-name" placeholder="Spongebob" disabled>
               </div>
             </div>
           </div>
@@ -35,20 +36,20 @@
               <div class="pb-0">
                 <div class="form-group">
                   <label for="last-name">Last Name:</label>
-                  <input type="text" class="form-control form-control-plaintext" id="last-name" placeholder="Squarepants">
+                  <input type="text" class="form-control form-control-plaintext" id="last-name" placeholder="Squarepants" disabled>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12 pt-5">
                   <div class="form-group">
                     <label for="inputEmail3">Email:</label>
-                    <input type="email" class="form-control form-control-plaintext" id="email" placeholder="spongebobsquarepants@gmail.com">
+                    <input type="email" class="form-control form-control-plaintext" id="email" placeholder="spongebob@gmail.com" disabled>
                   </div>
                 </div>
                 <div class="col-md-12 pt-5">
                   <div class="form-group">
                     <label for="phone">Phone:</label>
-                    <input type="text" class="form-control form-control-plaintext" id="phone" placeholder="111-1111-1111">
+                    <input type="text" class="form-control form-control-plaintext" id="phone" placeholder="647-111-2222" disabled> 
                   </div>
                 </div>
                 <div class="col-md-12 pt-5">
@@ -60,12 +61,15 @@
             </div>
             <div class="col-md-4 pt-5">      
                 <div class="form-group">
-                  <img src="./UserData/Spongebob.png" class="rounded mx-auto d-flex">
+                  <img src="./UserData/Spongebob.png" class="rounded w-50 mx-auto d-flex">
                 </div>
             </div>
           </div>
         </div>
       </div>
     </main>
+    <!-- Load Footer -->
+    <div id="foot-placeholder"></div>
+    <script>$(function(){$("#foot-placeholder").load("./Components/foot.html");});</script>
   </body>
 </html>
