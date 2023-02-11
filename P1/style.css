@@ -2,16 +2,12 @@
   max-width: 720px;
 }
 
-#nav-placeholder{
-  height: 72px;
-}
-
 #foot-placeholder{
   height: 24px;
 }
 
 main{
-  min-height: calc(100vh - 96px);
+  min-height: calc(100vh - 80px);
 }
 
 .circleIcon {

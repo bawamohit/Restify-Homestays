@@ -2,6 +2,9 @@ Phase 1
 
 Sources / Inspiration:
 
+Restify Icon:
+https://favicon.io/
+
 Components:
 
 Carousel
