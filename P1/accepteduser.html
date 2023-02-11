@@ -22,9 +22,9 @@
     <main>
       <div class="container">
         <h2 class="pt-5 pb-5 text-secondary text-center">Upcoming Stays</h2>
+        <div id="request-placeholder"></div>
+        <script>$(function(){$("#request-placeholder").load("./Components/request.html");});</script>
         <div class="accordion" id="reservationList">
-          <div id="request-placeholder"></div>
-          <script>$(function(){$("#request-placeholder").load("./Components/request.html");});</script>
           <div class="accordion-item" >
             <h2 class="accordion-header" id="headingOne">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
