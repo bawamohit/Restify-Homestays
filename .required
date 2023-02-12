@@ -14,3 +14,6 @@ A2/accounts/templates/accounts/profile.html false
 A2/accounts/templates/accounts/login.html false
 A2/accounts/templates/accounts/register.html false
 A2/accounts/urls.py false
+P2/run.sh false
+P2/startup.sh false
+P2/docs.pdf false
