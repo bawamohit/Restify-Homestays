@@ -2,3 +2,15 @@ A1/style.css false
 A1/about.html false
 A1/contact.html false
 A1/index.html false
+A2/banks/templates/banks/branch.html false
+A2/banks/templates/banks/detail.html false
+A2/banks/templates/banks/create.html false
+A2/banks/templates/banks/list.html false
+A2/banks/urls.py false
+A2/banks/models.py false
+A2/a2/urls.py false
+A2/a2/settings.py false
+A2/accounts/templates/accounts/profile.html false
+A2/accounts/templates/accounts/login.html false
+A2/accounts/templates/accounts/register.html false
+A2/accounts/urls.py false
