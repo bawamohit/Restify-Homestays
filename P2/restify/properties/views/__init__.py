@@ -1,0 +1,1 @@
+from .propertiesapi import test_message
