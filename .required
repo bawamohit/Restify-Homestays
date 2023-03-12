@@ -17,3 +17,6 @@ A2/accounts/urls.py false
 P2/run.sh false
 P2/startup.sh false
 P2/docs.pdf false
+A3/static/js/controller.js false
+P3/run.sh false
+P3/startup.sh false
