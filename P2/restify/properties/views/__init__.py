@@ -1,1 +1,2 @@
-from .propertiesapi import test_message
+from .propertiesapi import *
+from .reservationsapi import *
