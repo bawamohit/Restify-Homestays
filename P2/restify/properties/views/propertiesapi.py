@@ -30,27 +30,28 @@ class PropertyList(ListAPIView):
     def get_queryset(self):
         if self.request.method == 'GET':
             queryset = Property.objects.all()
+            
             wifi = self.request.GET.get('wifi', None)
-            if wifi is not None:
-                queryset = queryset.filter(wifi=wifi)
+            if wifi is not None and wifi.lower() == 'true':
+                    queryset = queryset.filter(wifi=True)
 
             petfriendly = self.request.GET.get('petfriendly', None)
-            if petfriendly is not None:
-                queryset = queryset.filter(petfriendly=petfriendly)
+            if petfriendly is not None and petfriendly.lower() == 'true':
+                queryset = queryset.filter(petfriendly=True)
 
             tv = self.request.GET.get('tv', None)
-            if tv is not None:
-                queryset = queryset.filter(tv=tv)
-                tv = self.request.GET.get('tv', None)
+            if tv is not None and tv.lower() == 'true':
+                queryset = queryset.filter(tv=True)
             
             pillows = self.request.GET.get('pillows', None)
-            if pillows is not None:
-                queryset = queryset.filter(pillows=pillows)
+            if pillows is not None and pillows.lower() == 'true':
+                queryset = queryset.filter(pillows=True)
             
             sortby = self.request.GET.get('sortby', None)
-            if pillows is not None:
-                if sortby == 'guests':
+            if sortby is not None:
+                if sortby.lower() == 'guests':
                     queryset = queryset.order_by('number_of_guests')
-                elif sortby == 'beds':
+                elif sortby.lower() == 'beds':
                     queryset = queryset.order_by('number_of_beds')
+            
             return queryset
