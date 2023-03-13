@@ -17,12 +17,12 @@ urlpatterns = [
     path('reservation-user/', views.ReservationUser.as_view(), name='reservation-user'),
     path('reservation-host/', views.ReservationHost.as_view(), name='reservation-host'),
     path('reservation-status/', views.ReservationStatus.as_view(), name='reservation-status'),
-    path('reservation-cancel/<int:pk>/', views.test_message, name='reservation-cancel'),
-    path('reservation-approve-pending/<int:pk>/', views.test_message, name='reservation-approve-pending'),
-    path('reservation-deny-pending/<int:pk>/', views.test_message, name='reservation-deny-pending'),
-    path('reservation-approve-cancel/<int:pk>/', views.test_message, name='reservation-approve-cancel'),
-    path('reservation-deny-cancel/<int:pk>/', views.test_message, name='reservation-deny-cancel'),
-    path('reservation-terminate/<int:pk>/', views.test_message, name='reservation-terminate'),
+    path('reservation-cancel/<int:pk>/', views.ReservationCancel.as_view(), name='reservation-cancel'),
+    path('reservation-approve-pending/<int:pk>/', views.ReservationApproveP.as_view(), name='reservation-approve-pending'),
+    path('reservation-deny-pending/<int:pk>/', views.ReservationDenyP.as_view(), name='reservation-deny-pending'),
+    path('reservation-approve-cancel/<int:pk>/', views.ReservationApproveC.as_view(), name='reservation-approve-cancel'),
+    path('reservation-deny-cancel/<int:pk>/', views.ReservationDenyC.as_view(), name='reservation-deny-cancel'),
+    path('reservation-terminate/<int:pk>/', views.ReservationTerminate.as_view(), name='reservation-terminate'),
     
 ]
 
