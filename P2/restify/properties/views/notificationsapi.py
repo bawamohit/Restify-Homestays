@@ -14,3 +14,17 @@ class NotificationList(ListAPIView):
     serializer_class = NotificationSerializer
     def get_queryset(self):
         return Notification.objects.filter(user=self.request.user)
+    
+
+class RetrieveNotification(RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = NotificationSerializer
+
+    def get_object(self):
+        return get_object_or_404(Notification, id=self.kwargs['pk'])
+    
+class NotificationDelete(DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    lookup_url_kwarg = 'pk'

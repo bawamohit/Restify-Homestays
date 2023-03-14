@@ -23,6 +23,8 @@ urlpatterns = [
     path('reservation-approve-cancel/<int:pk>/', views.ReservationApproveC.as_view(), name='reservation-approve-cancel'),
     path('reservation-deny-cancel/<int:pk>/', views.ReservationDenyC.as_view(), name='reservation-deny-cancel'),
     path('reservation-terminate/<int:pk>/', views.ReservationTerminate.as_view(), name='reservation-terminate'),
-    
+    path('notification/<int:pk>/', views.NotificationList.as_view(), name='notification-list'),
+    path('notification/list/', views.RetrieveNotification.as_view(), name='notification-read'),
+    path('notification/delete/<int:pk>/', views.NotificationDelete.as_view(), name='notification-delete'),
 ]
 
