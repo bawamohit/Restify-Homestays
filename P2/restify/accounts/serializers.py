@@ -19,8 +19,16 @@ class CommentSerializer(ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['user', 'date', 'body', 'rating',]
-
+        fields = ['body', 'rating', "content_type", "replyingTo"]
+    
     def create(self, validated_data):
         print(self.context['request'].user)
+
+        last_comment = Comment.objects.all().last()
+        if (last_comment != None):
+            validated_data['commentID'] = last_comment.__getattribute__('commentID') + 1
+        else:
+            validated_data['commentID'] = 1
+
+
         return super().create(validated_data)
