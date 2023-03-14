@@ -8,12 +8,38 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView, \
 from rest_framework.permissions import IsAuthenticated
 from ..serializers import ReservationSerializer
 from ..models import Reservation, Property
+from rest_framework.pagination import PageNumberPagination
+from django.db.models import Q
+
+class ReservationPagination(PageNumberPagination):
+    page_size = 10
 
 #Create a Reservation request
 class CreateReservation(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
+    
+    def create(self, request, *args, **kwargs):
+        
+        existing = Reservation.objects.filter(property=self.request.data.get('property'))
+        # Retrieve the data from the request
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
+        # Perform custom logic to create the reservation
+        # For example, you could retrieve additional data from the request
+        user = request.user
+        start_time = self.request.data.get('res_start_time')
+        end_time = self.request.data.get('res_end_time')
+        existing = existing.filter(Q(res_start_time__lt=end_time), Q(res_end_time__gt=start_time))
+        if(existing.exists()):
+            return Response({'message': 'Object already exists.'}, status=400)
+        else:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class RetrieveReservation(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
