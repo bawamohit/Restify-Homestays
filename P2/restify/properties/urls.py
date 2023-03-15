@@ -25,6 +25,5 @@ urlpatterns = [
     path('reservation-terminate/<int:pk>/', views.ReservationTerminate.as_view(), name='reservation-terminate'),
     path('notification/list/', views.NotificationList.as_view(), name='notification-list'),
     path('notification/<int:pk>/', views.RetrieveNotification.as_view(), name='notification-read'),
-    path('notification/delete/<int:pk>/', views.NotificationDelete.as_view(), name='notification-delete'),
 ]
 

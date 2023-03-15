@@ -10,21 +10,30 @@ from ..serializers import NotificationSerializer
 from ..models import Reservation, Property, Notification
 
 class NotificationList(ListAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = NotificationSerializer
     def get_queryset(self):
         return Notification.objects.filter(user=self.request.user)
     
 
-class RetrieveNotification(RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
+class RetrieveNotification(RetrieveAPIView, DestroyAPIView):
     serializer_class = NotificationSerializer
 
     def get_object(self):
         return get_object_or_404(Notification, id=self.kwargs['pk'])
     
-class NotificationDelete(DestroyAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Notification.objects.all()
-    serializer_class = NotificationSerializer
-    lookup_url_kwarg = 'pk'
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        
+        # Call the destroy() method of the DestroyAPIView
+        self.destroy(request, *args, **kwargs)
+
+        return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+    
+# class NotificationDelete(DestroyAPIView):
+#     queryset = Notification.objects.all()
+#     serializer_class = NotificationSerializer
+#     lookup_url_kwarg = 'pk'
