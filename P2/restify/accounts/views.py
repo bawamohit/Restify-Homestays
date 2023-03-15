@@ -14,6 +14,7 @@ from django.http import JsonResponse
 
 # Create your views here.
 class UserCreate(CreateAPIView):
+    permission_classes = []
     serializer_class = UserSerializer
 
 class UserGetSet(RetrieveAPIView, UpdateAPIView):
@@ -70,5 +71,15 @@ class CommentListProperty (APIView):
             serializer = CommentSerializer(temp_array, many=True)
             big_array.append(serializer.data)
 
-        print(big_array)
-        return JsonResponse(big_array, safe=False)
+        # print(big_array)
+
+        page_num = self.request.GET.get('page_number', None)
+
+        if page_num is not None and int(page_num) < len(big_array):
+            page_num = int(page_num)
+            return JsonResponse(big_array[page_num - 1:page_num], safe=False)
+
+        if len(big_array) > 1:
+            return JsonResponse(big_array[0:1], safe=False)
+        
+        return JsonResponse([], safe=False)

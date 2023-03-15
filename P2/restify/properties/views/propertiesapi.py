@@ -4,6 +4,7 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView, \
     ListAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.shortcuts import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 
 from ..models import Property
 from ..serializers import PropertySerializer, PropertyAvailibilitySerializer
@@ -27,6 +28,7 @@ class PropertyGetSet(RetrieveAPIView, UpdateAPIView):
 class PropertyList(ListAPIView):
     permission_classes = []
     serializer_class = PropertySerializer
+    pagination_class = PageNumberPagination
 
     def get_queryset(self):
         if self.request.method == 'GET':
@@ -59,6 +61,7 @@ class PropertyList(ListAPIView):
         
 class PropertyOwnedList(ListAPIView):
     serializer_class = PropertySerializer
+    pagination_class = PageNumberPagination
 
     def get_queryset(self):
         if self.request.method == 'GET':
