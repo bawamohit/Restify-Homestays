@@ -44,8 +44,12 @@ class CommentSerializer(ModelSerializer):
                 raise ValidationError({"You cannot comment on this user because they have not reserved at any of your properties!"})
             
             # cannot reply in user comments
-            if clean_data['replyingTo'] == None:
+            if clean_data['replyingTo'] != None:
                 raise ValidationError({"You cannot reply to reviews of a user!"})
+            
+            # host must leave a rating for their review
+            if clean_data['rating'] == None:
+                raise ValidationError({"You must leave a rating!"})
 
         # VALIDATION ERRORS FOR PROPERTY COMMENTS
         # check if user reserved property (and they are not the host) before they can comment
