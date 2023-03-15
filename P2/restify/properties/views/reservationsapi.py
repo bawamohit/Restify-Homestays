@@ -55,8 +55,12 @@ class RetrieveReservation(RetrieveAPIView, UpdateAPIView):
                 return Response({'error': 'Reservation not viewable by you'}, status=403)
         today = date.today()
         if(instance.res_start_time < today):
-            instance.status = 'Expired' # Update the field
-            instance.save() # Save the instance with the updated field
+            if(instance.status == "Pending"):
+                instance.status = 'Expired' # Update the field
+                instance.save() # Save the instance with the updated field
+            elif (instance.status == "Approved" or instance.status == "PendingCancel"):
+                instance.status = "Completed"
+                instance.save()
 
         serializer = self.get_serializer(instance)
         return Response(serializer.data) 
@@ -112,8 +116,12 @@ class ReservationCancel(UpdateAPIView):
                 return Response({'error': 'Reservation is not made by you, cannot cancel'}, status=403)
             today = date.today()
             if(reservation.res_start_time < today):
-                reservation.status = 'Expired' # Update the field
-                reservation.save() # Save the instance with the updated field
+                if(reservation.status == "Pending"):
+                    reservation.status = 'Expired' # Update the field
+                    reservation.save() # Save the instance with the updated field
+                elif (reservation.status == "Approved" or instance.status == "PendingCancel"):
+                    reservation.status = "Completed"
+                    reservation.save()
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
         if reservation.status == 'Pending':
@@ -154,8 +162,12 @@ class ReservationApproveP(UpdateAPIView):
                 return Response({'error': 'Property is not yours, cannot modify'}, status=403)
             today = date.today()
             if(reservation.res_start_time < today):
-                reservation.status = 'Expired' # Update the field
-                reservation.save() # Save the instance with the updated field
+                if(reservation.status == "Pending"):
+                    reservation.status = 'Expired' # Update the field
+                    reservation.save() # Save the instance with the updated field
+                elif (reservation.status == "Approved" or instance.status == "PendingCancel"):
+                    reservation.status = "Completed"
+                    reservation.save()
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
@@ -193,8 +205,12 @@ class ReservationDenyP(UpdateAPIView):
                 return Response({'error': 'Property is not yours, cannot modify'}, status=403)
             today = date.today()
             if(reservation.res_start_time < today):
-                reservation.status = 'Expired' # Update the field
-                reservation.save() # Save the instance with the updated field
+                if(reservation.status == "Pending"):
+                    reservation.status = 'Expired' # Update the field
+                    reservation.save() # Save the instance with the updated field
+                elif (reservation.status == "Approved" or instance.status == "PendingCancel"):
+                    reservation.status = "Completed"
+                    reservation.save()
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
@@ -231,8 +247,12 @@ class ReservationApproveC(UpdateAPIView):
                 return Response({'error': 'Property is not yours, cannot modify'}, status=403)
             today = date.today()
             if(reservation.res_start_time < today):
-                reservation.status = 'Expired' # Update the field
-                reservation.save() # Save the instance with the updated field
+                if(reservation.status == "Pending"):
+                    reservation.status = 'Expired' # Update the field
+                    reservation.save() # Save the instance with the updated field
+                elif (reservation.status == "Approved" or instance.status == "PendingCancel"):
+                    reservation.status = "Completed"
+                    reservation.save()
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
@@ -270,8 +290,12 @@ class ReservationDenyC(UpdateAPIView):
                 return Response({'error': 'Property is not yours, cannot modify'}, status=403)
             today = date.today()
             if(reservation.res_start_time < today):
-                reservation.status = 'Expired' # Update the field
-                reservation.save() # Save the instance with the updated field
+                if(reservation.status == "Pending"):
+                    reservation.status = 'Expired' # Update the field
+                    reservation.save() # Save the instance with the updated field
+                elif (reservation.status == "Approved" or instance.status == "PendingCancel"):
+                    reservation.status = "Completed"
+                    reservation.save()
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
@@ -308,8 +332,12 @@ class ReservationTerminate(UpdateAPIView):
                 return Response({'error': 'Property is not yours, cannot modify'}, status=403)
             today = date.today()
             if(reservation.res_start_time < today):
-                reservation.status = 'Expired' # Update the field
-                reservation.save() # Save the instance with the updated field
+                if(reservation.status == "Pending"):
+                    reservation.status = 'Expired' # Update the field
+                    reservation.save() # Save the instance with the updated field
+                elif (reservation.status == "Approved" or instance.status == "PendingCancel"):
+                    reservation.status = "Completed"
+                    reservation.save()
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
