@@ -11,9 +11,8 @@ from ..models import Reservation, Property, Notification
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
-
-class ReservationPagination(PageNumberPagination):
-    page_size = 10
+from rest_framework.pagination import PageNumberPagination
+from datetime import date
 
 #Create a Reservation request
 class CreateReservation(CreateAPIView):
@@ -44,15 +43,28 @@ class CreateReservation(CreateAPIView):
         serializer.validated_data['status'] = 'Pending'
         super().perform_create(serializer)
 
-class RetrieveReservation(RetrieveAPIView):
+class RetrieveReservation(RetrieveAPIView, UpdateAPIView):
     serializer_class = ReservationSerializer
 
     def get_object(self):
         return get_object_or_404(Reservation, id=self.kwargs['pk'])
+    
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if(self.request.user != instance.requester and self.request.user != instance.property.owner):
+                return Response({'error': 'Reservation not viewable by you'}, status=403)
+        today = date.today()
+        if(instance.res_start_time < today):
+            instance.status = 'Expired' # Update the field
+            instance.save() # Save the instance with the updated field
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data) 
 
 class ReservationStatus(ListAPIView):
     serializer_class = ReservationSerializer
-
+    pagination_class = PageNumberPagination
+    
     def get_queryset(self):
         queryset = Reservation.objects.filter(requester=self.request.user)
         status = self.request.query_params.get('status')
@@ -65,12 +77,16 @@ class ReservationStatus(ListAPIView):
 #List of reservations that the user can see(requested by user)
 class ReservationUser(ListAPIView):
     serializer_class = ReservationSerializer
+    pagination_class = PageNumberPagination
+    
     def get_queryset(self):
         return Reservation.objects.filter(requester=self.request.user)
 
 #List of reservations that the host can see(requested on host's property)
 class ReservationHost(ListAPIView):
     serializer_class = ReservationSerializer
+    # pagination_class = PageNumberPagination
+    
     def get_queryset(self):
         return Reservation.objects.filter(property__in=self.request.user.property_set.all())
     
@@ -92,6 +108,12 @@ class ReservationCancel(UpdateAPIView):
 
         try:
             reservation = Reservation.objects.get(id=reservation_id)
+            if(self.request.user != reservation.requester):
+                return Response({'error': 'Reservation is not made by you, cannot cancel'}, status=403)
+            today = date.today()
+            if(reservation.res_start_time < today):
+                reservation.status = 'Expired' # Update the field
+                reservation.save() # Save the instance with the updated field
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
         if reservation.status == 'Pending':
@@ -117,8 +139,6 @@ class ReservationCancel(UpdateAPIView):
         serializer = self.serializer_class(reservation)
         return Response(serializer.data)  
       
-    def get_queryset(self):
-        return Reservation.objects.filter(requester=self.request.user)
 
     
 class ReservationApproveP(UpdateAPIView):
@@ -130,6 +150,12 @@ class ReservationApproveP(UpdateAPIView):
 
         try:
             reservation = Reservation.objects.get(id=reservation_id)
+            if(self.request.user != reservation.property.owner):
+                return Response({'error': 'Property is not yours, cannot modify'}, status=403)
+            today = date.today()
+            if(reservation.res_start_time < today):
+                reservation.status = 'Expired' # Update the field
+                reservation.save() # Save the instance with the updated field
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
@@ -163,6 +189,12 @@ class ReservationDenyP(UpdateAPIView):
 
         try:
             reservation = Reservation.objects.get(id=reservation_id)
+            if(self.request.user != reservation.property.owner):
+                return Response({'error': 'Property is not yours, cannot modify'}, status=403)
+            today = date.today()
+            if(reservation.res_start_time < today):
+                reservation.status = 'Expired' # Update the field
+                reservation.save() # Save the instance with the updated field
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
@@ -195,6 +227,12 @@ class ReservationApproveC(UpdateAPIView):
 
         try:
             reservation = Reservation.objects.get(id=reservation_id)
+            if(self.request.user != reservation.property.owner):
+                return Response({'error': 'Property is not yours, cannot modify'}, status=403)
+            today = date.today()
+            if(reservation.res_start_time < today):
+                reservation.status = 'Expired' # Update the field
+                reservation.save() # Save the instance with the updated field
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
@@ -228,6 +266,12 @@ class ReservationDenyC(UpdateAPIView):
 
         try:
             reservation = Reservation.objects.get(id=reservation_id)
+            if(self.request.user != reservation.property.owner):
+                return Response({'error': 'Property is not yours, cannot modify'}, status=403)
+            today = date.today()
+            if(reservation.res_start_time < today):
+                reservation.status = 'Expired' # Update the field
+                reservation.save() # Save the instance with the updated field
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
@@ -260,6 +304,12 @@ class ReservationTerminate(UpdateAPIView):
 
         try:
             reservation = Reservation.objects.get(id=reservation_id)
+            if(self.request.user != reservation.property.owner):
+                return Response({'error': 'Property is not yours, cannot modify'}, status=403)
+            today = date.today()
+            if(reservation.res_start_time < today):
+                reservation.status = 'Expired' # Update the field
+                reservation.save() # Save the instance with the updated field
         except Reservation.DoesNotExist:
             return Response({'error': 'Reservation not found.'}, status=404)
 
