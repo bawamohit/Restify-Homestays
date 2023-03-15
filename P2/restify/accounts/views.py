@@ -31,6 +31,7 @@ class CommentCreateUser(CreateAPIView):
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context.update({"content_type": ContentType.objects.get(id=6)})
+        context.update({"user": self.request.user})
         return context
 
     def perform_create(self, serializer):
@@ -43,6 +44,7 @@ class CommentCreateProperty(CreateAPIView):
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context.update({"content_type": ContentType.objects.get(id=8)})
+        context.update({"user": self.request.user})
         return context
 
     def perform_create(self, serializer):

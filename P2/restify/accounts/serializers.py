@@ -22,7 +22,7 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = ['user','body', 'rating', "content_type", "replyingTo"]
-        read_only_fields = ['content_type',]
+        read_only_fields = ['content_type','user']
 
     def validate(self, clean_data):
 
@@ -31,7 +31,7 @@ class CommentSerializer(ModelSerializer):
         if self.context.get('content_type') == ContentType.objects.get(id=6):
             
             # the user you are commenting on must has a reservation on your property (YOU ARE THE HOST)
-            yourProperties = Property.objects.filter(owner=clean_data['user'])
+            yourProperties = Property.objects.filter(owner=self.context.get('user'))
 
             userIDOfCommentedOn = self.context.get('view').kwargs.get('pk')
             theUser = User.objects.get(pk=userIDOfCommentedOn)
@@ -59,13 +59,13 @@ class CommentSerializer(ModelSerializer):
         if self.context.get('content_type') == ContentType.objects.get(id=8):
             propertyID = self.context.get('view').kwargs.get('pk') # property being commented on
             theProperty = Property.objects.get(pk=propertyID)
-            userReservations = Reservation.objects.filter(requester=clean_data['user'], property = theProperty)
+            userReservations = Reservation.objects.filter(requester=self.context.get('user'), property = theProperty)
 
             # cannot comment if user has not reserved this property and they are not the host
-            if list(userReservations) == [] and clean_data['user'] != theProperty.owner:
+            if list(userReservations) == [] and self.context.get('user') != theProperty.owner:
                 raise ValidationError({"You never reserved this property and you are not the host!"})
             
-            elif list(userReservations) != [] and clean_data['user'] != theProperty.owner: # you have a reservation check if its completed/terminated
+            elif list(userReservations) != [] and self.context.get('user') != theProperty.owner: # you have a reservation check if its completed/terminated
                 # must be completed or terminated reservation (status 6 or 8)
                 completedOrTerminated = False
                 for theReservation in list(userReservations):                    
@@ -76,7 +76,7 @@ class CommentSerializer(ModelSerializer):
                     raise ValidationError({"Your reservation(s) were never completed or terminated for this property so you cannot leave a review!"})
 
             # if the user is the host, they can only reply to user comments (i.e. cannot comment on their own property)/they cannot comment on their own reply
-            if clean_data['user'] == theProperty.owner:
+            if self.context.get('user') == theProperty.owner:
                 if clean_data['replyingTo'] == None:
                     raise ValidationError({"As a host, you cannot make a review on your own property!"})
                 
@@ -93,7 +93,7 @@ class CommentSerializer(ModelSerializer):
 
             # if the user is not the host, they can only make new comments (i think covered already) or reply to the host replies that havent been replied to yet (not being replied to is already covered)
             # so has to be a reply to a host reply if not a new comment
-                if clean_data['user'] != theProperty.owner:
+                if self.context.get('user') != theProperty.owner:
                     
                     userOfOriginalMessage = Comment.objects.get(commentID=clean_data['replyingTo']).user
                     if userOfOriginalMessage != theProperty.owner:
@@ -104,12 +104,12 @@ class CommentSerializer(ModelSerializer):
                     while (prevComment.replyingTo != None):
                         prevComment = Comment.objects.get(commentID=prevComment.replyingTo)
 
-                    if prevComment.user != clean_data['user']:
+                    if prevComment.user != self.context.get('user'):
                         raise ValidationError({"You did not make the original review, so you cannot reply in this comment chain!"})
             
             # you can't make more than 2 reviews on a property
             if clean_data['replyingTo'] == None:
-                usersCommentsOnThisProperty = Comment.objects.filter(object_id = propertyID, user=clean_data['user'])
+                usersCommentsOnThisProperty = Comment.objects.filter(object_id = propertyID, user=self.context.get('user'))
                 if list(usersCommentsOnThisProperty) != []:
                     raise ValidationError({"Cannot make another review on this property, you can only reply to host replies to your original review!"})
         
