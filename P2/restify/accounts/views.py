@@ -11,6 +11,7 @@ from .serializers import UserSerializer, CommentSerializer
 from .models import User
 from properties.models import Comment, Property
 from django.http import JsonResponse
+from django.contrib.contenttypes.models import ContentType
 
 # Create your views here.
 class UserCreate(CreateAPIView):
@@ -26,15 +27,25 @@ class CommentCreateUser(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"content_type": ContentType.objects.get(id=6)})
+        return context
+
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, object_id=self.kwargs['pk'])
+        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], content_type=ContentType.objects.get(id=6))
 
 class CommentCreateProperty(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"content_type": ContentType.objects.get(id=8)})
+        return context
+
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], endOfCommentChain=True)
+        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], endOfCommentChain=True, content_type=ContentType.objects.get(id=8))
         instance = serializer.save()
         
         # set the new end of comment chain
@@ -44,6 +55,8 @@ class CommentCreateProperty(CreateAPIView):
             comm.save()
     
 class CommentListUser(ListAPIView):
+    #TODO: ADD PAGINATION
+
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
     def get_queryset(self):

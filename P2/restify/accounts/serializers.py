@@ -2,6 +2,7 @@ from rest_framework.serializers import ModelSerializer, CharField, EmailField
 from .models import User
 from properties.models import Comment, Reservation, Property
 from django.core.exceptions import ValidationError
+from django.contrib.contenttypes.models import ContentType
 
 class UserSerializer(ModelSerializer):
     first_name = CharField(max_length = 20)
@@ -21,12 +22,13 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = ['user','body', 'rating', "content_type", "replyingTo"]
-        # read_only_fields = ['content_type']
+        read_only_fields = ['content_type',]
 
     def validate(self, clean_data):
-        
+
         # VALIDATION ERRORS FOR USER COMMENTS
-        if clean_data['content_type'].name == 'user': # user comment
+        # if clean_data['content_type'].name == 'user': # user comment
+        if self.context.get('content_type') == ContentType.objects.get(id=6):
             
             # the user you are commenting on must has a reservation on your property (YOU ARE THE HOST)
             yourProperties = Property.objects.filter(owner=clean_data['user'])
@@ -53,7 +55,8 @@ class CommentSerializer(ModelSerializer):
 
         # VALIDATION ERRORS FOR PROPERTY COMMENTS
         # check if user reserved property (and they are not the host) before they can comment
-        if clean_data['content_type'].name == 'property': # property comment
+        # if clean_data['content_type'].name == 'property': # property comment
+        if self.context.get('content_type') == ContentType.objects.get(id=8):
             propertyID = self.context.get('view').kwargs.get('pk') # property being commented on
             theProperty = Property.objects.get(pk=propertyID)
             userReservations = Reservation.objects.filter(requester=clean_data['user'], property = theProperty)
