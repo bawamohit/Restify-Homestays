@@ -11,9 +11,9 @@ class Property(models.Model):
     postal_code = models.CharField(max_length=50)
     images = models.ImageField(upload_to='avatars/', null=True, blank = True) # not sure how this part works
     description = models.CharField(max_length=400)
-    number_of_guests = models.IntegerField()
-    number_of_beds = models.IntegerField()
-    number_of_baths = models.IntegerField()
+    number_of_guests = models.PositiveIntegerField()
+    number_of_beds = models.PositiveIntegerField()
+    number_of_baths = models.PositiveIntegerField()
     wifi = models.BooleanField()
     petfriendly = models.BooleanField()
     tv = models.BooleanField()

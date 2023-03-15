@@ -33,7 +33,7 @@ class RetrieveNotification(RetrieveAPIView, DestroyAPIView):
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
     
-# class NotificationDelete(DestroyAPIView):
-#     queryset = Notification.objects.all()
-#     serializer_class = NotificationSerializer
-#     lookup_url_kwarg = 'pk'
+class NotificationDelete(DestroyAPIView):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    lookup_url_kwarg = 'pk'
