@@ -53,9 +53,9 @@ class PropertyList(ListAPIView):
             sortby = self.request.GET.get('sortby', None)
             if sortby is not None:
                 if sortby.lower() == 'guests':
-                    queryset = queryset.order_by('number_of_guests')
+                    queryset = queryset.order_by('-number_of_guests')
                 elif sortby.lower() == 'beds':
-                    queryset = queryset.order_by('number_of_beds')
+                    queryset = queryset.order_by('-number_of_beds')
             
             return queryset
         
