@@ -8,8 +8,8 @@ urlpatterns = [
     path('property-update/<int:pk>/', views.PropertyGetSet.as_view(), name='property-update'),
     path('property-view/<int:pk>/', views.PropertyGetSet.as_view(), name='property-view'),
     path('property-search/', views.PropertyList.as_view(), name='property-search'),
-    path('property-owned/', views.test_message, name='property-owned'),
-    path('property-delete/', views.test_message, name='property-delete'),
+    path('property-owned/', views.PropertyOwnedList.as_view(), name='property-owned'),
+    path('property-delete/<int:pk>/', views.PropertyDelete.as_view(), name='property-delete'),
     path('property-add-availability/', views.test_message, name='property-add-availability'),
     path('property-delete-availability/', views.test_message, name='property-delete-availability'),
     path('reservation-create/', views.CreateReservation.as_view(), name='reservation-create'),
@@ -23,6 +23,6 @@ urlpatterns = [
     path('reservation-approve-cancel/<int:pk>/', views.ReservationApproveC.as_view(), name='reservation-approve-cancel'),
     path('reservation-deny-cancel/<int:pk>/', views.ReservationDenyC.as_view(), name='reservation-deny-cancel'),
     path('reservation-terminate/<int:pk>/', views.ReservationTerminate.as_view(), name='reservation-terminate'),
-    
+    path('notifications/', views.NotificationList.as_view(), name='notifications'),  
 ]
 

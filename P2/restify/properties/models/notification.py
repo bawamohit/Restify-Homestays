@@ -8,6 +8,6 @@ class Notification(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=500)
     
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, blank=True, null=True)
+    object_id = models.PositiveIntegerField(blank=True, null=True)
     content_object = GenericForeignKey()

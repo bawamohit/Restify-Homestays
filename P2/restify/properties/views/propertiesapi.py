@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, \
     ListAPIView, DestroyAPIView, UpdateAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.shortcuts import get_object_or_404
 
 from ..models import Property
@@ -14,17 +14,18 @@ def test_message(request):
     return Response({"message":"hello it works!"})
 
 class CreateProperty(CreateAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = PropertySerializer
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 class PropertyGetSet(RetrieveAPIView, UpdateAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = PropertySerializer
     def get_object(self):
         return get_object_or_404(Property, id=self.kwargs['pk'])
 
 class PropertyList(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     serializer_class = PropertySerializer
 
     def get_queryset(self):
@@ -55,3 +56,17 @@ class PropertyList(ListAPIView):
                     queryset = queryset.order_by('number_of_beds')
             
             return queryset
+        
+class PropertyOwnedList(ListAPIView):
+    serializer_class = PropertySerializer
+
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            return self.request.user.property_set.all()
+        
+class PropertyDelete(DestroyAPIView):
+    serializer_class = PropertySerializer
+    
+    def get_queryset(self):
+        queryset = Property.objects.filter(id=self.kwargs['pk'], owner=self.request.user)
+        return queryset
