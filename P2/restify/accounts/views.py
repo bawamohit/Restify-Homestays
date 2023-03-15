@@ -11,9 +11,11 @@ from .serializers import UserSerializer, CommentSerializer
 from .models import User
 from properties.models import Comment, Property
 from django.http import JsonResponse
+from django.contrib.contenttypes.models import ContentType
 
 # Create your views here.
 class UserCreate(CreateAPIView):
+    permission_classes = []
     serializer_class = UserSerializer
 
 class UserGetSet(RetrieveAPIView, UpdateAPIView):
@@ -25,15 +27,25 @@ class CommentCreateUser(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"content_type": ContentType.objects.get(id=6)})
+        return context
+
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, object_id=self.kwargs['pk'])
+        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], content_type=ContentType.objects.get(id=6))
 
 class CommentCreateProperty(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"content_type": ContentType.objects.get(id=8)})
+        return context
+
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], endOfCommentChain=True)
+        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], endOfCommentChain=True, content_type=ContentType.objects.get(id=8))
         instance = serializer.save()
         
         # set the new end of comment chain
@@ -43,6 +55,8 @@ class CommentCreateProperty(CreateAPIView):
             comm.save()
     
 class CommentListUser(ListAPIView):
+    #TODO: ADD PAGINATION
+
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
     def get_queryset(self):
@@ -70,5 +84,15 @@ class CommentListProperty (APIView):
             serializer = CommentSerializer(temp_array, many=True)
             big_array.append(serializer.data)
 
-        print(big_array)
-        return JsonResponse(big_array, safe=False)
+        # print(big_array)
+
+        page_num = self.request.GET.get('page_number', None)
+
+        if page_num is not None and int(page_num) < len(big_array):
+            page_num = int(page_num)
+            return JsonResponse(big_array[page_num - 1:page_num], safe=False)
+
+        if len(big_array) > 1:
+            return JsonResponse(big_array[0:1], safe=False)
+        
+        return JsonResponse([], safe=False)
