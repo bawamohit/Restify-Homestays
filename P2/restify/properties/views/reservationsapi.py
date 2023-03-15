@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, \
     ListAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
-from ..serializers import ReservationSerializer
+from ..serializers import ReservationSerializer, NotificationSerializer
 from ..models import Reservation, Property
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
@@ -22,24 +22,27 @@ class CreateReservation(CreateAPIView):
     def create(self, request, *args, **kwargs):
         
         existing = Reservation.objects.filter(property=self.request.data.get('property'))
-        # Retrieve the data from the request
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
 
         # Perform custom logic to create the reservation
         # For example, you could retrieve additional data from the request
         user = request.user
         start_time = self.request.data.get('res_start_time')
         end_time = self.request.data.get('res_end_time')
+        if(end_time < start_time):
+            return Response({'message': 'Start time cannot be earlier than end time'}, status=400)
         existing = existing.filter(Q(res_start_time__lt=end_time), Q(res_end_time__gt=start_time))
         if(existing.exists()):
-            return Response({'message': 'Object already exists.'}, status=400)
+            return Response({'message': 'Reservation already exists at this time range.'}, status=400)
         else:
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        
+    def perform_create(self, serializer):
+        serializer.validated_data['status'] = 'Pending'
+        super().perform_create(serializer)
 
 class RetrieveReservation(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
@@ -111,6 +114,17 @@ class ReservationCancel(UpdateAPIView):
       
     def get_queryset(self):
         return Reservation.objects.filter(requester=self.request.user)
+    
+    
+    # def perform_update(self, serializer):
+    #     reservation = serializer.save()
+    #     rating_data = {'book': book.pk, 'stars': 0, 'review': ''}
+    #     rating_serializer = RatingSerializer(data=rating_data)
+    #     if rating_serializer.is_valid():
+    #         rating_serializer.save()
+    #     else:
+    #         book.delete() # rollback book creation
+    #         raise ValidationError(rating_serializer.errors)
     
 class ReservationApproveP(UpdateAPIView):
     permission_classes = [IsAuthenticated]
