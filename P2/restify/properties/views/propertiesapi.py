@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.shortcuts import get_object_or_404
 
 from ..models import Property
-from ..serializers import PropertySerializer
+from ..serializers import PropertySerializer, PropertyAvailibilitySerializer
 
 # function-based view
 @api_view(['GET'])
@@ -70,3 +70,9 @@ class PropertyDelete(DestroyAPIView):
     def get_queryset(self):
         queryset = Property.objects.filter(id=self.kwargs['pk'], owner=self.request.user)
         return queryset
+
+class PropertyAvailability(CreateAPIView):
+    serializer_class = PropertyAvailibilitySerializer
+
+    def create(self, request, *args, **kwargs):
+       pass
