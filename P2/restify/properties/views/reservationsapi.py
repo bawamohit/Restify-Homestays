@@ -6,50 +6,51 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, \
     ListAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
-from ..serializers import ReservationSerializer
-from ..models import Reservation, Property
+from ..serializers import ReservationSerializer, NotificationSerializer
+from ..models import Reservation, Property, Notification
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
+from django.contrib.contenttypes.models import ContentType
 
 class ReservationPagination(PageNumberPagination):
     page_size = 10
 
 #Create a Reservation request
 class CreateReservation(CreateAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
     
     def create(self, request, *args, **kwargs):
         
         existing = Reservation.objects.filter(property=self.request.data.get('property'))
-        # Retrieve the data from the request
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
 
         # Perform custom logic to create the reservation
         # For example, you could retrieve additional data from the request
         user = request.user
         start_time = self.request.data.get('res_start_time')
         end_time = self.request.data.get('res_end_time')
-        existing = existing.filter(Q(res_start_time__lt=end_time), Q(res_end_time__gt=start_time))
+        if(end_time < start_time):
+            return Response({'message': 'Start time cannot be earlier than end time'}, status=400)
+        existing = existing.filter(Q(res_start_time__lt=end_time) & Q(res_end_time__gt=start_time))
         if(existing.exists()):
-            return Response({'message': 'Object already exists.'}, status=400)
+            return Response({'message': 'Reservation already exists at this time range.'}, status=400)
         else:
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        
+    def perform_create(self, serializer):
+        serializer.validated_data['status'] = 'Pending'
+        super().perform_create(serializer)
 
 class RetrieveReservation(RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
 
     def get_object(self):
         return get_object_or_404(Reservation, id=self.kwargs['pk'])
 
 class ReservationStatus(ListAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
 
     def get_queryset(self):
@@ -63,14 +64,12 @@ class ReservationStatus(ListAPIView):
 
 #List of reservations that the user can see(requested by user)
 class ReservationUser(ListAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
     def get_queryset(self):
         return Reservation.objects.filter(requester=self.request.user)
 
 #List of reservations that the host can see(requested on host's property)
 class ReservationHost(ListAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
     def get_queryset(self):
         return Reservation.objects.filter(property__in=self.request.user.property_set.all())
@@ -86,7 +85,6 @@ class ReservationHost(ListAPIView):
 # 8. Completed: the reservation is realized, i.e., the user went to the property and stayed there.    
     
 class ReservationCancel(UpdateAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
 
     def post(self, request, *args, **kwargs):
@@ -100,6 +98,16 @@ class ReservationCancel(UpdateAPIView):
             reservation.status = 'Canceled'
             reservation.save()
         elif reservation.status == 'Approved':
+            
+            # Create notification instance
+            message = "A request for cancellation was just made on your property"
+            notif = Notification.objects.create(
+                user=reservation.property.owner, 
+                message=message, 
+                content_type=ContentType.objects.get_for_model(Reservation),
+                object_id=reservation.pk
+            )
+            
             reservation.status = 'PendingCancel'
             reservation.save()
         else:
@@ -111,9 +119,9 @@ class ReservationCancel(UpdateAPIView):
       
     def get_queryset(self):
         return Reservation.objects.filter(requester=self.request.user)
+
     
 class ReservationApproveP(UpdateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
 
@@ -126,6 +134,16 @@ class ReservationApproveP(UpdateAPIView):
             return Response({'error': 'Reservation not found.'}, status=404)
 
         if reservation.status == 'Pending':
+            
+            # Create notification instance
+            message = "Your pending request has just been approved!"
+            notif = Notification.objects.create(
+                user=reservation.requester, 
+                message=message, 
+                content_type=ContentType.objects.get_for_model(Reservation),
+                object_id=reservation.pk
+            )
+            
             reservation.status = 'Approved'
             reservation.save()
         else:
@@ -137,7 +155,6 @@ class ReservationApproveP(UpdateAPIView):
     
 
 class ReservationDenyP(UpdateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
 
@@ -150,6 +167,16 @@ class ReservationDenyP(UpdateAPIView):
             return Response({'error': 'Reservation not found.'}, status=404)
 
         if reservation.status == 'Pending':
+            
+            # Create notification instance
+            message = "Your pending request has just been denied"
+            notif = Notification.objects.create(
+                user=reservation.requester, 
+                message=message, 
+                content_type=ContentType.objects.get_for_model(Property),
+                object_id=reservation.property.pk
+            )
+            
             reservation.status = 'Denied'
             reservation.save()
         else:
@@ -160,7 +187,6 @@ class ReservationDenyP(UpdateAPIView):
         return Response(serializer.data)
     
 class ReservationApproveC(UpdateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
 
@@ -173,6 +199,16 @@ class ReservationApproveC(UpdateAPIView):
             return Response({'error': 'Reservation not found.'}, status=404)
 
         if reservation.status == 'PendingCancel':
+            
+            # Create notification instance
+            message = "Your request for cancellation has just been approved!"
+            notif = Notification.objects.create(
+                user=reservation.requester, 
+                message=message, 
+                content_type=ContentType.objects.get_for_model(Reservation),
+                object_id=reservation.pk
+            )
+            
             reservation.status = 'Canceled'
             reservation.save()
         else:
@@ -184,7 +220,6 @@ class ReservationApproveC(UpdateAPIView):
     
     
 class ReservationDenyC(UpdateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
 
@@ -197,6 +232,16 @@ class ReservationDenyC(UpdateAPIView):
             return Response({'error': 'Reservation not found.'}, status=404)
 
         if reservation.status == 'PendingCancel':
+            # Create notification instance
+            message = "Your request for cancellation has just been denied"
+            notif = Notification.objects.create(
+                user=reservation.requester, 
+                message=message, 
+                content_type=ContentType.objects.get_for_model(Reservation),
+                object_id=reservation.pk
+            )
+            
+            
             reservation.status = 'Approved'
             reservation.save()
         else:
@@ -207,7 +252,6 @@ class ReservationDenyC(UpdateAPIView):
         return Response(serializer.data)
     
 class ReservationTerminate(UpdateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
 
@@ -220,6 +264,16 @@ class ReservationTerminate(UpdateAPIView):
             return Response({'error': 'Reservation not found.'}, status=404)
 
         if reservation.status == 'Approved':
+            
+            # Create notification instance
+            message = "Your reservation has just been terminated by the host"
+            notif = Notification.objects.create(
+                user=reservation.requester, 
+                message=message, 
+                content_type=ContentType.objects.get_for_model(Reservation),
+                object_id=reservation.pk
+            )
+            
             reservation.status = 'Terminated'
             reservation.save()
         else:

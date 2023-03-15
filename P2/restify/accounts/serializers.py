@@ -13,7 +13,7 @@ class UserSerializer(ModelSerializer):
         fields = ['username', 'first_name', 'last_name', 'email', 'password', 'phoneNumber', 'avatars',]
 
     def create(self, validated_data):
-        print(self.context['request'].user)
+        # print(self.context['request'].user)
         return super().create(validated_data)
 
 class CommentSerializer(ModelSerializer):
@@ -21,89 +21,105 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = ['user','body', 'rating', "content_type", "replyingTo"]
-    
+        # read_only_fields = ['content_type']
 
     def validate(self, clean_data):
         
-        """
-        if clean_data['body'] == "test":
-            raise ValidationError({"body":"error raised"})
-        """
+        # VALIDATION ERRORS FOR USER COMMENTS
+        if clean_data['content_type'].name == 'user': # user comment
+            
+            # the user you are commenting on must has a reservation on your property (YOU ARE THE HOST)
+            yourProperties = Property.objects.filter(owner=clean_data['user'])
 
-        
-        """
+            userIDOfCommentedOn = self.context.get('view').kwargs.get('pk')
+            theUser = User.objects.get(pk=userIDOfCommentedOn)
+
+            hasReservation = False
+            for propertyOwned in yourProperties:
+                theReservations = Reservation.objects.filter(requester = theUser, property = propertyOwned)
+                if list(theReservations) != []:
+                    hasReservation = True
+            
+            if hasReservation == False:
+                raise ValidationError({"You cannot comment on this user because they have not reserved at any of your properties!"})
+            
+            # cannot reply in user comments
+            if clean_data['replyingTo'] != None:
+                raise ValidationError({"You cannot reply to reviews of a user!"})
+            
+            # host must leave a rating for their review
+            if clean_data['rating'] == None:
+                raise ValidationError({"You must leave a rating!"})
+
+        # VALIDATION ERRORS FOR PROPERTY COMMENTS
         # check if user reserved property (and they are not the host) before they can comment
         if clean_data['content_type'].name == 'property': # property comment
-            raise ValidationError({"content_type":"error raised"})
             propertyID = self.context.get('view').kwargs.get('pk') # property being commented on
-            aProperty = Property.objects.get(pk=propertyID)
-            userReservations = Reservation.objects.filter(requester=clean_data['user'], property = aProperty)
+            theProperty = Property.objects.get(pk=propertyID)
+            userReservations = Reservation.objects.filter(requester=clean_data['user'], property = theProperty)
 
-            if userReservations == None and clean_data['user'] != aProperty.owner:
-                print ("raise error")
+            # cannot comment if user has not reserved this property and they are not the host
+            if list(userReservations) == [] and clean_data['user'] != theProperty.owner:
+                raise ValidationError({"You never reserved this property and you are not the host!"})
+            
+            elif list(userReservations) != [] and clean_data['user'] != theProperty.owner: # you have a reservation check if its completed/terminated
+                # must be completed or terminated reservation (status 6 or 8)
+                completedOrTerminated = False
+                for theReservation in list(userReservations):                    
+                    if theReservation.status == "6" or theReservation.status == "8":
+                        completedOrTerminated = True
+                    
+                if completedOrTerminated == False:
+                    raise ValidationError({"Your reservation(s) were never completed or terminated for this property so you cannot leave a review!"})
 
-            # if the user is the host, they can only reply to user comments that havent been commented on yet
+            # if the user is the host, they can only reply to user comments (i.e. cannot comment on their own property)/they cannot comment on their own reply
+            if clean_data['user'] == theProperty.owner:
+                if clean_data['replyingTo'] == None:
+                    raise ValidationError({"As a host, you cannot make a review on your own property!"})
+                
+                if Comment.objects.get(commentID=clean_data['replyingTo']).user == theProperty.owner:
+                    raise ValidationError({"As a host, you cannot reply to your own replies!"})
 
+            # cannot reply to comment that has already been commented on && reply should not have a rating
+            if clean_data['replyingTo'] != None:
+                if Comment.objects.get(commentID=clean_data['replyingTo']).endOfCommentChain == False:
+                    raise ValidationError({"Someone has already replied to this comment!"})
+                
+                if clean_data['rating'] != None:
+                    raise ValidationError({"Cannot give a rating in a reply!"})
 
-            # if the user is not the host, they can only make new comments or reply to the host replies that havent been replied to yet
-        """
-        
-        
-        
-        
-        
+            # if the user is not the host, they can only make new comments (i think covered already) or reply to the host replies that havent been replied to yet (not being replied to is already covered)
+            # so has to be a reply to a host reply if not a new comment
+                if clean_data['user'] != theProperty.owner:
+                    
+                    userOfOriginalMessage = Comment.objects.get(commentID=clean_data['replyingTo']).user
+                    if userOfOriginalMessage != theProperty.owner:
+                        raise ValidationError({"As a user, you cannot reply to other users, you must reply back to the Host!"})
+                    
+                    # a user can only reply if they started the comment thread
+                    prevComment = Comment.objects.get(commentID=clean_data['replyingTo'])
+                    while (prevComment.replyingTo != None):
+                        prevComment = Comment.objects.get(commentID=prevComment.replyingTo)
+
+                    if prevComment.user != clean_data['user']:
+                        raise ValidationError({"You did not make the original review, so you cannot reply in this comment chain!"})
+            
+            # you can't make more than 2 reviews on a property
+            if clean_data['replyingTo'] == None:
+                usersCommentsOnThisProperty = Comment.objects.filter(object_id = propertyID, user=clean_data['user'])
+                if list(usersCommentsOnThisProperty) != []:
+                    raise ValidationError({"Cannot make another review on this property, you can only reply to host replies to your original review!"})
         
         return clean_data
 
     def create(self, validated_data):
         # print(self.context['request'].user)
 
-        """
-        
-        
-        # check if user reserved one of the host locations so host can comment
-        if validated_data['content_type'].name == 'user': # user comment
-            hostProperties = Property.objects.filter(owner=validated_data['user'])
-            userID = self.context.get('view').kwargs.get('pk') # user being commented on
-            userCommentedOn = User.objects.get(id=userID)
-
-            error = True
-            for indivHostProperty in hostProperties:
-                userReservations = Reservation.objects.filter(requester=userCommentedOn, property = indivHostProperty) # i dont think this works properly
-                if userReservations != None:
-                    error = False
-            
-            if error:
-                print ("error")
-
-            # cannot allow users to comment on themselves
-        
-
-
-        # check if user reserved property (and they are not the host) before they can comment
-        if validated_data['content_type'].name == 'property': # property comment
-            propertyID = self.context.get('view').kwargs.get('pk') # property being commented on
-            aProperty = Property.objects.get(pk=propertyID)
-            userReservations = Reservation.objects.filter(requester=validated_data['user'], property = aProperty)
-
-            if userReservations == None and validated_data['user'] != aProperty.owner:
-                print ("raise error")
-
-            # if the user is the host, they can only reply to user comments that havent been commented on yet
-
-
-            # if the user is not the host, they can only make new comments or reply to the host replies that havent been replied to yet
-
-
-        """
-
-
         last_comment = Comment.objects.all().last()
         if (last_comment != None):
             validated_data['commentID'] = last_comment.__getattribute__('commentID') + 1
         else:
             validated_data['commentID'] = 1
-
 
         return super().create(validated_data)
     
