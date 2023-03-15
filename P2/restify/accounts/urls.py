@@ -10,5 +10,5 @@ urlpatterns = [
     # path('update-comment/<int:pk>/', views.CommentGetSet.as_view(), name='update-comment'),
     path('view-comment-user/<int:pk>/', views.CommentListUser.as_view(), name='view-comment-user'),
     path('view-comment-property/<int:pk>/', views.CommentListProperty.as_view(), name='view-comment-property'),
-
+    # path('view-comment-propertytest/<int:pk>/', views.TestView.as_view(), name='view-comment-propertytest'),
 ]

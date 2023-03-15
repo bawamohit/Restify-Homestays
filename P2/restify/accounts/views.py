@@ -26,14 +26,14 @@ class CommentCreateUser(CreateAPIView):
     serializer_class = CommentSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, userCommentedOnID=self.kwargs['pk'], object_id=self.kwargs['pk'])
+        serializer.save(user=self.request.user, object_id=self.kwargs['pk'])
 
 class CommentCreateProperty(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], propertyID=self.kwargs['pk'], endOfCommentChain=True)
+        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], endOfCommentChain=True)
         instance = serializer.save()
         
         # set the new end of comment chain
@@ -57,8 +57,9 @@ class CommentListUser(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
     def get_queryset(self):
-        return Comment.objects.filter(userCommentedOnID=self.kwargs['pk'], content_type = 6) # content type = 6 is user comment
-    
+        return Comment.objects.filter(object_id=self.kwargs['pk'], content_type = 6) # content type = 6 is user comment
+
+"""
 class CommentListProperty(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
@@ -67,13 +68,9 @@ class CommentListProperty(ListAPIView):
         propEnds = prop.reviews.filter(endOfCommentChain=True)
 
         big_array = []
-        # big_qs = Comment.objects.none()
         for i in propEnds:
             temp_array = [i]
-            # big_qs = big_qs | i
-
             if (i.replyingTo != None):
-
                 currentComment = Comment.objects.get(commentID=i.commentID)
                 while (currentComment.replyingTo != None):
                     currentComment = Comment.objects.get(commentID=i.replyingTo)
@@ -82,9 +79,42 @@ class CommentListProperty(ListAPIView):
             big_array.append(temp_array)
 
         print(big_array)
-        return prop.reviews.all()
+        return prop.reviews.all() # returning all the reviews for now
 
         # return big_array
         
         # dont use
         # return Comment.objects.filter(user=self.request.user, content_type = 8) # content type = 8 is property comment
+"""
+
+
+class CommentListProperty (APIView):
+
+    permission_classes = [IsAuthenticated]
+    
+    def get (self, request, pk):
+        
+
+        prop = Property.objects.get(id=self.kwargs['pk'])
+
+        #serializer = CommentSerializer(prop)
+        
+        
+        propEnds = prop.reviews.filter(endOfCommentChain=True)
+        print(propEnds.all())
+
+        big_array = []
+        for i in propEnds:
+            temp_array = [i]
+            if (i.replyingTo != None):
+                currentComment = Comment.objects.get(commentID=i.commentID)
+                while (currentComment.replyingTo != None):
+                    currentComment = Comment.objects.get(commentID=i.replyingTo)
+                    temp_array.append(currentComment)
+            
+            temp_array = temp_array[::-1]
+            serializer = CommentSerializer(temp_array, many=True)
+            big_array.append(serializer.data)
+
+        print(big_array)
+        return JsonResponse(big_array, safe=False)

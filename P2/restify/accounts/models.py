@@ -9,7 +9,7 @@ from django.conf import settings
 
 # Create your models here.
 class User(AbstractUser):
-    phoneNumber = models.CharField(max_length = 10) # or an int? include dashes?
+    phoneNumber = models.PositiveIntegerField() # or an int? include dashes?
     avatars = models.ImageField(upload_to='avatars/', null=True, blank=True) # add avatars/pictures folder
     
     comments = GenericRelation('properties.Comment')
