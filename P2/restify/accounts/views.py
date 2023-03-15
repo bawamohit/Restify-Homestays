@@ -12,6 +12,7 @@ from .models import User
 from properties.models import Comment, Property
 from django.http import JsonResponse
 from django.contrib.contenttypes.models import ContentType
+from rest_framework.pagination import PageNumberPagination
 
 # Create your views here.
 class UserCreate(CreateAPIView):
@@ -55,7 +56,7 @@ class CommentCreateProperty(CreateAPIView):
             comm.save()
     
 class CommentListUser(ListAPIView):
-    #TODO: ADD PAGINATION
+    pagination_class = PageNumberPagination
 
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
