@@ -41,17 +41,6 @@ class CommentCreateProperty(CreateAPIView):
             comm = Comment.objects.get(commentID=instance.replyingTo)
             comm.endOfCommentChain = False
             comm.save()
-
-
-# don't think we even need a way to update comment
-"""
-class CommentGetSet(RetrieveAPIView, UpdateAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = CommentSerializer
-    def get_object(self):
-        return get_object_or_404(Comment, id=self.kwargs['pk'])
-"""
-
     
 class CommentListUser(ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -59,47 +48,12 @@ class CommentListUser(ListAPIView):
     def get_queryset(self):
         return Comment.objects.filter(object_id=self.kwargs['pk'], content_type = 6) # content type = 6 is user comment
 
-"""
-class CommentListProperty(ListAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = CommentSerializer
-    def get_queryset(self):
-        prop = Property.objects.get(id=self.kwargs['pk'])
-        propEnds = prop.reviews.filter(endOfCommentChain=True)
-
-        big_array = []
-        for i in propEnds:
-            temp_array = [i]
-            if (i.replyingTo != None):
-                currentComment = Comment.objects.get(commentID=i.commentID)
-                while (currentComment.replyingTo != None):
-                    currentComment = Comment.objects.get(commentID=i.replyingTo)
-                    temp_array.append(currentComment)
-                    
-            big_array.append(temp_array)
-
-        print(big_array)
-        return prop.reviews.all() # returning all the reviews for now
-
-        # return big_array
-        
-        # dont use
-        # return Comment.objects.filter(user=self.request.user, content_type = 8) # content type = 8 is property comment
-"""
-
-
 class CommentListProperty (APIView):
 
     permission_classes = [IsAuthenticated]
     
     def get (self, request, pk):
-        
-
-        prop = Property.objects.get(id=self.kwargs['pk'])
-
-        #serializer = CommentSerializer(prop)
-        
-        
+        prop = Property.objects.get(id=self.kwargs['pk'])        
         propEnds = prop.reviews.filter(endOfCommentChain=True)
         print(propEnds.all())
 
