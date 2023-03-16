@@ -20,9 +20,11 @@ class UserCreate(CreateAPIView):
     serializer_class = UserSerializer
 
 class UserGetSet(RetrieveAPIView, UpdateAPIView):
+    permission_classes = []
     serializer_class = UserSerializer
+
     def get_object(self):
-        return get_object_or_404(User, id=self.kwargs['pk'])
+        return get_object_or_404(User, id=self.request.user.id)
 
 class CommentCreateUser(CreateAPIView):
     permission_classes = [IsAuthenticated]
