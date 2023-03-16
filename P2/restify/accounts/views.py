@@ -20,7 +20,7 @@ class UserCreate(CreateAPIView):
     serializer_class = UserSerializer
 
 class UserGetSet(RetrieveAPIView, UpdateAPIView):
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
 
     def get_object(self):
