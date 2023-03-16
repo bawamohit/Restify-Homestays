@@ -90,11 +90,15 @@ class CommentListProperty (APIView):
 
         # print(big_array)
 
-        page_num = self.request.GET.get('page_number', None)
+        page_num = self.request.GET.get('page', None)
 
-        if page_num is not None and int(page_num) < len(big_array):
-            page_num = int(page_num)
-            return JsonResponse(big_array[page_num - 1:page_num], safe=False)
+        print("pagenum is: ", page_num)
+        print("bigarray is: ", len(big_array))
+
+        if page_num is not None:
+            page_num = int(page_num) - 1
+            if page_num < len(big_array):
+                return JsonResponse(big_array[page_num:page_num + 1], safe=False)
 
         if len(big_array) >= 1:
             return JsonResponse(big_array[0:1], safe=False)

@@ -113,7 +113,7 @@ class CommentSerializer(ModelSerializer):
             
             # you can't make more than 2 reviews on a property
             if clean_data['replyingTo'] == None:
-                usersCommentsOnThisProperty = Comment.objects.filter(object_id = propertyID, user=self.context.get('user'))
+                usersCommentsOnThisProperty = Comment.objects.filter(object_id = propertyID, content_type=ContentType.objects.get_for_model(Property), user=self.context.get('user'))
                 if list(usersCommentsOnThisProperty) != []:
                     raise ValidationError({"Cannot make another review on this property, you can only reply to host replies to your original review!"})
         
