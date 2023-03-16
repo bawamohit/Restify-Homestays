@@ -72,15 +72,16 @@ class CommentListProperty (APIView):
     def get (self, request, pk):
         prop = Property.objects.get(id=self.kwargs['pk'])        
         propEnds = prop.reviews.filter(endOfCommentChain=True)
-        print(propEnds.all())
+        # print(propEnds.all())
 
         big_array = []
         for i in propEnds:
             temp_array = [i]
             if (i.replyingTo != None):
                 currentComment = Comment.objects.get(commentID=i.commentID)
+
                 while (currentComment.replyingTo != None):
-                    currentComment = Comment.objects.get(commentID=i.replyingTo)
+                    currentComment = Comment.objects.get(commentID=currentComment.replyingTo)
                     temp_array.append(currentComment)
             
             temp_array = temp_array[::-1]
@@ -95,7 +96,7 @@ class CommentListProperty (APIView):
             page_num = int(page_num)
             return JsonResponse(big_array[page_num - 1:page_num], safe=False)
 
-        if len(big_array) > 1:
+        if len(big_array) >= 1:
             return JsonResponse(big_array[0:1], safe=False)
         
         return JsonResponse([], safe=False)
