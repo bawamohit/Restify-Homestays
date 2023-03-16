@@ -28,7 +28,7 @@ class CommentSerializer(ModelSerializer):
 
         # VALIDATION ERRORS FOR USER COMMENTS
         # if clean_data['content_type'].name == 'user': # user comment
-        if self.context.get('content_type') == ContentType.objects.get(id=6):
+        if self.context.get('content_type') == ContentType.objects.get_for_model(User):
             
             # the user you are commenting on must has a reservation on your property (YOU ARE THE HOST)
             yourProperties = Property.objects.filter(owner=self.context.get('user'))
@@ -56,7 +56,7 @@ class CommentSerializer(ModelSerializer):
         # VALIDATION ERRORS FOR PROPERTY COMMENTS
         # check if user reserved property (and they are not the host) before they can comment
         # if clean_data['content_type'].name == 'property': # property comment
-        if self.context.get('content_type') == ContentType.objects.get(id=8):
+        if self.context.get('content_type') == ContentType.objects.get_for_model(Property):
             propertyID = self.context.get('view').kwargs.get('pk') # property being commented on
             theProperty = Property.objects.get(pk=propertyID)
             userReservations = Reservation.objects.filter(requester=self.context.get('user'), property = theProperty)

@@ -30,12 +30,12 @@ class CommentCreateUser(CreateAPIView):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context.update({"content_type": ContentType.objects.get(id=6)})
+        context.update({"content_type": ContentType.objects.get_for_model(User)})
         context.update({"user": self.request.user})
         return context
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], content_type=ContentType.objects.get(id=6))
+        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], content_type=ContentType.objects.get_for_model(User))
 
 class CommentCreateProperty(CreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -43,12 +43,12 @@ class CommentCreateProperty(CreateAPIView):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context.update({"content_type": ContentType.objects.get(id=8)})
+        context.update({"content_type": ContentType.objects.get_for_model(Property)})
         context.update({"user": self.request.user})
         return context
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], endOfCommentChain=True, content_type=ContentType.objects.get(id=8))
+        serializer.save(user=self.request.user, object_id=self.kwargs['pk'], endOfCommentChain=True, content_type=ContentType.objects.get_for_model(Property))
         instance = serializer.save()
         
         # set the new end of comment chain
@@ -63,7 +63,7 @@ class CommentListUser(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
     def get_queryset(self):
-        return Comment.objects.filter(object_id=self.kwargs['pk'], content_type = 6) # content type = 6 is user comment
+        return Comment.objects.filter(object_id=self.kwargs['pk'], content_type=ContentType.objects.get_for_model(User))
 
 class CommentListProperty (APIView):
 
