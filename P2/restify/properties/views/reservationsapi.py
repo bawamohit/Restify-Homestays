@@ -41,6 +41,7 @@ class CreateReservation(CreateAPIView):
         
     def perform_create(self, serializer):
         serializer.validated_data['status'] = 'Pending'
+        serializer.save(requester=self.request.user)
         super().perform_create(serializer)
 
 class RetrieveReservation(RetrieveAPIView, UpdateAPIView):
