@@ -3,6 +3,7 @@ from .models import User
 from properties.models import Comment, Reservation, Property
 from django.core.exceptions import ValidationError
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.hashers import make_password
 
 class UserSerializer(ModelSerializer):
     first_name = CharField(max_length = 20)
@@ -16,6 +17,9 @@ class UserSerializer(ModelSerializer):
     def create(self, validated_data):
         # print(self.context['request'].user)
         return super().create(validated_data)
+    
+    def validate_password(self, value):
+        return make_password(value)
 
 class CommentSerializer(ModelSerializer):
 
