@@ -66,10 +66,10 @@ class CommentSerializer(ModelSerializer):
                 raise ValidationError({"You never reserved this property and you are not the host!"})
             
             elif list(userReservations) != [] and self.context.get('user') != theProperty.owner: # you have a reservation check if its completed/terminated
-                # must be completed or terminated reservation (status 6 or 8)
+                # must be completed or terminated reservation
                 completedOrTerminated = False
                 for theReservation in list(userReservations):                    
-                    if theReservation.status == "6" or theReservation.status == "8":
+                    if theReservation.status == "Completed" or theReservation.status == "Terminated":
                         completedOrTerminated = True
                     
                 if completedOrTerminated == False:
