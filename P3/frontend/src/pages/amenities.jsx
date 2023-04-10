@@ -115,8 +115,8 @@ function App() {
             </div>
 
             <div class="container">
-                <a class="btn btn-secondary" href="/createproperty.html" role="button">Previous Page</a>
-                <a class="btn float-end button-darken" style={{ background: '#85bded' }} href="/propertycreated.html" role="button">Create Property!</a>
+                <a class="btn btn-secondary" href="create" role="button">Previous Page</a>
+                <a class="btn float-end button-darken" style={{ background: '#85bded' }} href="hostproperties" role="button">Create Property!</a>
             </div>
 
         </div>

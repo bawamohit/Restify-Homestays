@@ -1,39 +1,55 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-// nav
+// import components
 import Navbar from './components/navbar'
 import UserNavbar from './components/usernavbar';
+import Footer from './components/footer';
 
-// components or pages
-import PropertyCreate from './components/propertycreate'
-import PropertyEdit from './components/propertyedit'
-import Amenities from './components/amenities'
-import AmenitiesEdit from './components/amenitiesedit'
-import MyProperties from './components/myproperties'
-import PropertyView from './components/propertyview'
+// import pages
+import PropertySearch from './pages/propertysearch';
+import PropertyCreate from './pages/propertycreate'
+import PropertyEdit from './pages/propertyedit'
+import Amenities from './pages/amenities'
+import AmenitiesEdit from './pages/amenitiesedit'
+import MyProperties from './pages/myproperties'
+import PropertyView from './pages/propertyview'
+import PropertyViewGuest from './pages/propertyviewguest'
+import ShowNotifications from './pages/notifications';
+import ShowReservationsStay from './pages/reservationsstay';
+import ShowReservationsHost from './pages/reservationshost';
 
 function App() {
+  var navbar = <Navbar/>
+  var logged_in = false
+  if (logged_in) {
+    navbar = <UserNavbar/>
+  }
+
   return <BrowserRouter>
-    <UserNavbar/>
+    {navbar}
     <Routes>
-      <Route path="/" element={<h1>home</h1>}>
-        <Route path="dashboard" element={<h1>dash</h1>}/>
+      <Route path="/" element={<PropertySearch/>}>
+        <Route path="dashboard" element={<PropertySearch/>}/>
       </Route>
-      <Route path="/stay/">
-        <Route path="accepted" element={<h1>stay accepted</h1>}/>
-        <Route path="pending" element={<h1>stay pending</h1>}/>
-        <Route path="past" element={<h1>stay past</h1>}/>
+      <Route path="/reservations/">
+        <Route path="stay" element={<ShowReservationsStay />}/>
+        <Route path="host" element={<ShowReservationsHost />}/>
       </Route>
-      <Route path="/host/">
-        <Route path="properties/">
-          <Route path="create" element={<h1>host property create</h1>}/>
-          <Route path="edit" element={<h1>host property edit</h1>}/>
-        </Route>
-        <Route path="accepted" element={<h1>host accepted</h1>}/>
-        <Route path="pending" element={<h1>host pending</h1>}/>
-        <Route path="past" element={<h1>host past</h1>}/>
+      <Route path="/properties/">
+          <Route path="create" element={<PropertyCreate />}/>
+          <Route path="edit" element={<PropertyEdit />}/>
+          <Route path="hostproperties" element={<MyProperties />}/>
+          <Route path="amenities" element={<Amenities />}/>
+          <Route path="amenitiesedit" element={<AmenitiesEdit />}/>
+          <Route path="hostview" element={<PropertyView />}/>
+          <Route path="guestview" element={<PropertyViewGuest />}/>
+      </Route>
+      <Route path="/account/">
+        <Route path="profile" element={<h1>profile</h1>}/>
+        <Route path="notifications" element={<ShowNotifications />}/>
       </Route>
     </Routes>
+    <Footer />
   </BrowserRouter>
 }
 

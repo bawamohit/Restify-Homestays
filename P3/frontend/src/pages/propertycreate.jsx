@@ -257,14 +257,19 @@ function PropertyCreate() {
                         </div>
                     </div>
 
-          <div class="row">
-            <div class="col-2 ">
-            </div>
-            <div class="col-md-6 ">
-              <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken"></img>
-              <img src="PropertyData/Pineapple3.jpg" alt="House 3" class="house1createproperty img-darken"></img>
-            </div>
-            </div>
+                    <div class="row">
+                        <div class="col-2 ">
+                        </div>
+                        <div class="col-md-6 ">
+                            <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken"></img>
+                            <img src="PropertyData/Pineapple3.jpg" alt="House 3" class="house1createproperty img-darken"></img>
+                        </div>
+                    </div>
+
+                    <div class="container pb-3">
+                        <a class="btn btn-secondary" href="hostproperties" role="button">Previous Page</a>
+                        <a class="btn float-end button-darken" style={{background: "#85bded"}} href="amenities" role="button">Next Page</a>
+                    </div>
 
                 </form>
             </div >

@@ -3,7 +3,7 @@ function PropertyView() {
         <div>
 
             <div class="container d-flex justify-content-start pt-3">
-                <a class="btn button-darken" style={{ background: '#85bded' }} href="propertycreated.html" role="button">❮ Go back to host page</a>
+                <a class="btn button-darken" style={{ background: '#85bded' }} href="hostproperties" role="button">❮ Go back to host page</a>
             </div>
 
 
