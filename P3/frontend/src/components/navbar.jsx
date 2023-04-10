@@ -1,4 +1,7 @@
 function Navbar() {
+    
+    // GET DATA
+    
     return (
         <nav class="navbar navbar-expand-md" style={{background: '#85bded'}}>
             <div class="container">
