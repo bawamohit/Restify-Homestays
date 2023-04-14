@@ -8,11 +8,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-// <PropertyCreate />
-// <PropertyEdit />
-// <Amenities />
-// <AmenitiesEdit />
-// <<PropertyWasCreated />
-// <MyProperties />
-// <PropertyView />
