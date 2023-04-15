@@ -1,4 +1,4 @@
-function App() {
+function Amenities() {
     return (
         <div>
             <h2 class="pt-5 text-secondary text-center">Amenities</h2>
@@ -123,4 +123,4 @@ function App() {
     );
 }
 
-export default App;
+export default Amenities;

@@ -1,6 +1,36 @@
+import { useEffect, useState } from "react";
+import PropertyCard from "../components/propertycard";
+
+const token = { 
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgxNjA1NTczLCJpYXQiOjE2ODE1MTkxNzMsImp0aSI6Ijc1MDAxZWMwZDBiZTQ4OTZhOTFiYTgzOTQ3NmI4N2VjIiwidXNlcl9pZCI6MX0.xzy0PPemNOCP4czCxLO7yDkiyaW0UZoHf8riVDu_KgI", 
+  "token_type": "Bearer", 
+  "expires_in": 3600000 
+};
+
 function PropertyView() {
-    return (
+  
+  
+  const [properties, setProperties] = useState([])
+    const [page, setPage] = useState(1)
+    useEffect(() => {
+        // fetch('http://localhost:8000/' + 'properties/property-search')
+        
+        fetch('http://localhost:8000/properties/property-view/1/',{
+          headers: { 'Authorization': 'Bearer ' + token.access_token } 
+        })
+        .then(response => response.json())
+        // .then(response => console.log(response))
+        // .then(json => console.log(json))
+        .then(json => setProperties(json))
+    }, [])  
+
+    // console.log(properties)
+  
+  
+  return (
         <div>
+
+            {properties.name}
 
             <div class="container d-flex justify-content-start pt-3">
                 <a class="btn button-darken" style={{ background: '#85bded' }} href="hostproperties" role="button">❮ Go back to host page</a>
