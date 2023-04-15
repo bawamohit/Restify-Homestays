@@ -80,6 +80,10 @@ function PropertyCreate() {
             petfriendly: petFriendly,
             tv: TV,
             pillows: pillow,
+            price,
+            currency,
+            check_in_date: checkInDate,
+            check_out_date: checkOutDate
         }
 
         console.log(propertyStuff)
