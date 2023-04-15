@@ -19,50 +19,63 @@ import ShowNotifications from './pages/notifications';
 import ShowReservationsStay from './pages/reservationsstay';
 import ShowReservationsHost from './pages/reservationshost';
 
-function App() { 
-  const [authorized, setAuthorized] = useState(false)
+function App() {
+    const [authorized, setAuthorized] = useState(false)
 
-  function callback(data) {
-    setAuthorized(data)
-  }
+    useEffect(() => {
+        var token = localStorage.getItem('accessToken')
+        if (token) {
+            fetch('http://localhost:8000/accounts/update-user', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            }).then(response => {
+                if (response.ok) {
+                    setAuthorized(true)
+                }
+                else {
+                    setAuthorized(false)
+                }
+            })
+        }
+    }, [])
 
-  const [nav, setNav] = useState(<Navbar callback={callback}/>)
-
-  useEffect(()=>{
-    if (authorized) {
-      setNav(<UserNavbar callback={callback}/>)
+    function callback(data) {
+        setAuthorized(data)
     }
-    else {
-      setNav(<Navbar callback={callback}/>)
-    }
-  }, [authorized])
 
-  return <BrowserRouter>
-    {nav}
-    <Routes>
-      <Route path="/" element={<PropertySearch/>}>
-        <Route path="dashboard" element={<PropertySearch/>}/>
-      </Route>
-      <Route path="/reservations/">
-        <Route path="stay" element={<ShowReservationsStay />}/>
-        <Route path="host" element={<ShowReservationsHost />}/>
-      </Route>
-      <Route path="/properties/">
-          <Route path="create" element={<PropertyCreate />}/>
-          <Route path="edit" element={<PropertyEdit />}/>
-          <Route path="hostproperties" element={<MyProperties />}/>
-          <Route path="amenities" element={<Amenities />}/>
-          <Route path="amenitiesedit" element={<AmenitiesEdit />}/>
-          <Route path="hostview" element={<PropertyView />}/>
-          <Route path="guestview" element={<PropertyViewGuest />}/>
-      </Route>
-      <Route path="/account/">
-        <Route path="profile" element={<h1>profile</h1>}/>
-        <Route path="notifications" element={<ShowNotifications />}/>
-      </Route>
-    </Routes>
-    <Footer />
-  </BrowserRouter>
+    const [nav, setNav] = useState(<Navbar callback={callback} />)
+
+    useEffect(() => {
+        if (authorized) {
+            setNav(<UserNavbar callback={callback} />)
+        }
+        else {
+            setNav(<Navbar callback={callback} />)
+        }
+    }, [authorized])
+
+    return <BrowserRouter>
+        {nav}
+        <Routes>
+            <Route path="/" element={<PropertySearch />} />
+            <Route path="/reservations/">
+                <Route path="stay" element={<ShowReservationsStay />} />
+                <Route path="host" element={<ShowReservationsHost />} />
+            </Route>
+            <Route path="/properties/">
+                <Route path="create" element={<PropertyCreate />} />
+                <Route path="edit" element={<PropertyEdit />} />
+                <Route path="host" element={<MyProperties />} />
+                <Route path="amenities" element={<Amenities />} />
+                <Route path="amenitiesedit" element={<AmenitiesEdit />} />
+                <Route path="hostview" element={<PropertyView />} />
+                <Route path="guestview" element={<PropertyViewGuest />} />
+            </Route>
+            <Route path="/account/">
+                <Route path="profile" element={<h1>profile</h1>} />
+                <Route path="notifications" element={<ShowNotifications />} />
+            </Route>
+        </Routes>
+        <Footer />
+    </BrowserRouter>
 }
-
 export default App;

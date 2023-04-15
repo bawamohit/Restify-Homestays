@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom"
 function UserNavbar(props) {
     
     function handleLogOut() {
+        localStorage.removeItem("accessToken")
+        localStorage.removeItem("refreshToken")
         props.callback(false)
     }
     
@@ -18,18 +20,18 @@ function UserNavbar(props) {
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style={{color: 'white'}} data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Stay</a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><NavLink to="/stay/accepted" className="dropdown-item">Upcoming Stays</NavLink></li>
-                                <li><NavLink to="/stay/pending" className="dropdown-item">Pending Requests</NavLink></li>
-                                <li><NavLink to="/stay/past" className="dropdown-item">Past Stays</NavLink></li>
+                                <li><NavLink to="/reservations/stay" className="dropdown-item">Reservations</NavLink></li>
+                                {/* <li><NavLink to="/stay/pending" className="dropdown-item">Pending Requests</NavLink></li>
+                                <li><NavLink to="/stay/past" className="dropdown-item">Past Stays</NavLink></li> */}
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style={{color: 'white'}} data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Host</a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><NavLink to="/host/properties" className="dropdown-item">Properties</NavLink></li>
-                                <li><NavLink to="/host/accepted" className="dropdown-item">Upcoming Guests</NavLink></li>
-                                <li><NavLink to="/host/pending" className="dropdown-item">Pending Guest Requests</NavLink></li>
-                                <li><NavLink to="/host/past" className="dropdown-item">Past Guests</NavLink></li>
+                                <li><NavLink to="/properties/host" className="dropdown-item">Properties</NavLink></li>
+                                <li><NavLink to="/reservations/host" className="dropdown-item">Reservations</NavLink></li>
+                                {/* <li><NavLink to="/host/pending" className="dropdown-item">Pending Guest Requests</NavLink></li>
+                                <li><NavLink to="/host/past" className="dropdown-item">Past Guests</NavLink></li> */}
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
