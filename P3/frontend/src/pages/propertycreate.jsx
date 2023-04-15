@@ -432,30 +432,9 @@ function PropertyCreate() {
                         </div>
                     </div>
 
-                    <div class="row pb-3">
-                        <div class="col-2 ">
-                        </div>
-                        <div class="col-md-8 ">
-                            <button class="btn btn-light border border-1 float-end">Add Date & Price</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="row pb-3">
-                        <div class="col-2 ">
-                        </div>
-                        <div class="col-md-8 ">
 
-                            <u>
-                                Selected Availablity Dates and Price
-                            </u>
-                            <div>
-                                <strong>x</strong> 13/02/2023 - 15/02/2023 | $200 CAD
-                            </div>
-                            <div>
-                                <strong>x</strong> 17/03/2023 - 19/02/2023 | $300 CAD
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col-2 ">
