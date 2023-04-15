@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { useState, useEffect } from 'react';
 
 // import components
 import Navbar from './components/navbar'
@@ -18,15 +19,26 @@ import ShowNotifications from './pages/notifications';
 import ShowReservationsStay from './pages/reservationsstay';
 import ShowReservationsHost from './pages/reservationshost';
 
-function App() {
-  var navbar = <Navbar/>
-  var logged_in = false
-  if (logged_in) {
-    navbar = <UserNavbar/>
+function App() { 
+  const [authorized, setAuthorized] = useState(false)
+
+  function callback(data) {
+    setAuthorized(data)
   }
 
+  const [nav, setNav] = useState(<Navbar callback={callback}/>)
+
+  useEffect(()=>{
+    if (authorized) {
+      setNav(<UserNavbar callback={callback}/>)
+    }
+    else {
+      setNav(<Navbar callback={callback}/>)
+    }
+  }, [authorized])
+
   return <BrowserRouter>
-    {navbar}
+    {nav}
     <Routes>
       <Route path="/" element={<PropertySearch/>}>
         <Route path="dashboard" element={<PropertySearch/>}/>
