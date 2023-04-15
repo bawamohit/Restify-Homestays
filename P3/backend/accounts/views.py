@@ -25,6 +25,17 @@ class UserGetSet(RetrieveAPIView, UpdateAPIView):
 
     def get_object(self):
         return get_object_or_404(User, id=self.request.user.id)
+    
+
+class UserList(ListAPIView):
+    permission_classes = []
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            queryset = User.objects.all()
+            return queryset
+
 
 class CommentCreateUser(CreateAPIView):
     permission_classes = [IsAuthenticated]
