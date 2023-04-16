@@ -103,8 +103,8 @@ class PropertyList(ListAPIView):
             if sortby is not None:
                 if sortby.lower() == 'guests':
                     queryset = queryset.order_by('-number_of_guests')
-                elif sortby.lower() == 'beds':
-                    queryset = queryset.order_by('-number_of_beds')
+                elif sortby.lower() == 'price':
+                    queryset = queryset.order_by('-price')
             
             return queryset
         

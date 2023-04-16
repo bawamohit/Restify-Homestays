@@ -8,13 +8,14 @@ function PropertySearch() {
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null)
     
+    const [sortby, setSortby] = useState("price")
     const [wifi, setWifi] = useState(false)
     const [pet, setPet] = useState(false)
     const [tv, setTv] = useState(false)
     const [pillows, setPillows] = useState(false)
 
     useEffect(() => {
-        var queryString = `properties/property-search?page=${page}&wifi=${wifi}&petfriendly=${pet}&tv=${tv}&pillows=${pillows}`
+        var queryString = `properties/property-search?page=${page}&wifi=${wifi}&petfriendly=${pet}&tv=${tv}&pillows=${pillows}&sortby=${sortby}`
         fetch(process.env.REACT_APP_BACKEND_API + queryString)
         .then(response => response.json())
         .then(json => {
@@ -22,38 +23,33 @@ function PropertySearch() {
             setNext(json.next)
             setPrevious(json.previous)
         })
-    }, [page, wifi, pet, tv, pillows])
+    }, [page, wifi, pet, tv, pillows, sortby])
+
+    function handleChange() {
+        setSortby(document.getElementById("sortby").value);
+    }
 
     return (
     <div>
-        <div className="ms-auto me-auto" style={{maxWidth: "700px"}}>
+        <div className="ms-auto me-auto px-3" style={{maxWidth: "700px"}}>
             <div className="d-flex gap-2 justify-content-center flex-wrap py-4 ms-auto me-auto">
-                <div className="input-group">
-                    <div className="form-floating">
-                        <input type="date" className="form-control" id="checkIn"/>
-                        <label htmlFor="checkIn">Check-in</label>
-                    </div>
-                    <div className="form-floating">
-                        <input type="date" className="form-control" id="checkOut"/>
-                        <label htmlFor="checkOut">Check-out</label>
-                    </div>
-                    <div className="form-floating">
-                        <select className="form-select" id="guests" aria-label="select guests">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4+</option>
-                        </select>
-                        <label htmlFor="guests">Guests</label>
-                    </div>
-                </div>
                 <div className="input-group">
                     <div className="form-floating">
                         <input type="search" className="form-control" id="search" placeholder="Location" aria-label="Search"
                             aria-describedby="search-addon2"/>
                         <label htmlFor="search">Location</label>
                     </div>
+                    
                     <button className="btn btn-secondary" type="button" id="button-addon2"><i className="fas fa-search"></i></button>
+                </div>
+                <div className="input-group">
+                    <div className="form-floating">
+                        <select onChange={handleChange} className="form-select" id="sortby" aria-label="select sortby">
+                            <option value="price">Price</option>
+                            <option value="guests">Guests</option>
+                        </select>
+                        <label htmlFor="guests">Sort By</label>
+                    </div>
                 </div>
             </div>
 
@@ -89,9 +85,9 @@ function PropertySearch() {
         <div className="album my-4">
             <div className="container">
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    {properties.map(property => 
-                        <PropertyCard key={property.id} name={property.name} image={property.images} price={property.price} currency={property.currency}/>
-                    )}
+                    {properties.map((property) => {
+                        return <PropertyCard key={property.id} name={property.name} pid={property.id} price={property.price} currency={property.currency}/>
+                    })}
                 </div>
             </div>
         </div>

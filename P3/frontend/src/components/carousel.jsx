@@ -1,33 +1,45 @@
-function Carousel() {
+import { useState, useEffect } from "react"
+
+function Carousel(props) {
+    const [images, setImages] = useState([])
+
+    useEffect(() => {
+        fetch(process.env.REACT_APP_BACKEND_API + "properties/property-image-list/" + props.pid)
+            .then(response => response.json())
+            .then(json => {
+                setImages(json)
+                console.log(json)
+            })
+    }, [])
+
     return (
-        <div id="pineapple_carousel" class="carousel slide" data-bs-ride="true">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#pineapple_carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#pineapple_carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#pineapple_carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="PropertyData/Pineapple1.jpg" class="d-block w-100" alt="..."></img>
+        <div id={`property_${props.pid}_carousel`} className="carousel slide" data-bs-ride="true">
+            <div className="carousel-indicators">
+                {images.map((image, i) => {
+                    if (i === 0) {
+                        return <button key={image.id} type="button" data-bs-target={`#property_${props.pid}_carousel`} data-bs-slide-to={i} className="active" aria-current="true" aria-label={`Slide ${i+1}`}></button>
+                    }
+                    return <button key={image.id} type="button" data-bs-target={`#property_${props.pid}_carousel`} data-bs-slide-to={i} aria-label={`Slide ${i+1}`}></button>
+                })}
             </div>
-            <div class="carousel-item">
-              <img src="PropertyData/Pineapple2.jpg" class="d-block w-100" alt="..."></img>
+            <div className="carousel-inner">
+                {images.map((image, i) => {
+                    if (i === 0) {
+                        return <div key={image.id} className="carousel-item active"><img src={image.image} className="d-block w-100" alt="..."></img></div>
+                    }
+                    return <div key={image.id} className="carousel-item"><img src={image.image} className="d-block w-100" alt="..."></img></div>
+                })}
             </div>
-            <div class="carousel-item">
-              <img src="PropertyData/Pineapple3.jpg" class="d-block w-100" alt="..."></img>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#pineapple_carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#pineapple_carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+            <button className="carousel-control-prev" type="button" data-bs-target={`#property_${props.pid}_carousel`} data-bs-slide="prev">
+                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Previous</span>
+            </button>
+            <button className="carousel-control-next" type="button" data-bs-target={`#property_${props.pid}_carousel`} data-bs-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Next</span>
+            </button>
         </div>
     );
-  }
-  
-  export default Carousel;
-  
+}
+
+export default Carousel;

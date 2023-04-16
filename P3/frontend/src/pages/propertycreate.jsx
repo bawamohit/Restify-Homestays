@@ -71,7 +71,6 @@ function PropertyCreate() {
             city,
             country,
             postal_code : postal,
-            images: null,
             description,
             number_of_guests: guest,
             number_of_beds: bed,

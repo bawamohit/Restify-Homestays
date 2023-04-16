@@ -1,16 +1,17 @@
 import Carousel from "./carousel"
+import { NavLink } from "react-router-dom";
 
-function PropertyCard(props) {
+function PropertyCard(props) {  
     return (
         <div className="col">
             <div className="card h-100 shadow-sm">
-                <img src={props.image}/>
+                <Carousel pid={props.pid}/>
                 <div className="card-body">
                     <p className="card-text">
                         {props.name}
                     </p>
                     <div className="d-flex justify-content-between align-items-center">
-                        <a href="./viewproperty.html" className="btn btn-sm btn-outline-secondary">Reserve!</a>
+                        <NavLink to="./viewproperty.html" className="btn btn-sm btn-outline-secondary">Reserve!</NavLink>
                         <small className="text-muted">${props.price} {props.currency}/day</small>
                     </div>
                 </div>
