@@ -3,3 +3,4 @@ from .comment import Comment
 from .propertyAvailability import PropertyAvailability
 from .reservation import Reservation
 from .notification import Notification
+from .propertyImage import PropertyImage
