@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Login(props) {
-    [error, setError] = useState("")
+    const [error, setError] = useState("")
 
     function handleLogIn() {
         fetch(process.env.REACT_APP_BACKEND_API + "api/token/", {
@@ -57,17 +57,3 @@ function Login(props) {
 }
 
 export default Login;
-
-useEffect(() => {
-    fetch('http://localhost:8000/properties/property-view/3/', {
-      headers: { 'Authorization': 'Bearer ' + token.access_token }
-    }).then(response => response.json())
-    .then(json => {setProperties(json)})
-    .then(() => {
-        console.log(properties.owner)
-        fetch('http://localhost:8000/accounts/list-user/?page=' + properties.owner, {
-          headers: { 'Authorization': 'Bearer ' + token.access_token }
-        }).then(response => response.json())
-        .then(json => setUsers(json))
-    })
-}, [])
