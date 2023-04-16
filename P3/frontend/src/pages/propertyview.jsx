@@ -68,10 +68,10 @@ function PropertyView() {
                         <div className="pad-move">
                             <h5 className="d-flex justify-content-start pt-3 ">Details</h5>
                             <div className="d-flex justify-content-start">
-                                Host Email: spongebob@gmail.com
+                                Host Email: {host.email}
                             </div>
                             <div className="d-flex justify-content-start">
-                                Host Phone Number: 647-111-2222
+                                Host Phone Number: {host.phoneNumber}
                             </div>
                             <div className="d-flex justify-content-start">
                                 Address: {property.address}, {property.postal_code}, {property.city}, {property.country}

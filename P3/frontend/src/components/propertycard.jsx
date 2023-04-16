@@ -11,7 +11,7 @@ function PropertyCard(props) {
                         {props.name}
                     </p>
                     <div className="d-flex justify-content-between align-items-center">
-                        <NavLink to="./viewproperty.html" className="btn btn-sm btn-outline-secondary">Reserve!</NavLink>
+                        <NavLink to={"/properties/view/" + props.pid} className="btn btn-sm btn-outline-secondary">Reserve!</NavLink>
                         <small className="text-muted">${props.price} {props.currency}/day</small>
                     </div>
                 </div>
