@@ -1,41 +1,83 @@
 import { useEffect, useState } from "react";
 
+var token = localStorage.getItem('accessToken')
+
 function ShowReservationsHost() {
   const [reservation, setReservation] = useState([]);
-  const [query, setQuery] = useState({ search: "", page: 1 });
+  const [query, setQuery] = useState({search: "", page: 1 });
   const [totalPages, setTotalPages] = useState(1);
+
   useEffect(() => {
-    fetch(process.env.REACT_APP_BACKEND_API + 'properties/reservation-user/?page=${query.page}')
-      .then(response => {
-        console.log(response);
-        if (response.status === 200) {
-          return response.json();
-        } else if (response.status === 404) {
-          throw new Error('Requested resource not found');
-        } else {
-          throw new Error('Server error');
-        }
+    if (query.page === 1) {
+      fetch(process.env.REACT_APP_BACKEND_API + 'properties/reservation-host/', {
+        headers: { 'Authorization': 'Bearer ' + token }
       })
-      .then(json => {
-        console.log("yay");
-        setReservation(json.data.results);
-        setTotalPages(json.data.count / 10);
-      }).catch(error => {
-        console.log("no");
-        console.log(error);
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else if (response.status === 404) {
+            throw new Error('Requested resource not found');
+          } else {
+            throw new Error('Server error');
+          }
+        })
+        .then(json => {
+
+          if(query.search === ""){
+            setReservation(json.results);
+            setTotalPages(Math.max(Math.ceil(json.count / 2), 1));
+          }else{
+            setReservation(json.results.filter((reservation) => reservation.status === query.search));
+            setTotalPages(Math.max(Math.ceil((json.results.filter((reservation) => reservation.status === query.search).length) / 2), 1));
+          }
+          
+        }).catch(error => {
+
+          console.log(error);
+        })
+    } else {
+      fetch(process.env.REACT_APP_BACKEND_API + 'properties/reservation-host/?page=' + query.page, {
+        headers: { 'Authorization': 'Bearer ' + token }
       })
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else if (response.status === 404) {
+            throw new Error('Requested resource not found');
+          } else {
+            throw new Error('Server error');
+          }
+        })
+        .then(json => {
+          if(query.search === ""){
+            setReservation(json.results);
+            setTotalPages(Math.max(Math.ceil(json.count / 2), 1));
+          }else{
+            setReservation(json.results.filter((reservation) => reservation.status === query.search));
+            setTotalPages(Math.max(Math.ceil((json.results.filter((reservation) => reservation.status === query.search).length) / 2), 1));
+          }
+          if(totalPages === 0){
+            setTotalPages(1);
+          }
+        }).catch(error => {
+
+          console.log(error);
+        })
+    }
+
   }, [query])
   return (
     <div class="container text-center">
       <div class="pt-5 pb-5 btn-group" role="group" aria-label="Button group with 7 buttons">
-        <button type="button" class="btn btn-secondary" onClick={() => setQuery({search: "Pending", ...query.page})}>Pending</button>
-        <button type="button" class="btn btn-secondary" onClick={() => setQuery({search: "PendingCancel", ...query.page})}>PendingCancel</button>
-        <button type="button" class="btn btn-secondary" onClick={() => setQuery({search: "Denied", ...query.page})}>Denied</button>
-        <button type="button" class="btn btn-secondary" onClick={() => setQuery({search: "Expired", ...query.page})}>Expired</button>
-        <button type="button" class="btn btn-secondary" onClick={() => setQuery({search: "Approved", ...query.page})}>Approved</button>
-        <button type="button" class="btn btn-secondary" onClick={() => setQuery({search: "Canceled", ...query.page})}>Canceled</button>
-        <button type="button" class="btn btn-secondary" onClick={() => setQuery({search: "Terminated", ...query.page})}>Terminated</button>
-        <button type="button" class="btn btn-secondary" onClick={() => setQuery({search: "Completed", ...query.page})}>Completed</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "", page: 1 })}>All</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "Pending", page: 1 })}>Pending</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "PendingCancel", page: 1 })}>PendingCancel</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "Denied", page: 1 })}>Denied</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "Expired", page: 1 })}>Expired</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "Approved", page: 1 })}>Approved</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "Canceled", page: 1 })}>Canceled</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "Terminated", page: 1 })}>Terminated</button>
+        <button type="button" class="btn btn-secondary" onClick={() => setQuery({ search: "Completed", page: 1 })}>Completed</button>
       </div>
       <h2 class="pt-5 pb-5 text-secondary text-center">Upcoming Host</h2>
       <div class="accordion" id="reservationList">
@@ -68,8 +110,8 @@ function ShowReservationsHost() {
                       return (
                         <div class="d-flex pt-4 justify-content-between" >
                           <div>
-                            <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
-                            <a href="#" class="btn float-right" style="background: #85bded;" data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
+                            <a href="#" class="btn float-left" style={{background: '#85bded'}}>Details</a>
+                            <a href="#" class="btn float-right" style={{background: '#85bded'}} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
                           </div>
                           <div>
                             <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#accept-modal">Accept</a>
@@ -81,8 +123,8 @@ function ShowReservationsHost() {
                       return (
                         <div class="d-flex pt-4 justify-content-between" >
                           <div>
-                            <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
-                            <a href="#" class="btn float-right" style="background: #85bded;" data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
+                            <a href="#" class="btn float-left" style={{background: '#85bded'}}>Details</a>
+                            <a href="#" class="btn float-right" style={{background: '#85bded'}} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
                           </div>
                           <div>
                             <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#accept-modal">Accept Cancel</a>
@@ -92,19 +134,19 @@ function ShowReservationsHost() {
 
                     case "Denied":
                       return (<div class="d-flex justify-content-between pt-4" >
-                        <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                        <a href="#" class="btn float-left" style={{background: '#85bded'}}>Details</a>
                       </div>);
 
                     case "Expired":
                       return (<div class="d-flex justify-content-between pt-4" >
-                        <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
+                        <a href="#" class="btn float-left" style={{background: '#85bded'}}>Details</a>
                       </div>);
 
                     case "Approved":
                       return (<div class="d-flex pt-4 justify-content-between" >
                         <div>
-                          <a href="#" class="btn float-left" style="background: #85bded;">Details</a>
-                          <a href="#" class="btn float-right" style="background: #85bded;" data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
+                          <a href="#" class="btn float-left" style={{background: '#85bded'}}>Details</a>
+                          <a href="#" class="btn float-right" style={{background: '#85bded'}} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
                         </div>
                         <div>
                           <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#terminate-modal">Terminate</a>
@@ -113,17 +155,17 @@ function ShowReservationsHost() {
 
                     case "Canceled":
                       return (<div class="d-flex justify-content-between pt-4" >
-                        <a href="viewproperty.html" class="btn float-left" style="background: #85bded;">Details</a>
+                        <a href="viewproperty.html" class="btn float-left" style={{background: '#85bded'}}>Details</a>
                       </div>);
 
                     case "Terminated":
                       return (<div class="d-flex justify-content-between pt-4" >
-                        <a href="viewproperty.html" class="btn float-left" style="background: #85bded;">Details</a>
+                        <a href="viewproperty.html" class="btn float-left" style={{background: '#85bded'}}>Details</a>
                       </div>);
 
                     case "Completed":
                       return (<div class="d-flex justify-content-between pt-4" >
-                        <a href="viewproperty.html" class="btn float-left" style="background: #85bded;">Details</a>
+                        <a href="viewproperty.html" class="btn float-left" style={{background: '#85bded'}}>Details</a>
                         <a href="#" class="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#user-rate-modal">Rate this user</a>
                       </div>);
                   }

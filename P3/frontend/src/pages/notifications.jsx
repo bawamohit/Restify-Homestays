@@ -21,11 +21,9 @@ const ShowNotifications = () => {
                 }
               })
             .then(json => {
-                console.log("yay");
                 setNotif(json.results);
                 setTotalPages(Math.ceil(json.count / 2));
             }).catch(error => {
-                console.log("no");
                 console.log(error);
             })
         } else {
@@ -33,7 +31,6 @@ const ShowNotifications = () => {
                 headers: {'Authorization': 'Bearer ' + token}
             })
             .then(response => {
-                console.log(response);
                 if (response.status === 200) {
                   return response.json();
                 } else if (response.status === 404) {
@@ -43,11 +40,9 @@ const ShowNotifications = () => {
                 }
               })
             .then(json => {
-                console.log("yay");
                 setNotif(json.results);
                 setTotalPages(Math.ceil(json.count / 2));
             }).catch(error => {
-                console.log("no");
                 console.log(error);
             })
         }
@@ -61,17 +56,12 @@ const ShowNotifications = () => {
             notif.map(notif => (
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {notif.message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => 
-                    fetch(process.env.REACT_APP_BACKEND_API +  'properties/notification/${notif.id}', {
-                        method: 'POST',
-                        headers: {'Authorization': 'Bearer ' + token.access_token},
-                        body: JSON.stringify({
-                            key1: 'value1',
-                            key2: 'value2'
-                        })
+                    <button type="button" class="btn-close" aria-label="Close" onClick={() => 
+                    fetch(process.env.REACT_APP_BACKEND_API +  'properties/notification/' + notif.id, {
+                        headers: {'Authorization': 'Bearer ' + token},
                         })
                         .then(response => {
-                        // handle response
+                            setQuery({...query, page: query.page})
                         })
                         .catch(error => {
                         // handle error
