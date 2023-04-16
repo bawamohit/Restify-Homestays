@@ -11,7 +11,7 @@ function PropertyCard(props) {
                     </p>
                     <div className="d-flex justify-content-between align-items-center">
                         <a href="./viewproperty.html" className="btn btn-sm btn-outline-secondary">Reserve!</a>
-                        <small className="text-muted">$200 CAD/day</small>
+                        <small className="text-muted">${props.price} {props.currency}/day</small>
                     </div>
                 </div>
             </div>

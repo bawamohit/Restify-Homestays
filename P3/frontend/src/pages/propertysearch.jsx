@@ -89,7 +89,9 @@ function PropertySearch() {
         <div className="album my-4">
             <div className="container">
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    {properties.map(property => <PropertyCard key={property.id} name={property.name} image={property.images}/>)}
+                    {properties.map(property => 
+                        <PropertyCard key={property.id} name={property.name} image={property.images} price={property.price} currency={property.currency}/>
+                    )}
                 </div>
             </div>
         </div>

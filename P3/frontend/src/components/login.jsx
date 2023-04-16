@@ -2,12 +2,14 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Login(props) {
+    [error, setError] = useState("")
+
     function handleLogIn() {
         fetch(process.env.REACT_APP_BACKEND_API + "api/token/", {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                username: document.getElementById("login-modal-username").value, 
+                username: document.getElementById("login-modal-username").value,
                 password: document.getElementById("login-modal-password").value
             })
         }).then(response => response.json().then(json => {
@@ -42,6 +44,7 @@ function Login(props) {
                                 <input type="password" className="form-control" id="login-modal-password" placeholder="Password" />
                             </div>
                         </form>
+                        <p>{error}</p>
                     </div>
                     <div className="modal-footer justify-content-between">
                         <div>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#signup-modal">Click here</a></div>
@@ -54,3 +57,17 @@ function Login(props) {
 }
 
 export default Login;
+
+useEffect(() => {
+    fetch('http://localhost:8000/properties/property-view/3/', {
+      headers: { 'Authorization': 'Bearer ' + token.access_token }
+    }).then(response => response.json())
+    .then(json => {setProperties(json)})
+    .then(() => {
+        console.log(properties.owner)
+        fetch('http://localhost:8000/accounts/list-user/?page=' + properties.owner, {
+          headers: { 'Authorization': 'Bearer ' + token.access_token }
+        }).then(response => response.json())
+        .then(json => setUsers(json))
+    })
+}, [])
