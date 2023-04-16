@@ -20,6 +20,11 @@ class UserSerializer(ModelSerializer):
     
     def validate_password(self, value):
         return make_password(value)
+    
+class UserViewSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'phoneNumber', 'avatars']
 
 class CommentSerializer(ModelSerializer):
 

@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, \
     ListAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
-from .serializers import UserSerializer, CommentSerializer
+from .serializers import UserSerializer, CommentSerializer, UserViewSerializer
 from .models import User
 from properties.models import Comment, Property
 from django.http import JsonResponse
@@ -26,6 +26,13 @@ class UserGetSet(RetrieveAPIView, UpdateAPIView):
     def get_object(self):
         return get_object_or_404(User, id=self.request.user.id)
     
+class UserView(RetrieveAPIView):
+    permission_classes = []
+    serializer_class = UserViewSerializer
+
+    def get_object(self):
+        return get_object_or_404(User, id=self.kwargs['pk'])
+
 
 class UserList(ListAPIView):
     permission_classes = []

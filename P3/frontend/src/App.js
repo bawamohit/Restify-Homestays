@@ -67,7 +67,7 @@ function App() {
                 <Route path="host" element={<MyProperties />} />
                 <Route path="amenities" element={<Amenities />} />
                 <Route path="amenitiesedit" element={<AmenitiesEdit />} />
-                <Route path="hostview" element={<PropertyView />} />
+                <Route path="view/:pid" element={<PropertyView />} />
                 <Route path="guestview" element={<PropertyViewGuest />} />
             </Route>
             <Route path="/account/">

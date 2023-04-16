@@ -65,11 +65,11 @@ class PropertyGetSet(RetrieveAPIView, UpdateAPIView):
             return Response({'error': 'You are not the owner of this property'}, status=403)
         return super().update(request, *args, **kwargs)
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        if instance.owner != self.request.user:
-            return Response({'error': 'You are not the owner of this property'}, status=403)
-        return super().retrieve(request, *args, **kwargs)
+    # def retrieve(self, request, *args, **kwargs):
+    #     instance = self.get_object()
+    #     if instance.owner != self.request.user:
+    #         return Response({'error': 'You are not the owner of this property'}, status=403)
+    #     return super().retrieve(request, *args, **kwargs)
 
     def get_object(self):
         return get_object_or_404(Property, id=self.kwargs['pk'])
