@@ -11,8 +11,8 @@ class Property(models.Model):
     postal_code = models.CharField(max_length=50)
     price = models.PositiveIntegerField()
     currency = models.CharField(max_length=50)
-    check_in_date = models.DateField()
-    check_out_date = models.DateField()
+    # check_in_date = models.DateField()
+    # check_out_date = models.DateField()
     images = models.ImageField(upload_to='avatars/', null=True, blank = True) # not sure how this part works
     description = models.CharField(max_length=400)
     number_of_guests = models.PositiveIntegerField()

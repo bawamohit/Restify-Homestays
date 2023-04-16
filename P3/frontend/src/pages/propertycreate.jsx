@@ -25,8 +25,8 @@ function PropertyCreate() {
     const [petFriendly, setPetFriendly] = useState(false)
     const [TV, setTV] = useState(false)
     const [pillow, setPillow] = useState(false)
-    const [checkInDate, setCheckInDate] = useState('')
-    const [checkOutDate, setCheckOutDate] = useState('')
+    // const [checkInDate, setCheckInDate] = useState('')
+    // const [checkOutDate, setCheckOutDate] = useState('')
     const [price, setPrice] = useState('')
     const [currency, setCurrency] = useState('CAD')
     const [image, setImage] = useState('')
@@ -65,7 +65,7 @@ function PropertyCreate() {
         e.preventDefault()
 
         const propertyStuff = {
-            owner: 3,
+            owner: 3, // TODO: SHOULD BE WHOEVER IS LOGGED IN 
             name,
             address,
             city,
@@ -82,8 +82,8 @@ function PropertyCreate() {
             pillows: pillow,
             price,
             currency,
-            check_in_date: checkInDate,
-            check_out_date: checkOutDate
+            // check_in_date: checkInDate,
+            // check_out_date: checkOutDate
         }
 
         console.log(propertyStuff)
@@ -350,8 +350,8 @@ function PropertyCreate() {
                         </ul>
                     </div>
 
-
-                    <div class="row">
+                    
+                    {/* <div class="row">
                         <div class="col-2">
                         </div>
                         <div class="col-md-8">
@@ -399,7 +399,7 @@ function PropertyCreate() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div class="row">
                         <div class="col-2">
@@ -470,7 +470,7 @@ function PropertyCreate() {
                     </div>
 
                     <div class="container pb-3">
-                        <a class="btn btn-secondary" href="hostproperties" role="button">Previous Page</a>
+                        <a class="btn btn-secondary" href="host" role="button">Previous Page</a>
                         <button class="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Create Property!</button>
 
 
