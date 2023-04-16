@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropertyCard from "../components/propertycard";
 
 const token = {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgxNjA1NTczLCJpYXQiOjE2ODE1MTkxNzMsImp0aSI6Ijc1MDAxZWMwZDBiZTQ4OTZhOTFiYTgzOTQ3NmI4N2VjIiwidXNlcl9pZCI6MX0.xzy0PPemNOCP4czCxLO7yDkiyaW0UZoHf8riVDu_KgI",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgxNjk0ODA3LCJpYXQiOjE2ODE2MDg0MDcsImp0aSI6ImJhNGJhMjVhNjZhMTRjMGFhNzJlY2UyMzBjMGEyOTlkIiwidXNlcl9pZCI6MX0.vss_jUMrQEjni-enp_N9mzCM7X6zuEuoyFtn_FE27tQ",
   "token_type": "Bearer",
   "expires_in": 3600000
 };
@@ -15,6 +15,7 @@ function PropertyView() {
   const [reviews, setReviews] = useState([])
   const [page, setPage] = useState(1)
 
+  
   useEffect(() => {
     fetch('http://localhost:8000/properties/property-view/3/', {
       headers: { 'Authorization': 'Bearer ' + token.access_token }
@@ -23,20 +24,27 @@ function PropertyView() {
       .then(json => setProperties(json))
   }, [])
 
-  /*
-  useEffect(() => {
-    fetch('http://localhost:8000/accounts/list-user/?page=' + properties.owner, {
-      headers: { 'Authorization': 'Bearer ' + token.access_token }
-    })
-      .then(response => response.json())
-      .then(json => setUsers(json))
-  }, [])
-  */
+  // console.log(properties)
 
+  // console.log(users.first_name)
+
+  
+  useEffect(() => {
+    if (properties){
+      fetch('http://localhost:8000/accounts/list-user/?page=' + properties.owner, {
+        headers: { 'Authorization': 'Bearer ' + token.access_token }
+      })
+        .then(response => response.json())
+        .then(json => setUsers(json))
+    }
+
+  }, [properties])
+
+  // console.log(properties)
   // console.log(users)
   // console.log(users.first_name)
 
-
+  /*
   useEffect(() => {
     fetch('http://localhost:8000/accounts/view-comment-property/3/', {
       headers: { 'Authorization': 'Bearer ' + token.access_token }
@@ -46,12 +54,16 @@ function PropertyView() {
   }, [])
 
   console.log(reviews)
+  */
+
+
+
 
   return (
     <div>
 
       <div class="container d-flex justify-content-start pt-3">
-        <a class="btn button-darken" style={{ background: '#85bded' }} href="hostproperties" role="button">❮ Go back to host page</a>
+        <a class="btn button-darken" style={{ background: '#85bded' }} href="host" role="button">❮ Go back to host page</a>
       </div>
 
       <h1 class="container d-flex justify-content-center"> {properties.name} </h1>
@@ -138,10 +150,10 @@ function PropertyView() {
               <div class="d-flex justify-content-start">
                 <div class="container d-flex justify-content-start">
                   <ul>
-                    {properties.wifi ? (<li>Wifi</li>): ("")}
-                    {properties.petfriendly ? (<li>Pet Friendly</li>): ("")}
-                    {properties.tv ? (<li>TV</li>): ("")}
-                    {properties.pillows ? (<li>Pillows</li>): ("")}
+                    {properties.wifi ? (<li>Wifi</li>) : ("")}
+                    {properties.petfriendly ? (<li>Pet Friendly</li>) : ("")}
+                    {properties.tv ? (<li>TV</li>) : ("")}
+                    {properties.pillows ? (<li>Pillows</li>) : ("")}
                   </ul>
                 </div>
               </div>
