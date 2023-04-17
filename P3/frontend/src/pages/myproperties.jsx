@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import PropertyCard from "../components/propertycard";
+import MyPropertyCard from "../components/mypropertycard";
+import { NavLink } from "react-router-dom";
 
 function MyProperties() {
     const [properties, setProperties] = useState([])
@@ -23,18 +24,16 @@ function MyProperties() {
 
     return (
         <div>
-            <div class="container">
-                <h2 class="pt-5 pb-5 text-secondary text-center">My Properties</h2>
-                <div class="d-flex justify-content-center my-4">
-                    <a class="btn btn-light border border-1" href="create" role="button">Create New Property</a>
-                    <a class="btn btn-light border border-1" href="edit" role="button">Edit a Property</a>
-                    <a class="btn btn-light border border-1" href="hostview" role="button">(temp) view a property</a>
+            <div className="container">
+                <h2 className="py-4 text-secondary text-center">My Properties</h2>
+                <div className="d-flex justify-content-center">
+                    <NavLink to="/properties/create" className="btn btn-light border border-1" role="button">Create New Property</NavLink>
                 </div>
                 <div className="album my-4">
                     <div className="container">
                         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                             {properties.map((property) => {
-                                return <PropertyCard key={property.id} name={property.name} pid={property.id} price={property.price} currency={property.currency} />
+                                return <MyPropertyCard key={property.id} name={property.name} pid={property.id} price={property.price} currency={property.currency} />
                             })}
                         </div>
                     </div>

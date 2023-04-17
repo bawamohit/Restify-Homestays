@@ -62,13 +62,13 @@ function App() {
                 <Route path="host" element={<ShowReservationsHost />} />
             </Route>
             <Route path="/properties/">
-                <Route path="create" element={<PropertyCreate />} />
-                <Route path="edit" element={<PropertyEdit />} />
                 <Route path="host" element={<MyProperties />} />
-                <Route path="amenities" element={<Amenities />} />
-                <Route path="amenitiesedit" element={<AmenitiesEdit />} />
+                <Route path="create" element={<PropertyCreate />} />
                 <Route path="view/:pid" element={<PropertyView />} />
-                <Route path="guestview" element={<PropertyViewGuest />} />
+                <Route path="edit/:pid" element={<PropertyEdit />} />
+                {/* <Route path="guestview" element={<PropertyViewGuest />} />
+                <Route path="amenities" element={<Amenities />} />
+                <Route path="amenitiesedit" element={<AmenitiesEdit />} /> */}
             </Route>
             <Route path="/account/">
                 <Route path="profile" element={<h1>profile</h1>} />

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
-import PropertyCard from "../components/propertycard";
 import Carousel from "../components/carousel";
 
 function PropertyView() {
@@ -13,10 +12,17 @@ function PropertyView() {
     useEffect(() => {
         fetch('http://localhost:8000/properties/property-view/' + pid, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+        }).then(response => response.json())
+        .then(json => setProperty(json))
+
+        fetch('http://localhost:8000/accounts/view-comment-property/' + pid, {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+        }).then(response => response.json())
+        .then(json => {
+            setReviews(json)
+            console.log(json)
         })
-            .then(response => response.json())
-            .then(json => setProperty(json))
-    }, [])
+    }, [pid])
 
     useEffect(() => {
         if (Object.keys(property).length !== 0) {
@@ -27,17 +33,6 @@ function PropertyView() {
                 .then(json => setHost(json))
         }
     }, [property])
-
-    useEffect(() => {
-        fetch('http://localhost:8000/accounts/view-comment-property/' + pid, {
-            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
-        })
-            .then(response => response.json())
-            .then(json => {
-                setReviews(json)
-                console.log(json)
-            })
-    }, [])
 
     return (
         <div className="container" style={{maxWidth: "700px"}}>

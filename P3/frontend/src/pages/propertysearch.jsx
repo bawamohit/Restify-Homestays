@@ -39,7 +39,6 @@ function PropertySearch() {
                             aria-describedby="search-addon2"/>
                         <label htmlFor="search">Location</label>
                     </div>
-                    
                     <button className="btn btn-secondary" type="button" id="button-addon2"><i className="fas fa-search"></i></button>
                 </div>
                 <div className="input-group">
@@ -54,7 +53,7 @@ function PropertySearch() {
             </div>
 
             <div className="text-center">
-                <form className="ms-auto me-auto">
+                <form className="justify-content-center gap-1 d-flex">
                     <input type="checkbox" className="btn-check" id="wifi-filter" autoComplete="off" onChange={() => {
                         setPage(1)
                         setWifi(!wifi)
