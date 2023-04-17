@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import Carousel from "../components/carousel";
-<<<<<<< HEAD
 import Comment from "../components/comment";
-=======
 import '../style.css'
->>>>>>> 51b308959403db1f79d40e6c5fe93c1afe17c347
 
 function PropertyView() {
     const { pid } = useParams()
@@ -155,7 +152,6 @@ function PropertyView() {
 
             <div className="py-2">
                 <h5>Reviews</h5>
-<<<<<<< HEAD
                 {reviews.map((thread, i) => {
                     return (
                         <div>
@@ -168,7 +164,6 @@ function PropertyView() {
                     
                     
                 })}
-=======
                 {(() => {
                     if (reviews.length !== 0) {
                         return (
@@ -197,7 +192,6 @@ function PropertyView() {
                         )
                     }
                 })()}
->>>>>>> 51b308959403db1f79d40e6c5fe93c1afe17c347
             </div>
 
             <div className="py-2">
