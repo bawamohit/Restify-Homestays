@@ -1,0 +1,119 @@
+.img-max-width {
+  max-width: 720px;
+}
+
+#foot-placeholder {
+  height: 24px;
+}
+
+main {
+  min-height: calc(100vh - 80px);
+}
+
+#search-placeholder {
+  max-width: 700px;
+}
+
+.circleIcon {
+  height: 25px;
+  width: 25px;
+  border: 1px solid black;
+  background-color: white;
+
+  border-width: 1px;
+
+  text-align: center;
+}
+
+.house1css {
+  height: 500px;
+  width: 500px;
+  object-fit: contain;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.housemodalcss {
+  height: 560px;
+  width: 560px;
+  object-fit: contain;
+}
+
+.profile1css {
+  height: 45px;
+  width: 45px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.inside1css {
+  height: 250px;
+  width: 250px;
+  object-fit: contain;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+.form-check-input {
+  transform: scale(1.1);
+}
+
+.bold {
+  font-weight: 500;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: circle;
+}
+
+.pad-move {
+  padding-left: 0px;
+}
+
+.img-darken:hover {
+  filter: brightness(92%);
+}
+
+.button-darken:hover {
+  filter: brightness(92%);
+}
+
+.house1createproperty {
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+}
+
+/* md*/
+@media (min-width: 768px) {
+  .pad-move {
+    padding-left: 10px;
+  }
+}
+
+/* lg*/
+@media (min-width: 992px) {
+  .pad-move {
+    padding-left: 40px;
+  }
+
+  .house1css {
+    height: 700px;
+    width: 700px;
+    object-fit: contain;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* xl*/
+@media (min-width: 1200px) {
+  .pad-move {
+    padding-left: 20px;
+  }
+}
+
+/* xxl*/
+@media (min-width: 1400px) {
+  .pad-move {
+    padding-left: 80px;
+  }
+}
