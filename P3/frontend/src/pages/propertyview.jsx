@@ -9,6 +9,7 @@ function PropertyView() {
     const [host, setHost] = useState({})
     const [reviews, setReviews] = useState([])
     const [user, setUser] = useState([])
+    const [loggedIn, setLoggedIn] = useState([])
     const [page, setPage] = useState(1)
 
     useEffect(() => {
@@ -25,6 +26,16 @@ function PropertyView() {
                 // console.log(json)
             })
     }, [pid, page])
+
+    useEffect(() => {
+        fetch('http://localhost:8000/accounts/see-logged-in-user', {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+        })
+            .then(response => response.json())
+            .then(json => {
+                setLoggedIn(json)
+            })
+    }, [])
 
     useEffect(() => {
         if (Object.keys(property).length !== 0) {
@@ -54,15 +65,6 @@ function PropertyView() {
         reviewArray = reviews[0]
     }
 
-    /*     if (reviewArray.length !== 0) {
-            console.log(reviewArray)
-        } */
-
-
-    if (Object.keys(user).length !== 0) {
-        console.log(user[0])
-    }
-
     let isGuest = true
     if (reviewArray.length !== 0) {
         for (let i = 0; i < reviewArray.length; i++) {
@@ -70,9 +72,7 @@ function PropertyView() {
                 if (Object.keys(user).length !== 0) {
                     reviewArray[i].first_name = user[0].first_name
                     reviewArray[i].last_name = user[0].last_name
-
                     if (reviewArray[i].rating !== null) {
-                        console.log(reviews[0])
                         reviewArray[i].last_name = user[0].last_name
                     }
 
@@ -109,6 +109,23 @@ function PropertyView() {
                 <img src={host.avatars} alt="Host" className="rounded-circle img-fluid" style={{ maxHeight: '80px' }}></img>
             </div>
 
+
+            <div>
+
+                {(() => {
+                    if (Object.keys(user).length !== 0 && Object.keys(host).length !== 0) {
+                    if (host.username !== loggedIn.username) {
+                            return (
+                                <div>(add reserve stuff here)</div>
+                            )  
+                        }
+                    }
+                })()}
+            </div>
+
+
+
+
             <div className="py-2">
                 <h5>Details</h5>
                 <div>Host Email: {host.email}</div>
@@ -138,7 +155,6 @@ function PropertyView() {
                     if (reviews.length !== 0) {
                         return (
                             <div>
-
                                 <div>
                                     <div>  {reviews[0].map(review =>
                                         <div>
@@ -154,15 +170,11 @@ function PropertyView() {
                                                         )
 
                                                 })()}
-
-
-
                                             </div>
                                             <ul>{review.body}</ul>
                                         </div>
                                     )}</div>
                                 </div>
-
                             </div>
                         )
                     }
@@ -172,7 +184,7 @@ function PropertyView() {
             <div className="py-2">
                 <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
                     <button className="btn btn-secondary my-5" type="button" onClick={() => { if (page - 1 !== 0) setPage(page - 1) }}>Previous Review</button>
-                    <button className="btn btn-secondary my-5" type="button" onClick={() => { setPage(page + 1) }}>Next Review</button>
+                    <button className="btn btn-secondary my-5" type="button" onClick={() => { if (page < reviewArray.length + 1) setPage(page + 1) }}>Next Review</button>
                 </div>
             </div>
 
