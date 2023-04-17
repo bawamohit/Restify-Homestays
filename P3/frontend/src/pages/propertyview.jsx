@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import Carousel from "../components/carousel";
+import Comment from "../components/comment";
 
 function PropertyView() {
     const { pid } = useParams()
@@ -73,6 +74,18 @@ function PropertyView() {
 
             <div className="py-2">
                 <h5>Reviews</h5>
+                {reviews.map((thread, i) => {
+                    return (
+                        <div>
+                            {thread.map((comment, j) => {
+                                return <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating}/>
+                            })}
+                            <button type="button" className="btn px-5">reply</button>
+                        </div>
+                    )
+                    
+                    
+                })}
             </div>
         </div>
     );

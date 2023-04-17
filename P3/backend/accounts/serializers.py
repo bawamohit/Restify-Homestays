@@ -30,7 +30,7 @@ class CommentSerializer(ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['user','body', 'rating', "content_type", "replyingTo"]
+        fields = ['id', 'user','body', 'rating', "content_type", "replyingTo"]
         read_only_fields = ['content_type','user']
 
     def validate(self, clean_data):
