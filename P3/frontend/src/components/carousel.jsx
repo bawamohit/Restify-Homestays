@@ -8,7 +8,6 @@ function Carousel(props) {
             .then(response => response.json())
             .then(json => {
                 setImages(json)
-                console.log(json)
             })
     }, [])
 
