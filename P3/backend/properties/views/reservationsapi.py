@@ -71,12 +71,24 @@ class ReservationStatus(ListAPIView):
     pagination_class = PageNumberPagination
     
     def get_queryset(self):
-        queryset = Reservation.objects.filter(requester=self.request.user)
-        status = self.request.query_params.get('status')
-        if status:
-            stati = ['Pending', 'Denied', 'Expired', 'Approved', 'Canceled', 'Terminated', 'PendingCancel', 'Completed']
-            if status in stati:
-                queryset = queryset.filter(status=status)
+        hostuser = self.request.query_params.get('hostuser')
+        if hostuser == "host":
+            queryset = Reservation.objects.filter(property__in=self.request.user.property_set.all())
+            status = self.request.query_params.get('status')
+
+            if status:
+                stati = ['Pending', 'Denied', 'Expired', 'Approved', 'Canceled', 'Terminated', 'PendingCancel', 'Completed']
+                if status in stati:
+                    queryset = queryset.filter(status=status)
+        else:
+            queryset = Reservation.objects.filter(requester=self.request.user)
+            status = self.request.query_params.get('status')
+
+            if status:
+                stati = ['Pending', 'Denied', 'Expired', 'Approved', 'Canceled', 'Terminated', 'PendingCancel', 'Completed']
+                if status in stati:
+                    queryset = queryset.filter(status=status)
+
         return queryset
 
 #List of reservations that the user can see(requested by user)

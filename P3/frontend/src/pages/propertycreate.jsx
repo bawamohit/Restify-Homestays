@@ -2,12 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
-const token = {
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgxNjA1NTczLCJpYXQiOjE2ODE1MTkxNzMsImp0aSI6Ijc1MDAxZWMwZDBiZTQ4OTZhOTFiYTgzOTQ3NmI4N2VjIiwidXNlcl9pZCI6MX0.xzy0PPemNOCP4czCxLO7yDkiyaW0UZoHf8riVDu_KgI",
-    "token_type": "Bearer",
-    "expires_in": 3600000
-};
-
 function PropertyCreate() {
 
     const navigate = useNavigate();
@@ -18,7 +12,7 @@ function PropertyCreate() {
     const [city, setCity] = useState('')
     const [country, setCountry] = useState('Canada')
     const [postal, setPostal] = useState('')
-    const [guest, setGuest] = useState(0)
+    const [guest, setGuest] = useState(1)
     const [bed, setBed] = useState(0)
     const [bath, setBath] = useState(0)
     const [wifi, setWifi] = useState(false)
@@ -30,6 +24,22 @@ function PropertyCreate() {
     const [price, setPrice] = useState('')
     const [currency, setCurrency] = useState('CAD')
     const [image, setImage] = useState('')
+    const [loggedIn, setLoggedIn] = useState([])
+
+
+    useEffect(() => {
+        fetch('http://localhost:8000/accounts/see-logged-in-user', {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+        })
+            .then(response => response.json())
+            .then(json => {
+                setLoggedIn(json)
+            })
+    }, [])
+
+    if (loggedIn.length !== 0) {
+        console.log(loggedIn)
+    }
 
 
     function notMinusOneGuest() {
@@ -37,7 +47,7 @@ function PropertyCreate() {
     }
 
     function minusOneGuest() {
-        if (guest - 1 < 0) return;
+        if (guest - 1 < 1) return;
         setGuest(guest - 1)
     }
 
@@ -65,7 +75,7 @@ function PropertyCreate() {
         e.preventDefault()
 
         const propertyStuff = {
-            owner: 3, // TODO: SHOULD BE WHOEVER IS LOGGED IN 
+            owner: loggedIn,
             name,
             address,
             city,
@@ -85,21 +95,21 @@ function PropertyCreate() {
             // check_out_date: checkOutDate
         }
 
-        console.log(propertyStuff)
+        // console.log(propertyStuff)
 
         fetch('http://localhost:8000/properties/property-create/', {
             method: 'POST',
             headers: {
                 // 'Accept': 'application/json, text/plain, */*',
                 "Content-Type": "application/json",
-                'Authorization': 'Bearer ' + token.access_token
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             },
             body: JSON.stringify(propertyStuff)
         })
         .then(response => console.log(response))
         .then(() => console.log("it submitted"))
 
-        navigate('/properties/hostproperties');
+        navigate('/properties/host');
     }
 
 
@@ -119,7 +129,7 @@ function PropertyCreate() {
                             <div class="form-group pb-3">
                                 <label for="propertyNameInput">Property Name</label>
                                 <input
-                                    type="text"
+                                    type="text" required
                                     class="form-control"
                                     id="propertyNameInput"
                                     placeholder="Enter Property"
@@ -139,7 +149,7 @@ function PropertyCreate() {
                         <div class="col-md-8">
                             <div class="form-group pb-3">
                                 <label for="descriptionInput">Description</label>
-                                <textarea type="text"
+                                <textarea type="text" required
                                     class="form-control"
                                     id="propertyNameInput"
                                     placeholder="Enter Description"
@@ -156,7 +166,7 @@ function PropertyCreate() {
                         <div class="col-md-8">
                             <div class="form-group pb-3">
                                 <label for="addressInput">Address</label>
-                                <input type="text"
+                                <input type="text" required
                                     class="form-control"
                                     id="addressInput"
                                     placeholder="Address"
@@ -173,7 +183,7 @@ function PropertyCreate() {
                         <div class="col-md-8">
                             <div class="form-group pb-3">
                                 <label for="cityInput">City</label>
-                                <input type="text"
+                                <input type="text" required
                                     class="form-control"
                                     id="cityInput"
                                     placeholder="City"
@@ -211,7 +221,7 @@ function PropertyCreate() {
                         <div class="col-md-8">
                             <div class="form-group pb-3">
                                 <label for="postalCodeInput">Postal Code</label>
-                                <input type="text"
+                                <input type="text" required
                                     class="form-control"
                                     id="postalCodeInput"
                                     placeholder="Postal Code"
@@ -232,7 +242,7 @@ function PropertyCreate() {
 
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon">
+                                    <div>
                                         <button type="button" onClick={minusOneGuest}>-</button>
                                     </div>
 
@@ -241,7 +251,7 @@ function PropertyCreate() {
                                     <div> {guest} </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon ">
+                                    <div>
                                         <button type="button" onClick={notMinusOneGuest}>+</button>
 
                                     </div>
@@ -263,13 +273,13 @@ function PropertyCreate() {
 
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon"> <button type="button" onClick={minusOneBed}>-</button> </div>
+                                    <div> <button type="button" onClick={minusOneBed}>-</button> </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                                     <div> {bed} </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon "> <button type="button" onClick={notMinusOneBed}>+</button> </div>
+                                    <div> <button type="button" onClick={notMinusOneBed}>+</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -287,13 +297,13 @@ function PropertyCreate() {
 
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon"> <button type="button" onClick={minusOneBath}>-</button> </div>
+                                    <div> <button type="button" onClick={minusOneBath}>-</button> </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                                     <div> {bath} </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon "> <button type="button" onClick={notMinusOneBath}>+</button> </div>
+                                    <div> <button type="button" onClick={notMinusOneBath}>+</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -410,7 +420,7 @@ function PropertyCreate() {
                                         <label for="priceInput">Price/Currency</label>
                                     </div>
                                     <div class="col-7 col-sm-5 ">
-                                        <input type="text"
+                                        <input type="number" required
                                             class="form-control"
                                             id="priceInput"
                                             placeholder="Price per day"

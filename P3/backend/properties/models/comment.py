@@ -16,6 +16,10 @@ class Comment(models.Model):
     replyingTo = models.PositiveIntegerField(null=True, blank = True)
     commentID = models.PositiveIntegerField()
     endOfCommentChain = models.BooleanField(null=True, blank = True)
+    
+    first_name = models.CharField(max_length=500, null=True, blank = True)
+    last_name = models.CharField(max_length=500, null=True, blank = True)
+    avatars = models.ImageField(upload_to='avatars/', null=True, blank=True) # add avatars/pictures folder
 
     reply = GenericRelation('Comment')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
