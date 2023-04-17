@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MyPropertyCard from "../components/mypropertycard";
+import UserRating from "../components/userrating1";
 import { NavLink } from "react-router-dom";
 
 function MyProperties() {
@@ -23,7 +24,14 @@ function MyProperties() {
     }, [])
 
     return (
+
+        
+
         <div>
+
+        <a href="#" class="btn float-right" style={{background: '#85bded'}} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</a>
+        {<UserRating />}
+
             <div className="container">
                 <h2 className="py-4 text-secondary text-center">My Properties</h2>
                 <div className="d-flex justify-content-center">

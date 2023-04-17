@@ -232,7 +232,7 @@ function PropertyCreate() {
 
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon">
+                                    <div>
                                         <button type="button" onClick={minusOneGuest}>-</button>
                                     </div>
 
@@ -241,7 +241,7 @@ function PropertyCreate() {
                                     <div> {guest} </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon ">
+                                    <div>
                                         <button type="button" onClick={notMinusOneGuest}>+</button>
 
                                     </div>
@@ -263,13 +263,13 @@ function PropertyCreate() {
 
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon"> <button type="button" onClick={minusOneBed}>-</button> </div>
+                                    <div> <button type="button" onClick={minusOneBed}>-</button> </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                                     <div> {bed} </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon "> <button type="button" onClick={notMinusOneBed}>+</button> </div>
+                                    <div> <button type="button" onClick={notMinusOneBed}>+</button> </div>
                                 </div>
                             </div>
                         </div>
@@ -287,13 +287,13 @@ function PropertyCreate() {
 
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon"> <button type="button" onClick={minusOneBath}>-</button> </div>
+                                    <div> <button type="button" onClick={minusOneBath}>-</button> </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                                     <div> {bath} </div>
                                 </div>
                                 <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
-                                    <div class="rounded-circle circleIcon "> <button type="button" onClick={notMinusOneBath}>+</button> </div>
+                                    <div> <button type="button" onClick={notMinusOneBath}>+</button> </div>
                                 </div>
                             </div>
                         </div>

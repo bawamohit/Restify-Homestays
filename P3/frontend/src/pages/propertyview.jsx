@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import Carousel from "../components/carousel";
+import '../style.css'
 
 function PropertyView() {
     const { pid } = useParams()
     const [property, setProperty] = useState({})
     const [host, setHost] = useState({})
     const [reviews, setReviews] = useState([])
+    const [user, setUser] = useState([])
     const [page, setPage] = useState(1)
 
     useEffect(() => {
         fetch('http://localhost:8000/properties/property-view/' + pid, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
         }).then(response => response.json())
-        .then(json => setProperty(json))
+            .then(json => setProperty(json))
 
-        fetch('http://localhost:8000/accounts/view-comment-property/' + pid, {
+        fetch('http://localhost:8000/accounts/view-comment-property/' + pid + `?page=${page}`, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
         }).then(response => response.json())
-        .then(json => {
-            setReviews(json)
-            console.log(json)
-        })
-    }, [pid])
+            .then(json => {
+                setReviews(json)
+                // console.log(json)
+            })
+    }, [pid, page])
 
     useEffect(() => {
         if (Object.keys(property).length !== 0) {
@@ -34,18 +36,77 @@ function PropertyView() {
         }
     }, [property])
 
+    useEffect(() => {
+        if (Object.keys(reviews).length !== 0) {
+            fetch('http://localhost:8000/accounts/list-user/?page=' + reviews[0][0].user, {
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+            })
+                .then(response => response.json())
+                .then(json => {
+                    // console.log(json)
+                    setUser(json.results)
+                })
+        }
+    }, [reviews])
+
+    let reviewArray = []
+    if (reviews.length !== 0) {
+        reviewArray = reviews[0]
+    }
+
+    /*     if (reviewArray.length !== 0) {
+            console.log(reviewArray)
+        } */
+
+
+    if (Object.keys(user).length !== 0) {
+        console.log(user[0])
+    }
+
+    let isGuest = true
+    if (reviewArray.length !== 0) {
+        for (let i = 0; i < reviewArray.length; i++) {
+            if (isGuest) {
+                if (Object.keys(user).length !== 0) {
+                    reviewArray[i].first_name = user[0].first_name
+                    reviewArray[i].last_name = user[0].last_name
+
+                    if (reviewArray[i].rating !== null) {
+                        console.log(reviews[0])
+                        reviewArray[i].last_name = user[0].last_name
+                    }
+
+                    reviewArray[i].avatars = user[0].avatars
+                }
+                // console.log(reviewArray[i])
+                isGuest = false
+            }
+            else {
+                reviewArray[i].first_name = host.first_name
+                reviewArray[i].last_name = host.last_name
+                reviewArray[i].avatars = host.avatars
+                isGuest = true
+            }
+
+        }
+    }
+
     return (
-        <div className="container" style={{maxWidth: "700px"}}>
+
+
+
+        <div className="container" style={{ maxWidth: "700px" }}>
+
             <div className="text-center py-2">
                 <h1 className=""> {property.name} </h1>
                 <h5 className="">{property.country}, {property.city}</h5>
             </div>
-            
-            <div className="ms-auto me-auto py-2"><Carousel pid={pid}/></div>
-            
+
+            <div className="ms-auto me-auto py-2"><Carousel pid={pid} /></div>
+
             <div className="d-flex justify-content-center align-items-center py-2">
                 <h5 className="px-3">Hosted by {host.first_name} {host.last_name}</h5>
-                <img src={host.avatars} alt="Host" className="rounded-circle img-fluid" style={{maxHeight:'80px'}}></img>
+                <img src={host.avatars} alt="Host" className="rounded-circle img-fluid" style={{ maxHeight: '80px' }}></img>
             </div>
 
             <div className="py-2">
@@ -55,7 +116,7 @@ function PropertyView() {
                 <div>Address: {property.address}, {property.postal_code}, {property.city}, {property.country}</div>
                 <div>House Information: {property.number_of_guests} Guests | {property.number_of_beds} Beds | {property.number_of_baths} Baths</div>
             </div>
-            
+
             <div className="py-2">
                 <h5>Description</h5>
                 <div>{property.description}</div>
@@ -73,7 +134,48 @@ function PropertyView() {
 
             <div className="py-2">
                 <h5>Reviews</h5>
+                {(() => {
+                    if (reviews.length !== 0) {
+                        return (
+                            <div>
+
+                                <div>
+                                    <div>  {reviews[0].map(review =>
+                                        <div>
+                                            <img src={review.avatars} alt="Host" className="profile1css rounded-circle img-fluid" style={{ maxHeight: '80px' }}></img>
+                                            &nbsp; {review.first_name} {review.last_name}
+                                            <div>
+                                                {(() => {
+                                                    if (review.rating !== null)
+                                                        return (
+                                                            <div>
+                                                                (Rating of {review.rating} stars)
+                                                            </div>
+                                                        )
+
+                                                })()}
+
+
+
+                                            </div>
+                                            <ul>{review.body}</ul>
+                                        </div>
+                                    )}</div>
+                                </div>
+
+                            </div>
+                        )
+                    }
+                })()}
             </div>
+
+            <div className="py-2">
+                <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
+                    <button className="btn btn-secondary my-5" type="button" onClick={() => { if (page - 1 !== 0) setPage(page - 1) }}>Previous Review</button>
+                    <button className="btn btn-secondary my-5" type="button" onClick={() => { setPage(page + 1) }}>Next Review</button>
+                </div>
+            </div>
+
         </div>
     );
 
