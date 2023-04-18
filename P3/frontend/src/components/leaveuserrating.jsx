@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import '../style.css'
 
-function LeaveUserRating() {
+function LeaveUserRating(props) {
 
     const [rating, setRating] = useState(5)
     const [body, setBody] = useState("")
@@ -16,10 +16,8 @@ function LeaveUserRating() {
             body,
             rating,
         }
-
         
-
-        fetch('http://localhost:8000/accounts/create-comment-user/1/', {
+        fetch('http://localhost:8000/accounts/create-comment-user/' + props.id + '/', {
             method: 'POST',
             headers: {
                 // 'Accept': 'application/json, text/plain, */*',
@@ -50,12 +48,12 @@ function LeaveUserRating() {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Rate This Host</h5>
+                            <h5 class="modal-title">Rate This User</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body justify-content-between">
                             <div class="mb-3">
-                                How would you rate Squidward?
+                                What is your rating?
                             </div>
                             <form class="pb-2" onSubmit={handleSubmit}>
                                 <div class="btn-group" role="group">
