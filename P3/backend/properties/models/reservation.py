@@ -9,6 +9,7 @@ class Reservation(models.Model):
     res_start_time = models.DateField(auto_now=False, auto_now_add=False)
     res_end_time = models.DateField(auto_now=False, auto_now_add=False)
     price = models.DecimalField(max_digits=20, decimal_places=2)
+    guests = models.CharField(max_length=15, default = "1")
     
     def __str__(self):
         return f"{self.property}"

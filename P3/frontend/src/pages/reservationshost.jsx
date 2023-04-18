@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 import Accept from "../components/accept";
 import AcceptCancel from "../components/acceptcancel";
-import Cancel from "../components/cancel";
 import Deny from "../components/deny";
 import DenyCancel from "../components/denycancel";
 import Terminate from "../components/terminate";
-import RateHost from "../components/ratehost";
 import RateUser from "../components/rateuser";
+import Addr from "../components/addr";
+import LeaveUserRating from "../components/leaveuserrating";
 
 var token = localStorage.getItem('accessToken')
 
@@ -15,10 +15,9 @@ function ShowReservationsHost() {
   const [reservation, setReservation] = useState([]);
   const [query, setQuery] = useState({ search: "", page: 1 });
   const [totalPages, setTotalPages] = useState(1);
-
   useEffect(() => {
     if (query.page === 1) {
-      fetch(process.env.REACT_APP_BACKEND_API + 'properties/reservation-status/?hostuser=host' + '&status=' + query.search, {
+      fetch(process.env.REACT_APP_BACKEND_API + 'properties/reservation-status/?hostuser=host&status=' + query.search, {
         headers: { 'Authorization': 'Bearer ' + token }
       })
         .then(response => {
@@ -79,17 +78,22 @@ function ShowReservationsHost() {
         <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Terminated", page: 1 })}>Terminated</button>
         <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Completed", page: 1 })}>Completed</button>
       </div>
-      <h2 className="pt-5 pb-5 text-secondary text-center">Upcoming Host</h2>
+      <h2 className="pt-5 pb-5 text-secondary text-center">Hostings</h2>
       <div className="accordion" id="reservationList">
-        {reservation.map(reservation => (
+        {reservation.map(reservation => {
+          return(
           <div className="accordion-item" key={reservation.id} >
             <h2 className="accordion-header" id={reservation.id}>
               <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Reservation at Rock house 120 Couch Street
+                <div>
+                  <div class="col-12">
+                    Reservation at <Addr property={reservation.property} />
+                  </div>
+                  <div class="col-12">
+                    Status: {reservation.status}
+                  </div>
+                </div>
               </button>
-              <div class="col-12">
-                Status: {reservation.status}
-              </div>
             </h2>
             <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby={reservation.id} data-bs-parent="#reservationList">
               <div className="accordion-body bg-light">
@@ -101,7 +105,7 @@ function ShowReservationsHost() {
                     End Date: {reservation.res_end_time}
                   </div>
                   <div className="col-lg-3 col-md-4 col-6">
-                    No.Guests: 2
+                    No.Guests: {reservation.guests}
                   </div>
                   <div className="col-lg-3 col-md-4 col-6">
                     Price: ${reservation.price}
@@ -174,7 +178,7 @@ function ShowReservationsHost() {
                     case "Completed":
                       return (<div className="d-flex justify-content-between pt-4" >
                         <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
-                        <RateUser />
+                        <LeaveUserRating />
                         <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#user-rate-modal">Rate this user</button>
                       </div>);
 
@@ -186,7 +190,7 @@ function ShowReservationsHost() {
               </div>
             </div>
           </div>
-        ))}
+        )})}
       </div>
       <p className="pt-5">
         {query.page > 1
