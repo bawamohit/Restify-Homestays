@@ -5,9 +5,9 @@ import AcceptCancel from "../components/acceptcancel";
 import Deny from "../components/deny";
 import DenyCancel from "../components/denycancel";
 import Terminate from "../components/terminate";
-import RateUser from "../components/rateuser";
 import Addr from "../components/addr";
 import LeaveUserRating from "../components/leaveuserrating";
+import UserRating from "../components/userrating1";
 
 var token = localStorage.getItem('accessToken')
 
@@ -31,7 +31,7 @@ function ShowReservationsHost() {
         })
         .then(json => {
           setReservation(json.results);
-          setTotalPages(Math.max(Math.ceil(json.count / 2), 1));
+          setTotalPages(Math.max(Math.ceil(json.count / 3), 1));
 
         }).catch(error => {
 
@@ -52,7 +52,7 @@ function ShowReservationsHost() {
         })
         .then(json => {
           setReservation(json.results);
-          setTotalPages(Math.max(Math.ceil(json.count / 2), 1));
+          setTotalPages(Math.max(Math.ceil(json.count / 3), 1));
         }).catch(error => {
 
           console.log(error);
@@ -117,6 +117,7 @@ function ShowReservationsHost() {
                       return (
                         <div className="d-flex pt-4 justify-content-between" >
                           <div>
+                          < UserRating/>
                             <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
                             <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                           </div>
@@ -131,6 +132,7 @@ function ShowReservationsHost() {
                     case "PendingCancel":
                       return (
                         <div className="d-flex pt-4 justify-content-between" >
+                          <UserRating />
                           <div>
                             <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
                             <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
@@ -155,6 +157,7 @@ function ShowReservationsHost() {
 
                     case "Approved":
                       return (<div className="d-flex pt-4 justify-content-between" >
+                        < UserRating/>
                         <div>
                           <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
                           <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>

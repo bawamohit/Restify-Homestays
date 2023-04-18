@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 import Cancel from "../components/cancel";
 import RequestCancel from "../components/requestcancel";
-import RateHost from "../components/ratehost";
 import Addr from "../components/addr";
 
 var token = localStorage.getItem('accessToken')
@@ -29,7 +28,7 @@ function ShowReservationsStay() {
         })
         .then(json => {
           setReservation(json.results);
-          setTotalPages(Math.max(Math.ceil(json.count / 2), 1));
+          setTotalPages(Math.max(Math.ceil(json.count / 3), 1));
 
         }).catch(error => {
 
@@ -50,7 +49,7 @@ function ShowReservationsStay() {
         })
         .then(json => {
           setReservation(json.results);
-          setTotalPages(Math.max(Math.ceil(json.count / 2), 1));
+          setTotalPages(Math.max(Math.ceil(json.count / 3), 1));
         }).catch(error => {
 
           console.log(error);
@@ -102,7 +101,7 @@ function ShowReservationsStay() {
                     End Date: {reservation.res_end_time}
                   </div>
                   <div className="col-lg-3 col-md-4 col-6">
-                    No.Guests: 2
+                    No.Guests: {reservation.guests}
                   </div>
                   <div className="col-lg-3 col-md-4 col-6">
                     Price: ${reservation.price}
@@ -162,7 +161,8 @@ function ShowReservationsStay() {
                     case "Completed":
                       return (<div className="d-flex justify-content-between pt-4" >
                         <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
-                        <RateHost />
+                        
+                        
                         <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#user-rate-modal">Rate this host</button>
                       </div>);
 
