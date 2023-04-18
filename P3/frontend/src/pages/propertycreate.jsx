@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 function PropertyCreate() {
 
@@ -92,6 +93,10 @@ function PropertyCreate() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        if (imageArray.length < 3) {
+            return
+        }
+
         const propertyStuff = {
             owner: loggedIn,
             name,
@@ -128,20 +133,20 @@ function PropertyCreate() {
             .then(json => {
                 propertyID = json.id
                 for (let i = 0; i < imageArray.length; i++) {
-                  const imageStuff = new FormData();
-                  imageStuff.append('image', imageArray[i]);
-        
-                  fetch('http://localhost:8000/properties/property-image-create/' + propertyID + '/', {
-                    method: 'POST',
-                    headers: {
-                      'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-                    },
-                    body: imageStuff
-                    
-                  })
-                    .then(response => response.json())
+                    const imageStuff = new FormData();
+                    imageStuff.append('image', imageArray[i]);
+
+                    fetch('http://localhost:8000/properties/property-image-create/' + propertyID + '/', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                        },
+                        body: imageStuff
+
+                    })
+                        .then(response => response.json())
                 }
-              })
+            })
         navigate('/properties/host');
     }
 
@@ -496,6 +501,7 @@ function PropertyCreate() {
                                     // value={image}
                                     onChange={handleImages}
                                 ></input>
+                                <small id="imageHelp" class="form-text text-muted">Must have at least 3 images.</small>
                             </div>
                         </div>
                         <div class="col-4 ">
@@ -513,7 +519,7 @@ function PropertyCreate() {
                     </div>
 
                     <div class="container pb-3">
-                        <a class="btn btn-secondary" href="host" role="button">Previous Page</a>
+                        <NavLink to={"/properties/host/"} className="btn btn-secondary">Previous Page</NavLink>
                         <button class="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Create Property!</button>
 
 

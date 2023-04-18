@@ -136,6 +136,10 @@ function PropertyEdit() {
 
     // console.log(propertyStuff)
 
+    if (imageArray.length < 3){
+      return
+    } 
+
     let propertyID = 0
     fetch('http://localhost:8000/properties/property-update/' + pid + '/', {
       method: 'PUT',
@@ -535,6 +539,7 @@ function PropertyEdit() {
                   // value={image}
                   onChange={handleImages}
                 ></input>
+                <small id="imageHelp" class="form-text text-muted">Must have at least 3 images.</small>
               </div>
             </div>
             <div class="col-4 ">
