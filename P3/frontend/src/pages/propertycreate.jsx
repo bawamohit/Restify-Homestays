@@ -23,7 +23,7 @@ function PropertyCreate() {
     // const [checkOutDate, setCheckOutDate] = useState('')
     const [price, setPrice] = useState('')
     const [currency, setCurrency] = useState('CAD')
-    const [image, setImage] = useState('')
+    const [image, setImage] = useState([])
     const [loggedIn, setLoggedIn] = useState([])
 
 
@@ -71,6 +71,14 @@ function PropertyCreate() {
         setBath(bath - 1)
     }
 
+
+    const handleImages = (e) => {
+        if (e.target.files) {
+            console.log([...e.target.files])
+        }
+      };
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -106,12 +114,15 @@ function PropertyCreate() {
             },
             body: JSON.stringify(propertyStuff)
         })
-            .then(response => console.log(response))
-            .then(() => console.log("it submitted"))
+            .then(response => response.json())
+            .then(json => console.log(json))
+            
+            // .then(() => console.log("it submitted"))
 
         navigate('/properties/host');
     }
 
+    // console.log(image)
 
     return (
 
@@ -455,17 +466,17 @@ function PropertyCreate() {
                         <div class="col-md-6 ">
                             <div class="form-group pb-3">
                                 <label for="imageInput">Images</label>
-                                <input type="file"
+                                <input type="file" multiple
                                     class="form-control"
                                     id="imageInput"
                                     placeholder="Enter the number of guests"
                                     value={image}
-                                    onChange={(e) => setImage(e.target.value)}
+                                    onChange={handleImages}
                                 ></input>
                             </div>
                         </div>
                         <div class="col-4 ">
-
+                            
                         </div>
                     </div>
 
@@ -473,8 +484,8 @@ function PropertyCreate() {
                         <div class="col-2 ">
                         </div>
                         <div class="col-md-6 ">
-                            <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken"></img>
-                            <img src="PropertyData/Pineapple3.jpg" alt="House 3" class="house1createproperty img-darken"></img>
+                           {/*  <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken"></img>
+                            <img src="PropertyData/Pineapple3.jpg" alt="House 3" class="house1createproperty img-darken"></img> */}
                         </div>
                     </div>
 

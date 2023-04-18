@@ -18,6 +18,7 @@ import PropertyViewGuest from './pages/propertyviewguest'
 import ShowNotifications from './pages/notifications';
 import ShowReservationsStay from './pages/reservationsstay';
 import ShowReservationsHost from './pages/reservationshost';
+import Profile from './pages/profile';
 
 function App() {
     const [authorized, setAuthorized] = useState(false)
@@ -68,7 +69,7 @@ function App() {
                 <Route path="amenitiesedit" element={<AmenitiesEdit />} /> */}
             </Route>
             <Route path="/account/">
-                <Route path="profile" element={<h1>profile</h1>} />
+                <Route path="profile" element={<Profile />} />
                 <Route path="notifications" element={<ShowNotifications />} />
             </Route>
         </Routes>
