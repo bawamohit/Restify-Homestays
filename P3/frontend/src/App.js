@@ -27,13 +27,10 @@ function App() {
         if (token) {
             fetch('http://localhost:8000/accounts/update-user', {
                 headers: { 'Authorization': 'Bearer ' + token }
-            }).then(response => {
-                if (response.ok) {
-                    setAuthorized(true)
-                }
-                else {
-                    setAuthorized(false)
-                }
+            }).then(response => response.json())
+            .then(json => {
+                setAuthorized(true)
+                localStorage.setItem('id', json.id)
             })
         }
     }, [])

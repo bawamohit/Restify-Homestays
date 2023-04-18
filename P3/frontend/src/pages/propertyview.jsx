@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import Carousel from "../components/carousel";
 import Comment from "../components/comment";
+import Reserve from "../components/reservationcard";
 import '../style.css'
 
 function PropertyView() {
@@ -9,34 +10,32 @@ function PropertyView() {
     const [property, setProperty] = useState({})
     const [host, setHost] = useState({})
     const [reviews, setReviews] = useState([])
-    const [user, setUser] = useState([])
-    const [loggedIn, setLoggedIn] = useState([])
     const [page, setPage] = useState(1)
-
+    const [next, setNext] = useState(null)
+    const [previous, setPrevious] = useState(null)
+    
+    // const [user, setUser] = useState([])
+    const [loggedIn, setLoggedIn] = useState([])
+    const [replyBody, setReplyBody] = useState("")
+    
     useEffect(() => {
         fetch('http://localhost:8000/properties/property-view/' + pid, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
         }).then(response => response.json())
             .then(json => setProperty(json))
+    }, [pid])
 
+    useEffect(() => {
         fetch('http://localhost:8000/accounts/view-comment-property/' + pid + `?page=${page}`, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
         }).then(response => response.json())
             .then(json => {
-                setReviews(json)
-                // console.log(json)
+                setReviews([...json.results])
+                setNext(json.next)
+                setPrevious(json.previous)
+                console.log(json)
             })
     }, [pid, page])
-
-    useEffect(() => {
-        fetch('http://localhost:8000/accounts/see-logged-in-user', {
-            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
-        })
-            .then(response => response.json())
-            .then(json => {
-                setLoggedIn(json)
-            })
-    }, [])
 
     useEffect(() => {
         if (Object.keys(property).length !== 0) {
@@ -48,53 +47,112 @@ function PropertyView() {
         }
     }, [property])
 
-    useEffect(() => {
-        if (Object.keys(reviews).length !== 0) {
-            fetch('http://localhost:8000/accounts/list-user/?page=' + reviews[0][0].user, {
-                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+    // useEffect(() => {
+    //     if (Object.keys(reviews).length !== 0) {
+    //         fetch('http://localhost:8000/accounts/list-user/?page=' + reviews[0][0].user, {
+    //             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+    //         })
+    //             .then(response => response.json())
+    //             .then(json => {
+    //                 // console.log(json)
+    //                 setUser(json.results)
+    //             })
+    //     }
+    // }, [reviews])
+
+    // let reviewArray = []
+    // if (reviews.length !== 0) {
+    //     reviewArray = reviews[0]
+    // }
+
+    // let isGuest = true
+    // if (reviewArray.length !== 0) {
+    //     for (let i = 0; i < reviewArray.length; i++) {
+    //         if (isGuest) {
+    //             if (Object.keys(user).length !== 0) {
+    //                 reviewArray[i].first_name = user[0].first_name
+    //                 reviewArray[i].last_name = user[0].last_name
+    //                 if (reviewArray[i].rating !== null) {
+    //                     reviewArray[i].last_name = user[0].last_name
+    //                 }
+
+    //                 reviewArray[i].avatars = user[0].avatars
+    //             }
+    //             // console.log(reviewArray[i])
+    //             isGuest = false
+    //         }
+    //         else {
+    //             reviewArray[i].first_name = host.first_name
+    //             reviewArray[i].last_name = host.last_name
+    //             reviewArray[i].avatars = host.avatars
+    //             isGuest = true
+    //         }
+
+    //     }
+    // }
+
+    // const handleSubmitHost = (e) => {
+    //     e.preventDefault()
+
+    //     const reviewStuff = {
+    //         body: replyBody,
+    //         replyingTo: reviewArray[reviewArray.length - 1].commentID
+
+    //     }
+
+
+    //     fetch('http://localhost:8000/accounts/create-comment-property/' + pid + '/', {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+    //         },
+    //         body: JSON.stringify(reviewStuff)
+    //     })
+    //         .then(response => console.log(response))
+    //         .then(() => console.log("it submitted"))
+
+    //     window.location.reload();
+    // }
+
+    function handleSubmit(body, replyingTo, rating) {
+        fetch('http://localhost:8000/accounts/create-comment-property/' + pid + '/', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            },
+            body: JSON.stringify({
+
             })
-                .then(response => response.json())
-                .then(json => {
-                    // console.log(json)
-                    setUser(json.results)
-                })
-        }
-    }, [reviews])
-
-    let reviewArray = []
-    if (reviews.length !== 0) {
-        reviewArray = reviews[0]
+        })
+        .then(response => console.log(response))
+        .then(() => console.log("it submitted"))
     }
 
-    let isGuest = true
-    if (reviewArray.length !== 0) {
-        for (let i = 0; i < reviewArray.length; i++) {
-            if (isGuest) {
-                if (Object.keys(user).length !== 0) {
-                    reviewArray[i].first_name = user[0].first_name
-                    reviewArray[i].last_name = user[0].last_name
-                    if (reviewArray[i].rating !== null) {
-                        reviewArray[i].last_name = user[0].last_name
-                    }
-
-                    reviewArray[i].avatars = user[0].avatars
+    function isReplyable(comment, thread) {
+        // If we are the host
+        if (parseInt(localStorage.getItem('id')) === host.id) {
+            // If it's last comment and not our own
+            if (comment.endOfCommentChain && comment.user !== parseInt(localStorage.getItem('id'))){
+                return true
+            }
+        }
+        // If we are a guest
+        else {
+            // We started the chain
+            if (thread[0].user === parseInt(localStorage.getItem('id'))) {
+                // If it's the last comment and that of the hosts
+                if (comment.endOfCommentChain && comment.user === host.id) {
+                    return true
                 }
-                // console.log(reviewArray[i])
-                isGuest = false
             }
-            else {
-                reviewArray[i].first_name = host.first_name
-                reviewArray[i].last_name = host.last_name
-                reviewArray[i].avatars = host.avatars
-                isGuest = true
-            }
-
         }
+        return false
     }
+
 
     return (
-
-
 
         <div className="container" style={{ maxWidth: "700px" }}>
 
@@ -110,22 +168,9 @@ function PropertyView() {
                 <img src={host.avatars} alt="Host" className="rounded-circle img-fluid" style={{ maxHeight: '80px' }}></img>
             </div>
 
-
             <div>
-
-                {(() => {
-                    if (Object.keys(user).length !== 0 && Object.keys(host).length !== 0) {
-                    if (host.username !== loggedIn.username) {
-                            return (
-                                <div>(add reserve stuff here)</div>
-                            )  
-                        }
-                    }
-                })()}
+                {host.id !== parseInt(localStorage.getItem('id')) ? <div>reservation stuff here</div> : ""}
             </div>
-
-
-
 
             <div className="py-2">
                 <h5>Details</h5>
@@ -152,19 +197,45 @@ function PropertyView() {
 
             <div className="py-2">
                 <h5>Reviews</h5>
+                <div className="input-group py-3">
+                    <textarea className="form-control" rows="2" placeholder="Leave a Review"></textarea>
+                    <select style={{maxWidth: "120px"}} className="form-select">
+                        <option value="1">1 star</option>
+                        <option value="2">2 star</option>
+                        <option value="3">3 star</option>
+                        <option value="4">4 star</option>
+                        <option value="5">5 star</option>
+                    </select>
+                    <button className="btn btn-secondary" type="button" onClick={() => {console.log("submit")}}>Submit</button>
+                </div>
                 {reviews.map((thread, i) => {
                     return (
-                        <div>
+                        <div key={`thread_${i}`} className="py-3">
                             {thread.map((comment, j) => {
-                                return <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating}/>
-                            })}
-                            <button type="button" className="btn px-5">reply</button>
+                                if (isReplyable(comment, thread)) {
+                                    return <div key={`thread_${i}comment_${j}`}>
+                                            <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating} />
+                                            <div className="input-group px-5">
+                                                <textarea className="form-control" rows="1" placeholder="Leave a reply"></textarea>
+                                                <button className="btn btn-outline-secondary" type="button" onClick={() => {console.log("submit")}}>Submit</button>
+                                            </div>
+                                        </div>
+                                }
+                                return <div key={`thread_${i}comment_${j}`}>
+                                    <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating} />
+                                    </div>
+                            })}    
                         </div>
                     )
-                    
-                    
                 })}
-                {(() => {
+                <div className="ms-auto me-auto" style={{maxWidth: "700px"}}>
+                    <div className="d-flex justify-content-between" style={{maxWidth: "700px"}}>
+                        <button className="btn btn-secondary my-5" type="button" onClick={()=>{if(previous) setPage(page-1)}}>Previous Page</button>
+                        <button className="btn btn-secondary my-5" type="button" onClick={()=>{if(next) setPage(page+1)}}>Next Page</button>
+                    </div>
+                </div>
+                
+                {/* {(() => {
                     if (reviews.length !== 0) {
                         return (
                             <div>
@@ -191,15 +262,69 @@ function PropertyView() {
                             </div>
                         )
                     }
+                })()} */}
+
+
+                {(() => {
+
+                    // console.log(reviews.length)
+
+                    // {/* GUEST REPLY */ }
+                    // if (reviewArray.length % 2 == 0) {
+                    //     if (host.username !== loggedIn.username) {
+
+                    //         return (
+                    //             <div>
+                    //                 <form onSubmit={handleSubmitHost}>
+                    //                     <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"
+                    //                         value={replyBody} placeholder="Leave a reply"
+                    //                         onChange={(e) => setReplyBody(e.target.value)}></textarea>
+                    //                     <button className="btn btn-info" type="submit">Leave Reply</button>
+                    //                 </form>
+
+
+                    //             </div>
+                    //         )
+                    //     }
+                    //     else {
+                    //         return (
+                    //             <div>(you're the host!)</div>
+                    //         )
+                    //     }
+                    // }
+                    // else {
+                    //     {/* HOST REPLY */ }
+
+                    //     if (Object.keys(user).length !== 0 && Object.keys(host).length !== 0) {
+                    //         if (host.username === loggedIn.username) {
+                    //             return (
+                    //                 <div>
+                    //                     <form onSubmit={handleSubmitHost}>
+                    //                         <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"
+                    //                             value={replyBody} placeholder="Leave a reply"
+                    //                             onChange={(e) => setReplyBody(e.target.value)}></textarea>
+                    //                         <button className="btn btn-info" type="submit">Leave Reply</button>
+                    //                     </form>
+
+                    //                 </div>
+                    //             )
+                    //         }
+                    //     }
+                    // }
+
                 })()}
+
+
+
+
             </div>
 
-            <div className="py-2">
+            {/* <div className="py-2">
                 <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
                     <button className="btn btn-secondary my-5" type="button" onClick={() => { if (page - 1 !== 0) setPage(page - 1) }}>Previous Review</button>
                     <button className="btn btn-secondary my-5" type="button" onClick={() => { if (page < reviewArray.length + 1) setPage(page + 1) }}>Next Review</button>
                 </div>
-            </div>
+            </div> */}
 
         </div>
     );

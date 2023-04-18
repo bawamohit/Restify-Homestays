@@ -8,7 +8,7 @@ function Comment(props) {
                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
             }).then(response => response.json())
             .then(json => setUser(json))
-    }, [])
+    }, [props.uid])
 
     var padding = 0
     if (props.position > 0) {

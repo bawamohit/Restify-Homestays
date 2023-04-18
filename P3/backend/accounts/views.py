@@ -13,6 +13,9 @@ from properties.models import Comment, Property
 from django.http import JsonResponse
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.pagination import PageNumberPagination
+from django.core.paginator import Paginator
+from rest_framework.settings import api_settings
+from collections import OrderedDict
 
 # Create your views here.
 class UserCreate(CreateAPIView):
@@ -115,20 +118,21 @@ class CommentListProperty (APIView):
             serializer = CommentSerializer(temp_array, many=True)
             big_array.append(serializer.data)
 
-        # print(big_array)
+        paginator = Paginator(big_array, api_settings.PAGE_SIZE)
+        page = paginator.page(self.request.GET.get('page', 1))
 
-        page_num = self.request.GET.get('page', None)
-        return JsonResponse(big_array, safe=False)
+        previous_url = None
+        next_url = None
+        if request.get_host() and request.path_info:
+            if page.has_previous():
+                previous_url = '{}://{}{}?page={}'.format(request.scheme, request.get_host(), request.path_info, page.previous_page_number())
+            if page.has_next():
+                next_url = '{}://{}{}?page={}'.format(request.scheme, request.get_host(), request.path_info, page.next_page_number())
 
-        # print("pagenum is: ", page_num)
-        # print("bigarray is: ", len(big_array))
-
-        # if page_num is not None:
-        #     page_num = int(page_num) - 1
-        #     if page_num < len(big_array):
-        #         return JsonResponse(big_array[page_num:page_num + 1], safe=False)
-
-        # if len(big_array) >= 1:
-        #     return JsonResponse(big_array[0:1], safe=False)
-        
-        # return JsonResponse([], safe=False)
+        response_dict = OrderedDict([
+            ('count', len(big_array)),
+            ('next', next_url),
+            ('previous', previous_url),
+            ('results', page.object_list)
+        ])
+        return JsonResponse(response_dict, status=200, safe=False)

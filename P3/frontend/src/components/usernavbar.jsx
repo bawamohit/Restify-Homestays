@@ -5,6 +5,7 @@ function UserNavbar(props) {
     function handleLogOut() {
         localStorage.removeItem("accessToken")
         localStorage.removeItem("refreshToken")
+        localStorage.removeItem("id")
         props.callback(false)
     }
     
