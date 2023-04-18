@@ -37,9 +37,9 @@ function PropertyCreate() {
             })
     }, [])
 
-    if (loggedIn.length !== 0) {
+   /*  if (loggedIn.length !== 0) {
         console.log(loggedIn)
-    }
+    } */
 
 
     function notMinusOneGuest() {
@@ -80,7 +80,7 @@ function PropertyCreate() {
             address,
             city,
             country,
-            postal_code : postal,
+            postal_code: postal,
             description,
             number_of_guests: guest,
             number_of_beds: bed,
@@ -106,8 +106,8 @@ function PropertyCreate() {
             },
             body: JSON.stringify(propertyStuff)
         })
-        .then(response => console.log(response))
-        .then(() => console.log("it submitted"))
+            .then(response => console.log(response))
+            .then(() => console.log("it submitted"))
 
         navigate('/properties/host');
     }
@@ -359,7 +359,7 @@ function PropertyCreate() {
                         </ul>
                     </div>
 
-                    
+
                     {/* <div class="row">
                         <div class="col-2">
                         </div>
@@ -420,7 +420,7 @@ function PropertyCreate() {
                                         <label for="priceInput">Price/Currency</label>
                                     </div>
                                     <div class="col-7 col-sm-5 ">
-                                        <input type="number" required
+                                        <input type="number" required min="0.01" step="0.01"
                                             class="form-control"
                                             id="priceInput"
                                             placeholder="Price per day"
@@ -445,7 +445,7 @@ function PropertyCreate() {
                         </div>
                     </div>
 
-                    
+
 
 
 

@@ -13,7 +13,7 @@ function MyProperties() {
     useEffect(() => {
         var token = localStorage.getItem('accessToken')
         if (token) {
-            fetch(process.env.REACT_APP_BACKEND_API + 'properties/property-owned/', {
+            fetch(process.env.REACT_APP_BACKEND_API + 'properties/property-owned/?page=' + page, {
                 headers: { 'Authorization': 'Bearer ' + token }
             }).then(response => response.json())
                 .then(json => {
@@ -22,7 +22,7 @@ function MyProperties() {
                     setPrevious(json.previous)
                 })
         }
-    }, [])
+    }, [page])
 
 
     return (
