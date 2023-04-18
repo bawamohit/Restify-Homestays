@@ -64,16 +64,23 @@ function ShowReservationsStay() {
 
   return (
     <div className="container text-center">
-      <div className="pt-5 pb-5 btn-group" role="group" aria-label="Button group with 7 buttons">
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "", page: 1 })}>All</button>
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Pending", page: 1 })}>Pending</button>
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "PendingCancel", page: 1 })}>PendingCancel</button>
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Denied", page: 1 })}>Denied</button>
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Expired", page: 1 })}>Expired</button>
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Approved", page: 1 })}>Approved</button>
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Canceled", page: 1 })}>Canceled</button>
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Terminated", page: 1 })}>Terminated</button>
-        <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Completed", page: 1 })}>Completed</button>
+      <div className="pt-5 pb-5 btn-group btn-group-md flex-wrap" role="group" aria-label="Button group with 7 buttons">
+        <div className="btn-group">
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "", page: 1 })}>All</button>
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Pending", page: 1 })}>Pending</button>
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "PendingCancel", page: 1 })}>PendingCancel</button>
+        </div>
+
+        <div className="btn-group">
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Denied", page: 1 })}>Denied</button>
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Expired", page: 1 })}>Expired</button>
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Approved", page: 1 })}>Approved</button>
+        </div>
+        <div className="btn-group">
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Canceled", page: 1 })}>Canceled</button>
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Terminated", page: 1 })}>Terminated</button>
+          <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Completed", page: 1 })}>Completed</button>
+        </div>
       </div>
       <h2 className="pt-5 pb-5 text-secondary text-center">Stays</h2>
       <div className="accordion" id="reservationList">
@@ -161,8 +168,8 @@ function ShowReservationsStay() {
                     case "Completed":
                       return (<div className="d-flex justify-content-between pt-4" >
                         <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
-                        
-                        
+
+
                         <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#user-rate-modal">Rate this host</button>
                       </div>);
 
