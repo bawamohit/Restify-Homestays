@@ -3,7 +3,6 @@ var token = localStorage.getItem('accessToken')
 function Reserve(props) {
     const property_id = props.property_id;
     const price = props.price;
-    const rating = props.rating;
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [totalDays, setTotalDays] = useState(null);
@@ -27,11 +26,11 @@ function Reserve(props) {
     }, [startDate, endDate]);
 
     return (
-        <span className="border">
-            <div className="col-lg-4">
+        <div>
+            <div className="col-lg-6">
                 <h5 >Reserve</h5>
                 <h6 >
-                    ${price}CAD/day | ★ {rating}
+                    ${price}CAD/day
                 </h6>
 
 
@@ -122,7 +121,7 @@ function Reserve(props) {
                             // handle error
                         })}>Reserve</button>
             </div>
-        </span>
+        </div>
 
     );
 }

@@ -91,9 +91,11 @@ function PropertySearch() {
             </div>
         </div>
         <div className="ms-auto me-auto" style={{maxWidth: "700px"}}>
-            <div className="d-flex justify-content-between" style={{maxWidth: "700px"}}>
-                <button className="btn btn-secondary my-5" type="button" onClick={()=>{if(previous) setPage(page-1)}}>Previous Page</button>
-                <button className="btn btn-secondary my-5" type="button" onClick={()=>{if(next) setPage(page+1)}}>Next Page</button>
+            <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
+                {previous ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setPage(page - 1) }}>Previous Page</button> : 
+                    <button className="btn btn-outline-secondary my-5" type="button" disabled>Previous Page</button>}
+                {next ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setPage(page + 1) }}>Next Page</button> :
+                    <button className="btn btn-outline-secondary my-5" type="button" disabled>Next Page</button>}
             </div>
         </div>
     </div>

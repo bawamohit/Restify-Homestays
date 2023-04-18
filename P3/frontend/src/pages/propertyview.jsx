@@ -168,8 +168,8 @@ function PropertyView() {
                 <img src={host.avatars} alt="Host" className="rounded-circle img-fluid" style={{ maxHeight: '80px' }}></img>
             </div>
 
-            <div>
-                {host.id !== parseInt(localStorage.getItem('id')) ? <div>reservation stuff here</div> : ""}
+            <div className="py-2">
+                {host.id !== parseInt(localStorage.getItem('id')) ? <Reserve property_id={pid} price={property.price}></Reserve> : ""}
             </div>
 
             <div className="py-2">
