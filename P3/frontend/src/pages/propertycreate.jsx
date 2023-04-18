@@ -127,31 +127,21 @@ function PropertyCreate() {
             .then(response => response.json())
             .then(json => {
                 propertyID = json.id
-                console.log(imageArray)
-        
                 for (let i = 0; i < imageArray.length; i++) {
+                  const imageStuff = new FormData();
+                  imageStuff.append('image', imageArray[i]);
+        
                   fetch('http://localhost:8000/properties/property-image-create/' + propertyID + '/', {
                     method: 'POST',
                     headers: {
-                      "Content-Type": "application/json",
                       'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
                     },
-                    body: JSON.stringify({image: imageArray[i]})
+                    body: imageStuff
+                    
                   })
                     .then(response => response.json())
                 }
-        
-        
               })
-
-
-
-
-        // .then(() => console.log("it submitted"))
-
-
-
-
         navigate('/properties/host');
     }
 

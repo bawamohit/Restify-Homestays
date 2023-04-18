@@ -107,16 +107,8 @@ function PropertyEdit() {
 
   const handleImages = (e) => {
     if (e.target.files) {
-      // console.log([...e.target.files])
-
       imageArray.push(...e.target.files)
       console.log(imageArray)
-      
-
-      /*   console.log([e.target.files.length])
-        console.log([e.target.files[0]])
-        console.log([e.target.files[1]])
-        console.log([e.target.files[2]]) */
     }
   };
 
@@ -142,8 +134,6 @@ function PropertyEdit() {
       currency,
     }
 
-
-
     // console.log(propertyStuff)
 
     let propertyID = 0
@@ -159,27 +149,33 @@ function PropertyEdit() {
       .then(response => response.json())
       .then(json => {
         propertyID = json.id
+        fetch('http://localhost:8000/properties/property-image-delete/' + propertyID + '/', {
+          method: 'DELETE',
+          headers: {
+            // "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+          },
+          // body: JSON.stringify(imageStuff)
+          // body: imageStuff
+        })
+      })
 
+      .then(json => {
+        propertyID = json.id
         for (let i = 0; i < imageArray.length; i++) {
-          const imageStuff = {
-            // property: json,
-            image: imageArray[i]
-          }
-          console.log(imageStuff)
+          const imageStuff = new FormData();
+          imageStuff.append('image', imageArray[i]);
 
           fetch('http://localhost:8000/properties/property-image-create/' + propertyID + '/', {
             method: 'POST',
             headers: {
-              "Content-Type": "application/json",
               'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             },
-            body: JSON.stringify(imageStuff)
+            body: imageStuff
             
           })
             .then(response => response.json())
         }
-
-
       })
 
 
@@ -557,7 +553,7 @@ function PropertyEdit() {
 
           <div class="container pb-3">
             <NavLink to={"/properties/host/"} className="btn btn-secondary">Previous Page</NavLink>
-            <button class="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Create Property!</button>
+            <button class="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Edit Property!</button>
 
 
           </div>
