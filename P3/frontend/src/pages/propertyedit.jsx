@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
 function PropertyEdit() {
 
@@ -23,7 +24,7 @@ function PropertyEdit() {
   const [pillow, setPillow] = useState(false)
   const [price, setPrice] = useState('')
   const [currency, setCurrency] = useState('CAD')
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState([])
   const [loggedIn, setLoggedIn] = useState([])
   // const [info, setInfo] = useState([])
 
@@ -44,7 +45,7 @@ function PropertyEdit() {
 
 
   useEffect(() => {
-    fetch('http://localhost:8000/properties/property-update/' + pid, {
+    fetch('http://localhost:8000/properties/property-update/' + pid + '/', {
       headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
     }).then(response => response.json())
       .then(json => {
@@ -110,6 +111,7 @@ function PropertyEdit() {
 
       imageArray.push(...e.target.files)
       console.log(imageArray)
+      
 
       /*   console.log([e.target.files.length])
         console.log([e.target.files[0]])
@@ -140,6 +142,8 @@ function PropertyEdit() {
       currency,
     }
 
+
+
     // console.log(propertyStuff)
 
     let propertyID = 0
@@ -157,33 +161,26 @@ function PropertyEdit() {
         propertyID = json.id
 
         for (let i = 0; i < imageArray.length; i++) {
+          const imageStuff = {
+            // property: json,
+            image: imageArray[i]
+          }
+          console.log(imageStuff)
+
           fetch('http://localhost:8000/properties/property-image-create/' + propertyID + '/', {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",
               'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             },
-            body: JSON.stringify(imageArray[i])
+            body: JSON.stringify(imageStuff)
+            
           })
             .then(response => response.json())
         }
 
 
       })
-
-    /* console.log(propertyID)
-
-    for (let i = 0; i < imageArray.length; i++) {
-      fetch('http://localhost:8000/property-image-create/' + propertyID + '/', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-        },
-        body: JSON.stringify(imageArray[i])
-      })
-        .then(response => response.json())
-    } */
 
 
 
@@ -539,7 +536,7 @@ function PropertyEdit() {
                   class="form-control"
                   id="imageInput"
                   placeholder="Enter the number of guests"
-                  value={image}
+                  // value={image}
                   onChange={handleImages}
                 ></input>
               </div>
@@ -559,7 +556,7 @@ function PropertyEdit() {
           </div>
 
           <div class="container pb-3">
-            <a class="btn btn-secondary" href="host" role="button">Previous Page</a>
+            <NavLink to={"/properties/host/"} className="btn btn-secondary">Previous Page</NavLink>
             <button class="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Create Property!</button>
 
 

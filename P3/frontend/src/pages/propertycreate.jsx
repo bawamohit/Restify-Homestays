@@ -503,7 +503,7 @@ function PropertyCreate() {
                                     class="form-control"
                                     id="imageInput"
                                     placeholder="Enter the number of guests"
-                                    value={image}
+                                    // value={image}
                                     onChange={handleImages}
                                 ></input>
                             </div>
