@@ -26,6 +26,8 @@ function PropertyCreate() {
     const [image, setImage] = useState([])
     const [loggedIn, setLoggedIn] = useState([])
 
+    let imageArray = []
+    // let propertyID = 0
 
     useEffect(() => {
         fetch('http://localhost:8000/accounts/see-logged-in-user', {
@@ -37,9 +39,9 @@ function PropertyCreate() {
             })
     }, [])
 
-   /*  if (loggedIn.length !== 0) {
-        console.log(loggedIn)
-    } */
+    /*  if (loggedIn.length !== 0) {
+         console.log(loggedIn)
+     } */
 
 
     function notMinusOneGuest() {
@@ -74,9 +76,17 @@ function PropertyCreate() {
 
     const handleImages = (e) => {
         if (e.target.files) {
-            console.log([...e.target.files])
+            // console.log([...e.target.files])
+
+            imageArray.push(...e.target.files)
+            console.log(imageArray)
+
+            /*   console.log([e.target.files.length])
+              console.log([e.target.files[0]])
+              console.log([e.target.files[1]])
+              console.log([e.target.files[2]]) */
         }
-      };
+    };
 
 
     const handleSubmit = (e) => {
@@ -105,19 +115,42 @@ function PropertyCreate() {
 
         // console.log(propertyStuff)
 
+        let propertyID = 0
         fetch('http://localhost:8000/properties/property-create/', {
             method: 'POST',
             headers: {
-                // 'Accept': 'application/json, text/plain, */*',
                 "Content-Type": "application/json",
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             },
             body: JSON.stringify(propertyStuff)
         })
             .then(response => response.json())
-            .then(json => console.log(json))
-            
-            // .then(() => console.log("it submitted"))
+            .then(json => {
+                propertyID = json.id
+                console.log(imageArray)
+        
+                for (let i = 0; i < imageArray.length; i++) {
+                  fetch('http://localhost:8000/properties/property-image-create/' + propertyID + '/', {
+                    method: 'POST',
+                    headers: {
+                      "Content-Type": "application/json",
+                      'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    },
+                    body: JSON.stringify({image: imageArray[i]})
+                  })
+                    .then(response => response.json())
+                }
+        
+        
+              })
+
+
+
+
+        // .then(() => console.log("it submitted"))
+
+
+
 
         navigate('/properties/host');
     }
@@ -476,7 +509,7 @@ function PropertyCreate() {
                             </div>
                         </div>
                         <div class="col-4 ">
-                            
+
                         </div>
                     </div>
 
@@ -484,7 +517,7 @@ function PropertyCreate() {
                         <div class="col-2 ">
                         </div>
                         <div class="col-md-6 ">
-                           {/*  <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken"></img>
+                            {/*  <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken"></img>
                             <img src="PropertyData/Pineapple3.jpg" alt="House 3" class="house1createproperty img-darken"></img> */}
                         </div>
                     </div>
