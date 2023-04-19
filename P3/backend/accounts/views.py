@@ -111,7 +111,8 @@ class CommentListProperty (APIView):
     def get (self, request, pk):
         prop = Property.objects.get(id=self.kwargs['pk'])        
         propEnds = prop.reviews.filter(endOfCommentChain=True)
-        # print(propEnds.all())
+        # propEnds = propEnds.order_by('date')
+        # print(propEnds)
 
         big_array = []
         for i in propEnds:

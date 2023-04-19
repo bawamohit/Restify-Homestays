@@ -72,6 +72,7 @@ function App() {
             </Route>
         </Routes>
         <Footer />
+        
     </BrowserRouter>
 }
 export default App;
