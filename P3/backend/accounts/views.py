@@ -24,7 +24,7 @@ class UserCreate(CreateAPIView):
 
 class UserGetSet(RetrieveAPIView, UpdateAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = UserSerializer
+    serializer_class = UserViewSerializer
 
     def get_object(self):
         return get_object_or_404(User, id=self.request.user.id)

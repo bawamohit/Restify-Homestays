@@ -1,6 +1,14 @@
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 function Signup(props) {
+    const [usernameError, setUsernameError] = useState("")
+    const [passwordError, setPasswordError] = useState("")
+    const [fnameError, setFnameError] = useState("")
+    const [lnameError, setLnameError] = useState("")
+    const [emailError, setEmailError] = useState("")
+    const [phoneError, setPhoneError] = useState("")
+
     function handleSignUp() {       
         var username = document.getElementById("signup-modal-username").value
         var password = document.getElementById("signup-modal-password").value
@@ -22,7 +30,12 @@ function Signup(props) {
                 handleLogIn(username, password)
             }
             else {
-                console.log(json)
+                json.username ? setUsernameError(json.username.join()) : setUsernameError("")
+                json.password ? setPasswordError(json.password.join()) : setPasswordError("")
+                json.first_name ? setFnameError(json.first_name.join()) : setFnameError("")
+                json.last_name ? setLnameError(json.last_name.join()) : setLnameError("")
+                json.email ? setEmailError(json.email.join()) : setEmailError("")
+                json.phoneNumber ? setPhoneError(json.phoneNumber.join()) : setPhoneError("")
             }
         }))
     }
@@ -61,26 +74,32 @@ function Signup(props) {
                             <div className="mb-3">
                                 <label htmlFor="signup-modal-username" className="form-label">Username</label>
                                 <input type="text" className="form-control" id="signup-modal-username" placeholder="Username" />
+                                <p className="error">{usernameError}</p>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="signup-modal-fname" className="form-label">First Name</label>
                                 <input type="text" className="form-control" id="signup-modal-fname" placeholder="Joe" />
+                                <p className="error">{fnameError}</p>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="signup-modal-lname" className="form-label">Last Name</label>
                                 <input type="text" className="form-control" id="signup-modal-lname" placeholder="Biden" />
+                                <p className="error">{lnameError}</p>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="signup-modal-phone" className="form-label">Phone</label>
                                 <input type="phone" className="form-control" id="signup-modal-phone" placeholder="777-777-7777" />
+                                <p className="error">{phoneError}</p>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="signup-modal-email" className="form-label">Email</label>
                                 <input type="email" className="form-control" id="signup-modal-email" placeholder="email@example.com" />
+                                <p className="error">{emailError}</p>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="signup-modal-password" className="form-label">Password</label>
                                 <input type="password" className="form-control" id="signup-modal-password" placeholder="Password" />
+                                <p className="error">{passwordError}</p>
                             </div>
                         </form>
                     </div>

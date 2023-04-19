@@ -83,6 +83,10 @@ ul {
   object-fit: contain;
 }
 
+.error{
+  color: red;
+}
+
 /* md*/
 @media (min-width: 768px) {
   .pad-move {

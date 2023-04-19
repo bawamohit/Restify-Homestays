@@ -24,14 +24,14 @@ class UserSerializer(ModelSerializer):
 class UserViewSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username','first_name', 'last_name', 'email', 'phoneNumber', 'avatars']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'phoneNumber', 'avatars']
 
 class CommentSerializer(ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['id', 'user','body', 'rating', "content_type", "replyingTo", "first_name", "last_name", "avatars", "endOfCommentChain"]
-        read_only_fields = ['content_type','user', "endOfCommentChain"]
+        fields = ['id', 'user','body', 'rating', "content_type", "commentID", "replyingTo", "endOfCommentChain"]
+        read_only_fields = ['content_type','user', "endOfCommentChain", "commentID"]
 
     def validate(self, clean_data):
 

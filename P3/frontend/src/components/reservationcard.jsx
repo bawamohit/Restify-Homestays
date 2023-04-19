@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-var token = localStorage.getItem('accessToken')
 function Reserve(props) {
     const property_id = props.property_id;
     const price = props.price;
@@ -10,6 +9,7 @@ function Reserve(props) {
     const [tax, setTaxes] = useState(null);
     const [sumPrice, setSumPrice] = useState(null);
     const [guest, setGuest] = useState(1);
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         if (startDate && endDate) {
@@ -105,7 +105,7 @@ function Reserve(props) {
                 <button className="btn button-darken border-0" style={{ background: '#85bded' }} onClick={() =>
                     fetch(process.env.REACT_APP_BACKEND_API + 'properties/reservation-create/', {
                         method: 'POST',
-                        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+                        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken'), 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             property: property_id,
                             res_start_time: startDate,
@@ -114,12 +114,18 @@ function Reserve(props) {
                             guests: guest
                         })
                     })
-                        .then(response => {
-                            // handle response
-                        })
+                        .then(response => response.json().then(json => {
+                            if (response.ok) {
+                                setMessage("Reservation Created!")
+                            }
+                            else {
+                                setMessage(json.message)
+                            }
+                        }))
                         .catch(error => {
                             // handle error
                         })}>Reserve</button>
+                <p id="errorMsg" className = "error">{message}</p>
             </div>
         </div>
 

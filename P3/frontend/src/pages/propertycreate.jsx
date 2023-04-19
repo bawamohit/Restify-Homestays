@@ -94,6 +94,7 @@ function PropertyCreate() {
         e.preventDefault()
 
         if (imageArray.length < 3) {
+            document.getElementById("errorMsg").innerHTML = "You must choose at least 3 images!"
             return
         }
 
@@ -493,7 +494,7 @@ function PropertyCreate() {
                         </div>
                         <div class="col-md-6 ">
                             <div class="form-group pb-3">
-                                <label for="imageInput">Images</label>
+                                <label for="imageInput">Images (minimum 3)</label>
                                 <input type="file" multiple
                                     class="form-control"
                                     id="imageInput"
@@ -501,7 +502,7 @@ function PropertyCreate() {
                                     // value={image}
                                     onChange={handleImages}
                                 ></input>
-                                <small id="imageHelp" class="form-text text-muted">Must have at least 3 images.</small>
+                                <p id="errorMsg" className = "error"></p>
                             </div>
                         </div>
                         <div class="col-4 ">

@@ -5,12 +5,24 @@ function Login(props) {
     const [error, setError] = useState("")
 
     function handleLogIn() {
+        var uname = document.getElementById("login-modal-username").value
+        var pword = document.getElementById("login-modal-password").value
+        
+        if (uname.length === 0) {
+            setError("username cannot be blank")
+            return
+        }
+        if (pword.length === 0) {
+            setError("password cannot be blank")
+            return
+        }
+
         fetch(process.env.REACT_APP_BACKEND_API + "api/token/", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                username: document.getElementById("login-modal-username").value,
-                password: document.getElementById("login-modal-password").value
+                username: uname,
+                password: pword
             })
         }).then(response => response.json().then(json => {
             if (response.ok) {
@@ -20,7 +32,7 @@ function Login(props) {
                 props.callback(true)
             }
             else {
-                console.log(json.detail)
+                setError(json.detail)
             }
         }))
     }
@@ -44,7 +56,7 @@ function Login(props) {
                                 <input type="password" className="form-control" id="login-modal-password" placeholder="Password" />
                             </div>
                         </form>
-                        <p>{error}</p>
+                        <p id="errorMsg" className = "error">{error}</p>
                     </div>
                     <div className="modal-footer justify-content-between">
                         <div>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#signup-modal">Click here</a></div>

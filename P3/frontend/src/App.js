@@ -10,8 +10,6 @@ import Footer from './components/footer';
 import PropertySearch from './pages/propertysearch';
 import PropertyCreate from './pages/propertycreate'
 import PropertyEdit from './pages/propertyedit'
-import Amenities from './pages/amenities'
-import AmenitiesEdit from './pages/amenitiesedit'
 import MyProperties from './pages/myproperties'
 import PropertyView from './pages/propertyview'
 import PropertyViewGuest from './pages/propertyviewguest'

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import '../style.css'
 
-function UserRating() {
+function UserRating(props) {
 
+    const [userThatWasRated, setUserThatWasRated] = useState([])
     const [users, setUsers] = useState([])
     const [loggedIn, setLoggedIn] = useState([])
     const [reviews, setReviews] = useState([])
@@ -11,7 +12,8 @@ function UserRating() {
     const [previous, setPrevious] = useState(null)
 
     useEffect(() => {
-        var queryString = `accounts/view-comment-user/1?page=${page}`
+        console.log(props)
+        var queryString = "accounts/view-comment-user/" + props.requester + "?page=" + `${page}`
         fetch('http://localhost:8000/' + queryString, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
         })
@@ -36,6 +38,18 @@ function UserRating() {
     }, [reviews])
 
     useEffect(() => {
+            fetch('http://localhost:8000/accounts/view-user/' + props.requester + '/', {
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+            })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                    setUserThatWasRated(json)
+                })
+        
+    }, [props])
+
+    useEffect(() => {
         fetch('http://localhost:8000/accounts/see-logged-in-user', {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
         })
@@ -53,9 +67,9 @@ function UserRating() {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" style={{ color: '#85bded' }}>
-                                <img src={loggedIn.avatars}
+                                <img src={userThatWasRated.avatars}
                                     class="profile1css img-fluid rounded-circle"></img>
-                                &nbsp; {loggedIn.first_name}'s Ratings
+                                &nbsp; {userThatWasRated.first_name}'s Ratings
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>

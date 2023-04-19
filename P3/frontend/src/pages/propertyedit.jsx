@@ -24,7 +24,7 @@ function PropertyEdit() {
   const [pillow, setPillow] = useState(false)
   const [price, setPrice] = useState('')
   const [currency, setCurrency] = useState('CAD')
-  const [image, setImage] = useState([])
+  const [images, setImages] = useState([])
   const [loggedIn, setLoggedIn] = useState([])
   // const [info, setInfo] = useState([])
 
@@ -66,6 +66,11 @@ function PropertyEdit() {
         setPrice(json.price)
         setCurrency(json.currency)
       })
+
+    fetch('http://localhost:8000/properties/property-image-list/' + pid + '/', {
+        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+    }).then(response => response.json())
+    .then(json => {setImages([...json])})
   }, [pid])
 
   // console.log(info)
@@ -137,10 +142,11 @@ function PropertyEdit() {
     // console.log(propertyStuff)
 
     if (imageArray.length < 3){
-      return
+        document.getElementById("errorMsg").innerHTML = "You must choose at least 3 images!"
+
+        return
     } 
 
-    let propertyID = 0
     fetch('http://localhost:8000/properties/property-update/' + pid + '/', {
       method: 'PUT',
       headers: {
@@ -150,39 +156,30 @@ function PropertyEdit() {
       },
       body: JSON.stringify(propertyStuff)
     })
-      .then(response => response.json())
-      .then(json => {
-        propertyID = json.id
-        fetch('http://localhost:8000/properties/property-image-delete/' + propertyID + '/', {
+
+    // delete old images
+    for (var image of images) {
+        fetch('http://localhost:8000/properties/property-image-delete/' + image.id + '/', {
           method: 'DELETE',
           headers: {
-            // "Content-Type": "application/json",
             'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-          },
-          // body: JSON.stringify(imageStuff)
-          // body: imageStuff
+          }
         })
-      })
+    }
 
-      .then(json => {
-        propertyID = json.id
-        for (let i = 0; i < imageArray.length; i++) {
-          const imageStuff = new FormData();
-          imageStuff.append('image', imageArray[i]);
+    // add new images
+    for (let i = 0; i < imageArray.length; i++) {
+        const imageStuff = new FormData();
+        imageStuff.append('image', imageArray[i]);
 
-          fetch('http://localhost:8000/properties/property-image-create/' + propertyID + '/', {
+        fetch('http://localhost:8000/properties/property-image-create/' + pid + '/', {
             method: 'POST',
             headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             },
             body: imageStuff
-            
-          })
-            .then(response => response.json())
-        }
-      })
-
-
+        })
+    }
 
     navigate('/properties/host');
   }
@@ -190,24 +187,21 @@ function PropertyEdit() {
 
 
   return (
-
-
     <div>
-
-      <h2 class="pt-5 pb-5 text-secondary text-center">Edit Property</h2>
-      <div class="container">
+      <h2 className="pt-5 pb-5 text-secondary text-center">Edit Property</h2>
+      <div className="container">
         <form onSubmit={handleSubmit}>
 
-          <div class="row">
-            <div class="col-2">
+          <div className="row">
+            <div className="col-2">
             </div>
-            <div class="col-md-8">
-              <div class="form-group pb-3">
-                <label for="propertyNameInput">Property Name</label>
+            <div className="col-md-8">
+              <div className="form-group pb-3">
+                <label htmlFor="propertyNameInput">Property Name</label>
                 <input
 
                   type="text" required
-                  class="form-control"
+                  className="form-control"
                   id="propertyNameInput"
                   placeholder="Enter Property"
                   value={name}
@@ -220,14 +214,14 @@ function PropertyEdit() {
 
 
 
-          <div class="row">
-            <div class="col-2">
+          <div className="row">
+            <div className="col-2">
             </div>
-            <div class="col-md-8">
-              <div class="form-group pb-3">
-                <label for="descriptionInput">Description</label>
+            <div className="col-md-8">
+              <div className="form-group pb-3">
+                <label htmlFor="descriptionInput">Description</label>
                 <textarea type="text" required
-                  class="form-control"
+                  className="form-control"
                   id="propertyNameInput"
                   placeholder="Enter Description"
                   value={description}
@@ -237,14 +231,14 @@ function PropertyEdit() {
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-2">
+          <div className="row">
+            <div className="col-2">
             </div>
-            <div class="col-md-8">
-              <div class="form-group pb-3">
-                <label for="addressInput">Address</label>
+            <div className="col-md-8">
+              <div className="form-group pb-3">
+                <label htmlFor="addressInput">Address</label>
                 <input type="text" required
-                  class="form-control"
+                  className="form-control"
                   id="addressInput"
                   placeholder="Address"
                   value={address}
@@ -254,14 +248,14 @@ function PropertyEdit() {
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-2">
+          <div className="row">
+            <div className="col-2">
             </div>
-            <div class="col-md-8">
-              <div class="form-group pb-3">
-                <label for="cityInput">City</label>
+            <div className="col-md-8">
+              <div className="form-group pb-3">
+                <label htmlFor="cityInput">City</label>
                 <input type="text" required
-                  class="form-control"
+                  className="form-control"
                   id="cityInput"
                   placeholder="City"
                   value={city}
@@ -271,14 +265,14 @@ function PropertyEdit() {
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-2">
+          <div className="row">
+            <div className="col-2">
             </div>
-            <div class="col-md-8">
-              <div class="form-group pb-3">
-                <label for="countryInput">Country</label>
+            <div className="col-md-8">
+              <div className="form-group pb-3">
+                <label htmlFor="countryInput">Country</label>
 
-                <select class="form-select text-muted"
+                <select className="form-select text-muted"
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
                 >
@@ -292,14 +286,14 @@ function PropertyEdit() {
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-2">
+          <div className="row">
+            <div className="col-2">
             </div>
-            <div class="col-md-8">
-              <div class="form-group pb-3">
-                <label for="postalCodeInput">Postal Code</label>
+            <div className="col-md-8">
+              <div className="form-group pb-3">
+                <label htmlFor="postalCodeInput">Postal Code</label>
                 <input type="text" required
-                  class="form-control"
+                  className="form-control"
                   id="postalCodeInput"
                   placeholder="Postal Code"
                   value={postal}
@@ -309,25 +303,25 @@ function PropertyEdit() {
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          <div className="row">
+            <div className="col-2 col-sm-2 col-md-4 col-lg-4">
             </div>
-            <div class="col-8 col-sm-8 col-md-4 col-lg-4">
-              <div class="row pb-3">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
-                  <label for="guestInput">Guests</label>
+            <div className="col-8 col-sm-8 col-md-4 col-lg-4">
+              <div className="row pb-3">
+                <div className="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
+                  <label htmlFor="guestInput">Guests</label>
 
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div>
                     <button type="button" onClick={minusOneGuest}>-</button>
                   </div>
 
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div> {guest} </div>
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div>
                     <button type="button" onClick={notMinusOneGuest}>+</button>
 
@@ -336,99 +330,99 @@ function PropertyEdit() {
                 </div>
               </div>
             </div>
-            <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+            <div className="col-2 col-sm-2 col-md-4 col-lg-4">
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          <div className="row">
+            <div className="col-2 col-sm-2 col-md-4 col-lg-4">
             </div>
-            <div class="col-8 col-sm-8 col-md-4 col-lg-4">
-              <div class="row pb-3">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
-                  <label for="guestInput">Beds</label>
+            <div className="col-8 col-sm-8 col-md-4 col-lg-4">
+              <div className="row pb-3">
+                <div className="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
+                  <label htmlFor="guestInput">Beds</label>
 
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div> <button type="button" onClick={minusOneBed}>-</button> </div>
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div> {bed} </div>
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div> <button type="button" onClick={notMinusOneBed}>+</button> </div>
                 </div>
               </div>
             </div>
-            <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+            <div className="col-2 col-sm-2 col-md-4 col-lg-4">
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+          <div className="row">
+            <div className="col-2 col-sm-2 col-md-4 col-lg-4">
             </div>
-            <div class="col-8 col-sm-8 col-md-4 col-lg-4">
-              <div class="row pb-3">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
-                  <label for="guestInput">Baths</label>
+            <div className="col-8 col-sm-8 col-md-4 col-lg-4">
+              <div className="row pb-3">
+                <div className="col-3 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center">
+                  <label htmlFor="guestInput">Baths</label>
 
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div> <button type="button" onClick={minusOneBath}>-</button> </div>
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div> {bath} </div>
                 </div>
-                <div class="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
+                <div className="col-3 col-sm-3 col-lg-3 d-flex justify-content-center">
                   <div> <button type="button" onClick={notMinusOneBath}>+</button> </div>
                 </div>
               </div>
             </div>
-            <div class="col-2 col-sm-2 col-md-4 col-lg-4">
+            <div className="col-2 col-sm-2 col-md-4 col-lg-4">
             </div>
           </div>
 
-          <div class="d-flex justify-content-center">
+          <div className="d-flex justify-content-center">
 
-            <ul class="list-group">
-              <div class="form-check">
-                <input class="form-check-input"
+            <ul className="list-group">
+              <div className="form-check">
+                <input className="form-check-input"
                   type="checkbox"
                   id="wifiAmenities"
                   checked={wifi}
                   onChange={(e) => setWifi(e.target.checked)}
                 ></input>
-                <label class="form-check-label" for="wifiAmenities">
+                <label className="form-check-label" htmlFor="wifiAmenities">
                   Wifi
                 </label>
               </div>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="petFriendlyAmenities"
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" id="petFriendlyAmenities"
                   checked={petFriendly}
                   onChange={(e) => setPetFriendly(e.target.checked)}
                 ></input>
-                <label class="form-check-label" for="petFriendlyAmenities">
+                <label className="form-check-label" htmlFor="petFriendlyAmenities">
                   Pet Friendly
                 </label>
               </div>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="TVAmenities"
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" id="TVAmenities"
                   checked={TV}
                   onChange={(e) => setTV(e.target.checked)}
                 ></input>
-                <label class="form-check-label" for="TVAmenities">
+                <label className="form-check-label" htmlFor="TVAmenities">
                   TV
                 </label>
               </div>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="pillowsAmenities"
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" id="pillowsAmenities"
                   checked={pillow}
                   onChange={(e) => setPillow(e.target.checked)}
                 ></input>
-                <label class="form-check-label" for="pillowsAmenities">
+                <label className="form-check-label" htmlFor="pillowsAmenities">
                   Pillows
                 </label>
               </div>
@@ -437,18 +431,18 @@ function PropertyEdit() {
           </div>
 
 
-          {/* <div class="row">
-                        <div class="col-2">
+          {/* <div className="row">
+                        <div className="col-2">
                         </div>
-                        <div class="col-md-8">
-                            <div class="form-group pb-3">
-                                <div class="row">
-                                    <div class="col-12 col-sm-4 ">
-                                        <label for="dateInInput">Check In Date Availablity</label>
+                        <div className="col-md-8">
+                            <div className="form-group pb-3">
+                                <div className="row">
+                                    <div className="col-12 col-sm-4 ">
+                                        <label htmlFor="dateInInput">Check In Date Availablity</label>
                                     </div>
-                                    <div class="col-12 col-sm-8 ">
+                                    <div className="col-12 col-sm-8 ">
                                         <input type="date"
-                                            class="form-control"
+                                            className="form-control"
                                             id="dateInInput"
                                             placeholder="Check In Date"
                                             min="2023-02-01"
@@ -462,18 +456,18 @@ function PropertyEdit() {
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-2">
+                    <div className="row">
+                        <div className="col-2">
                         </div>
-                        <div class="col-md-8">
-                            <div class="form-group pb-3">
-                                <div class="row">
-                                    <div class="col-12 col-sm-4 ">
-                                        <label for="dateOutInput">Check Out Date Availablity</label>
+                        <div className="col-md-8">
+                            <div className="form-group pb-3">
+                                <div className="row">
+                                    <div className="col-12 col-sm-4 ">
+                                        <label htmlFor="dateOutInput">Check Out Date Availablity</label>
                                     </div>
-                                    <div class="col-12 col-sm-8 ">
+                                    <div className="col-12 col-sm-8 ">
                                         <input type="date"
-                                            class="form-control"
+                                            className="form-control"
                                             id="dateOutInput"
                                             placeholder="Check Out Date"
                                             min="2023-02-01"
@@ -487,26 +481,26 @@ function PropertyEdit() {
                         </div>
                     </div> */}
 
-          <div class="row">
-            <div class="col-2">
+          <div className="row">
+            <div className="col-2">
             </div>
-            <div class="col-md-8">
-              <div class="form-group pb-3">
-                <div class="row">
-                  <div class="col-12 col-sm-4 ">
-                    <label for="priceInput">Price/Currency</label>
+            <div className="col-md-8">
+              <div className="form-group pb-3">
+                <div className="row">
+                  <div className="col-12 col-sm-4 ">
+                    <label htmlFor="priceInput">Price/Currency</label>
                   </div>
-                  <div class="col-7 col-sm-5 ">
+                  <div className="col-7 col-sm-5 ">
                     <input type="number" required min="0.01" step="0.01"
-                      class="form-control"
+                      className="form-control"
                       id="priceInput"
                       placeholder="Price per day"
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
                     ></input>
                   </div>
-                  <div class="col-5 col-sm-3 ">
-                    <select class="form-select text-muted" id="currencyInput"
+                  <div className="col-5 col-sm-3 ">
+                    <select className="form-select text-muted" id="currencyInput"
                       value={currency}
                       onChange={(e) => setCurrency(e.target.value)}
                     >
@@ -526,39 +520,40 @@ function PropertyEdit() {
 
 
 
-          <div class="row">
-            <div class="col-2 ">
+          <div className="row">
+            <div className="col-2 ">
             </div>
-            <div class="col-md-6 ">
-              <div class="form-group pb-3">
-                <label for="imageInput">Images</label>
+            <div className="col-md-6 ">
+              <div className="form-group pb-3">
+                <label htmlFor="imageInput">Images</label>
                 <input type="file" multiple
-                  class="form-control"
+                  className="form-control"
                   id="imageInput"
                   placeholder="Enter the number of guests"
                   // value={image}
                   onChange={handleImages}
                 ></input>
-                <small id="imageHelp" class="form-text text-muted">Must have at least 3 images.</small>
+                <small id="imageHelp" className="form-text text-muted">Must have at least 3 images.</small>
+                <p id="errorMsg" className = "error"></p>
               </div>
             </div>
-            <div class="col-4 ">
+            <div className="col-4 ">
 
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-2 ">
+          <div className="row">
+            <div className="col-2 ">
             </div>
-            <div class="col-md-6 ">
-              {/* <img src="PropertyData/Pineapple2.jpg" alt="House 2" class="house1createproperty img-darken"></img>
-                            <img src="PropertyData/Pineapple3.jpg" alt="House 3" class="house1createproperty img-darken"></img> */}
+            <div className="col-md-6 ">
+              {/* <img src="PropertyData/Pineapple2.jpg" alt="House 2" className="house1createproperty img-darken"></img>
+                            <img src="PropertyData/Pineapple3.jpg" alt="House 3" className="house1createproperty img-darken"></img> */}
             </div>
           </div>
 
-          <div class="container pb-3">
+          <div className="container pb-3">
             <NavLink to={"/properties/host/"} className="btn btn-secondary">Previous Page</NavLink>
-            <button class="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Edit Property!</button>
+            <button className="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Edit Property!</button>
 
 
           </div>

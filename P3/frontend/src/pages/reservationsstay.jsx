@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-
+import LeaveUserRating from "../components/leaveuserrating";
 import Cancel from "../components/cancel";
 import RequestCancel from "../components/requestcancel";
 import Addr from "../components/addr";
@@ -173,9 +173,9 @@ function ShowReservationsStay() {
                     case "Completed":
                       return (<div className="d-flex justify-content-between pt-4" >
                         <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                        <LeaveUserRating id={reservation.property.owner}/>
+                        <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#host-rate-modal">Rate this host</button>
 
-
-                        <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#user-rate-modal">Rate this host</button>
                       </div>);
 
                     default:

@@ -12,11 +12,12 @@ function LeaveUserRating(props) {
         e.preventDefault()
 
         const commentStuff = {
-            user: loggedIn,
+            // user: loggedIn,
             body,
             rating,
+            replyingTo: null
         }
-        
+
         fetch('http://localhost:8000/accounts/create-comment-user/' + props.id + '/', {
             method: 'POST',
             headers: {
@@ -26,9 +27,9 @@ function LeaveUserRating(props) {
             },
             body: JSON.stringify(commentStuff)
         })
+        // .then(response => response.json())
         .then(response => console.log(response))
         
-        // .then(() => console.log("it submitted"))
     }
 
     useEffect(() => {
@@ -41,9 +42,11 @@ function LeaveUserRating(props) {
             })
     }, [])
 
+    
+
     return (
         <div>
-
+            
             <div class="modal fade" id="host-rate-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -57,29 +60,29 @@ function LeaveUserRating(props) {
                             </div>
                             <form class="pb-2" onSubmit={handleSubmit}>
                                 <div class="btn-group" role="group">
-                                <select class="form-select text-muted"
-                                    value={rating}
-                                    onChange={(e) => setRating(e.target.value)}
-                                >
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+                                    <select class="form-select text-muted"
+                                        value={rating}
+                                        onChange={(e) => setRating(e.target.value)}
+                                    >
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
 
-                                    
+
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Leave a comment</label>
-                                    
+
                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                    value={body}
-                                    onChange={(e) => setBody(e.target.value)}></textarea>
-                                    
+                                        value={body}
+                                        onChange={(e) => setBody(e.target.value)}></textarea>
+
                                 </div>
-                            
-                            <button class="btn btn-success" type="submit">Confirm</button>
+
+                                <button class="btn btn-success" type="submit">Confirm</button>
                             </form>
                         </div>
                     </div>

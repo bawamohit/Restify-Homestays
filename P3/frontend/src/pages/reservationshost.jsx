@@ -130,7 +130,7 @@ function ShowReservationsHost() {
                         return (
                           <div className="d-flex pt-4 justify-content-between" >
                             <div>
-                              < UserRating />
+                              < UserRating requester={reservation.requester}/>
                               <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
                               <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                             </div>
@@ -145,7 +145,7 @@ function ShowReservationsHost() {
                       case "PendingCancel":
                         return (
                           <div className="d-flex pt-4 justify-content-between" >
-                            <UserRating />
+                            <UserRating requester={reservation.requester}/>
                             <div>
                               <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
                               <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
@@ -170,7 +170,7 @@ function ShowReservationsHost() {
 
                       case "Approved":
                         return (<div className="d-flex pt-4 justify-content-between" >
-                          < UserRating />
+                          < UserRating requester={reservation.requester}/>
                           <div>
                             <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
                             <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
@@ -194,8 +194,8 @@ function ShowReservationsHost() {
                       case "Completed":
                         return (<div className="d-flex justify-content-between pt-4" >
                           <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
-                          <LeaveUserRating />
-                          <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#user-rate-modal">Rate this user</button>
+                          <LeaveUserRating id={reservation.requester}/>
+                          <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#host-rate-modal">Rate this user</button>
                         </div>);
 
                       default:

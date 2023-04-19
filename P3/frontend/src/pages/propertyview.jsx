@@ -13,6 +13,7 @@ function PropertyView() {
     const [page, setPage] = useState(1)
     const [next, setNext] = useState(null)
     const [previous, setPrevious] = useState(null)
+    const [reloadReviews, setReloadReviews] = useState(false)
     
     // const [user, setUser] = useState([])
     const [loggedIn, setLoggedIn] = useState([])
@@ -35,7 +36,7 @@ function PropertyView() {
                 setPrevious(json.previous)
                 console.log(json)
             })
-    }, [pid, page])
+    }, [pid, page, reloadReviews])
 
     useEffect(() => {
         if (Object.keys(property).length !== 0) {
@@ -115,7 +116,21 @@ function PropertyView() {
     //     window.location.reload();
     // }
 
-    function handleSubmit(body, replyingTo, rating) {
+    const [reviewBodyError, setReviewBodyError] = useState("")
+    const [reviewRatingError, setReviewRatingError] = useState("")
+    const [reviewError, setReviewError] = useState("")
+    
+    const [replyBodyError, setReplyBodyError] = useState("")
+    const [replyReplyingToError, setReplyReplyingToError] = useState("")
+    const [replyError, setReplyError] = useState("")
+
+    function handleReview() {
+        console.log({
+            body: document.getElementById("review-text").value,
+            rating: document.getElementById("review-rating").value,
+            replyingTo: null
+        })
+        
         fetch('http://localhost:8000/accounts/create-comment-property/' + pid + '/', {
             method: 'POST',
             headers: {
@@ -123,12 +138,54 @@ function PropertyView() {
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             },
             body: JSON.stringify({
-
+                body: document.getElementById("review-text").value,
+                rating: document.getElementById("review-rating").value,
+                replyingTo: null
             })
         })
-        .then(response => console.log(response))
-        .then(() => console.log("it submitted"))
+        .then(response => response.json().then(json => {
+            if (response.ok) {
+                setReloadReviews(!reloadReviews)
+            }
+            else {
+                // display errors
+                json.body ? setReviewBodyError(json.body.join()) : setReviewBodyError("")
+                json.rating ? setReviewRatingError(json.rating.join()) : setReviewRatingError("")
+                json.non_field_errors ? setReviewError(json.non_field_errors.join()) : setReviewError("")
+            }
+        }))
     }
+
+    function handleReply(replyingTo) {
+        console.log({
+            body: document.getElementById("reply-text").value,
+            replyingTo: replyingTo,
+            rating: null
+        })
+        fetch('http://localhost:8000/accounts/create-comment-property/' + pid + '/', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            },
+            body: JSON.stringify({
+                body: document.getElementById("reply-text").value,
+                replyingTo: replyingTo,
+                rating: null
+            })
+        })
+        .then(response => response.json().then(json => {
+            if (response.ok) {
+                setReloadReviews(!reloadReviews)
+            }
+            else {
+                json.body ? setReplyBodyError(json.body.join()) : setReplyBodyError("")
+                json.replyingTo ? setReplyReplyingToError(json.replyingTo.join()) : setReplyReplyingToError("")
+                json.non_field_errors ? setReplyError(json.non_field_errors.join()) : setReplyError("")
+            }
+        }))
+    }
+
 
     function isReplyable(comment, thread) {
         // If we are the host
@@ -198,16 +255,19 @@ function PropertyView() {
             <div className="py-2">
                 <h5>Reviews</h5>
                 <div className="input-group py-3">
-                    <textarea className="form-control" rows="2" placeholder="Leave a Review"></textarea>
-                    <select style={{maxWidth: "120px"}} className="form-select">
+                    <textarea id="review-text" className="form-control" rows="2" placeholder="Leave a Review"></textarea>
+                    <select id="review-rating" style={{maxWidth: "120px"}} className="form-select">
                         <option value="1">1 star</option>
                         <option value="2">2 star</option>
                         <option value="3">3 star</option>
                         <option value="4">4 star</option>
                         <option value="5">5 star</option>
                     </select>
-                    <button className="btn btn-secondary" type="button" onClick={() => {console.log("submit")}}>Submit</button>
+                    <button className="btn btn-secondary" type="button" onClick={handleReview}>Submit</button>
                 </div>
+                <p id="review-body-error" className="error">{reviewBodyError}</p>
+                <p id="review-rating-error" className="error">{reviewRatingError}</p>
+                <p id="review-error" className="error">{reviewError}</p>
                 {reviews.map((thread, i) => {
                     return (
                         <div key={`thread_${i}`} className="py-3">
@@ -216,9 +276,14 @@ function PropertyView() {
                                     return <div key={`thread_${i}comment_${j}`}>
                                             <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating} />
                                             <div className="input-group px-5">
-                                                <textarea className="form-control" rows="1" placeholder="Leave a reply"></textarea>
-                                                <button className="btn btn-outline-secondary" type="button" onClick={() => {console.log("submit")}}>Submit</button>
+                                                <textarea id="reply-text" className="form-control" rows="1" placeholder="Leave a reply"></textarea>
+                                                <button className="btn btn-outline-secondary" type="button" onClick={() => {
+                                                    // console.log(comment.id)
+                                                    handleReply(comment.commentID)}}>Submit</button>
                                             </div>
+                                            <p id="reply-body-error" className="error">{replyBodyError}</p>
+                                            <p id="reply-replyingTo-error" className="error">{replyReplyingToError}</p>
+                                            <p id="reply-error" className="error">{replyError}</p>
                                         </div>
                                 }
                                 return <div key={`thread_${i}comment_${j}`}>
