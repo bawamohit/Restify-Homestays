@@ -4,6 +4,9 @@ function Comment(props) {
     const [user, setUser] = useState({})
 
     let justDate = props.date.split('T')[0]
+    let justTime = props.date.split('T')[1]
+    let justHour = justTime.split(':')[0]
+    let justMinute = justTime.split(':')[1]
     console.log(justDate)
 
     useEffect(() => {
@@ -23,7 +26,7 @@ function Comment(props) {
             <div className="d-flex gap-3">
                 <img src={user.avatars} alt="User" className="rounded-circle img-fluid" style={{maxHeight:'40px'}}></img>
                 <div>
-                    <div>{user.first_name} {user.last_name}  ({justDate})</div>
+                    <div>{user.first_name} {user.last_name}  (Date: {justDate}/Time: {justHour}:{justMinute})</div>
                     {props.rating ? (<p>Rating: {props.rating} stars</p>) : ("")}
                     {props.uid === props.hostid ? (<p>(host)</p>) : ("")}
                 </div>
