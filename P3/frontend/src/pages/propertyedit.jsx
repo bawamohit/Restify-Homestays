@@ -182,6 +182,7 @@ function PropertyEdit() {
     }
 
     navigate('/properties/host');
+    window.location.reload();
   }
 
 

@@ -149,6 +149,7 @@ function PropertyCreate() {
                 }
             })
         navigate('/properties/host');
+        window.location.reload();
     }
 
     // console.log(image)

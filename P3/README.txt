@@ -151,3 +151,5 @@ https://www.dailymotion.com/video/x580xcz
 Dora3
 https://www.dailymotion.com/video/x4wpw56
 
+MrKrabs
+https://www.looper.com/307702/what-you-never-noticed-about-mr-krabs-lies-in-spongebob-squarepants/

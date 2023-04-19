@@ -195,7 +195,7 @@ function ShowReservationsHost() {
                       case "Completed":
                         return (<div className="d-flex justify-content-between pt-4" >
                           <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
-                          <LeaveUserRating id={reservation.requester} onButtonClick={refresh}/>
+                          <LeaveUserRating id={reservation.requester}/>
                         </div>);
 
                       default:
