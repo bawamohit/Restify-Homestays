@@ -29,9 +29,11 @@ function LeaveUserRating(props) {
         })
         // .then(response => response.json())
         // .then(response => console.log(response))
-        .then(response => {
+        /* .then(response => {
             props.onButtonClick();
-        })
+        }) */
+
+        document.getElementById("submittedMsg").innerHTML = "Your review has been submitted!"
         
     }
 
@@ -86,6 +88,7 @@ function LeaveUserRating(props) {
                                 </div>
 
                                 <button class="btn btn-success" type="submit">Confirm</button>
+                                <p id="submittedMsg" className = "error"></p>
                             </form>
                         </div>
                     </div>

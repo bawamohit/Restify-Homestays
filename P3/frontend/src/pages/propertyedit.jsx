@@ -159,6 +159,7 @@ function PropertyEdit() {
 
     // delete old images
     for (var image of images) {
+      console.log(image)
         fetch('http://localhost:8000/properties/property-image-delete/' + image.id + '/', {
           method: 'DELETE',
           headers: {
@@ -169,6 +170,7 @@ function PropertyEdit() {
 
     // add new images
     for (let i = 0; i < imageArray.length; i++) {
+      console.log(imageArray[i])
         const imageStuff = new FormData();
         imageStuff.append('image', imageArray[i]);
 
@@ -181,9 +183,11 @@ function PropertyEdit() {
         })
     }
 
-    navigate('/properties/host');
+    document.getElementById("errorMsg").innerHTML = "Property " + name + " was editted!"
+    return
+    /* navigate('/properties/host');
+    window.location.reload(); */
   }
-
 
 
   return (
@@ -554,7 +558,7 @@ function PropertyEdit() {
           <div className="container pb-3">
             <NavLink to={"/properties/host/"} className="btn btn-secondary">Previous Page</NavLink>
             <button className="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Edit Property!</button>
-
+            <p id="submittedMsg" className = "error"></p>
 
           </div>
 

@@ -148,7 +148,11 @@ function PropertyCreate() {
                         .then(response => response.json())
                 }
             })
-        navigate('/properties/host');
+
+        document.getElementById("errorMsg").innerHTML = "Property " + name + " was created!"
+        return
+        // navigate('/properties/host');
+        // window.location.reload();
     }
 
     // console.log(image)
@@ -485,16 +489,12 @@ function PropertyCreate() {
                         </div>
                     </div>
 
-
-
-
-
                     <div class="row">
                         <div class="col-2 ">
                         </div>
                         <div class="col-md-6 ">
                             <div class="form-group pb-3">
-                                <label for="imageInput">Images (minimum 3)</label>
+                                <label for="imageInput">Images</label>
                                 <input type="file" multiple
                                     class="form-control"
                                     id="imageInput"
@@ -502,7 +502,8 @@ function PropertyCreate() {
                                     // value={image}
                                     onChange={handleImages}
                                 ></input>
-                                <p id="errorMsg" className = "error"></p>
+                                <small id="imageHelp" className="form-text text-muted">Must have at least 3 images.</small>
+                                <p id="errorMsg" className="error"></p>
                             </div>
                         </div>
                         <div class="col-4 ">
@@ -522,7 +523,7 @@ function PropertyCreate() {
                     <div class="container pb-3">
                         <NavLink to={"/properties/host/"} className="btn btn-secondary">Previous Page</NavLink>
                         <button class="btn float-end button-darken" style={{ background: "#85bded" }} type="submit">Create Property!</button>
-
+                        <p id="submittedMsg" className="error"></p>
 
                     </div>
 
