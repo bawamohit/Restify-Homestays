@@ -4,6 +4,7 @@ import LeaveUserRating from "../components/leaveuserrating";
 import Cancel from "../components/cancel";
 import RequestCancel from "../components/requestcancel";
 import Addr from "../components/addr";
+import { NavLink } from "react-router-dom";
 
 var token = localStorage.getItem('accessToken')
 
@@ -67,7 +68,7 @@ function ShowReservationsStay() {
 
   return (
     <div className="container text-center">
-        <h2 className="py-4 text-secondary text-center">Stays</h2>
+      <h2 className="py-4 text-secondary text-center">Stays</h2>
 
       <div className="pb-4 btn-group btn-group-md flex-wrap" role="group" aria-label="Button group with 7 buttons">
         <div className="btn-group">
@@ -125,7 +126,7 @@ function ShowReservationsStay() {
                       return (
                         <div className="d-flex pt-4 justify-content-between" >
                           <div>
-                            <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                            <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                             <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                           </div>
                           <Cancel reservation={reservation.id} onButtonClick={refresh} />
@@ -136,23 +137,23 @@ function ShowReservationsStay() {
 
                     case "PendingCancel":
                       return (<div className="d-flex justify-content-between pt-4" >
-                        <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                        <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                       </div>);
 
                     case "Denied":
                       return (<div className="d-flex justify-content-between pt-4" >
-                        <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                        <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                       </div>);
 
                     case "Expired":
                       return (<div className="d-flex justify-content-between pt-4" >
-                        <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                        <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                       </div>);
 
                     case "Approved":
                       return (<div className="d-flex pt-4 justify-content-between" >
                         <div>
-                          <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                          <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                         </div>
                         <RequestCancel reservation={reservation.id} onButtonClick={refresh} />
                         <div>
@@ -162,20 +163,20 @@ function ShowReservationsStay() {
 
                     case "Canceled":
                       return (<div className="d-flex justify-content-between pt-4" >
-                        <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                        <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                       </div>);
 
                     case "Terminated":
                       return (<div className="d-flex justify-content-between pt-4" >
-                        <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                        <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                       </div>);
 
                     case "Completed":
                       return (<div className="d-flex justify-content-between pt-4" >
-                        <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
-                        <LeaveUserRating id={reservation.property.owner}/>
-                        <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#host-rate-modal">Rate this host</button>
-
+                        <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
+                        {/* <LeaveUserRating id={reservation.property.owner}/>
+                        <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#host-rate-modal">Rate this host</button> */}
+                        
                       </div>);
 
                     default:
@@ -203,14 +204,14 @@ function ShowReservationsStay() {
         }
       </p>
       <p>Page {query.page} out of {totalPages}.</p> */}
-        <div className="ms-auto me-auto" style={{maxWidth: "700px"}}>
-            <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
-                {previous ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page - 1 }) }}>Previous Page</button> : 
-                    <button className="btn btn-outline-secondary my-5" type="button" disabled>Previous Page</button>}
-                {next ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page + 1 }) }}>Next Page</button> :
-                    <button className="btn btn-outline-secondary my-5" type="button" disabled>Next Page</button>}
-            </div>
+      <div className="ms-auto me-auto" style={{ maxWidth: "700px" }}>
+        <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
+          {previous ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page - 1 }) }}>Previous Page</button> :
+            <button className="btn btn-outline-secondary my-5" type="button" disabled>Previous Page</button>}
+          {next ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page + 1 }) }}>Next Page</button> :
+            <button className="btn btn-outline-secondary my-5" type="button" disabled>Next Page</button>}
         </div>
+      </div>
     </div>
   );
 }

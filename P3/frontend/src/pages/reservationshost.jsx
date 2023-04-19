@@ -8,6 +8,8 @@ import Terminate from "../components/terminate";
 import Addr from "../components/addr";
 import LeaveUserRating from "../components/leaveuserrating";
 import UserRating from "../components/userrating1";
+import Names from "../components/names";
+import { NavLink } from "react-router-dom";
 
 var token = localStorage.getItem('accessToken')
 
@@ -16,7 +18,7 @@ function ShowReservationsHost() {
   const [query, setQuery] = useState({ search: "", page: 1 });
   const [next, setNext] = useState(null)
   const [previous, setPrevious] = useState(null)
-  
+
   useEffect(() => {
     if (query.page === 1) {
       fetch(process.env.REACT_APP_BACKEND_API + 'properties/reservation-status/?hostuser=host&status=' + query.search, {
@@ -100,7 +102,7 @@ function ShowReservationsHost() {
                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <div>
                     <div class="col-12">
-                      Reservation at <Addr property={reservation.property} />
+                      Reservation at <Addr property={reservation.property} /> by <Names user_id={reservation.requester} />
                     </div>
                     <div class="col-12">
                       Status: {reservation.status}
@@ -131,7 +133,7 @@ function ShowReservationsHost() {
                           <div className="d-flex pt-4 justify-content-between" >
                             <div>
                               < UserRating requester={reservation.requester}/>
-                              <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                              <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                               <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                             </div>
                             <Accept reservation={reservation.id} onButtonClick={refresh} />
@@ -145,9 +147,10 @@ function ShowReservationsHost() {
                       case "PendingCancel":
                         return (
                           <div className="d-flex pt-4 justify-content-between" >
-                            <UserRating requester={reservation.requester}/>
+                            
                             <div>
-                              <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                              <UserRating requester={reservation.requester}/>
+                              <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                               <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                             </div>
                             <DenyCancel reservation={reservation.id} onButtonClick={refresh} />
@@ -160,19 +163,20 @@ function ShowReservationsHost() {
 
                       case "Denied":
                         return (<div className="d-flex justify-content-between pt-4" >
-                          <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                          <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                         </div>);
 
                       case "Expired":
                         return (<div className="d-flex justify-content-between pt-4" >
-                          <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                          <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                         </div>);
 
                       case "Approved":
                         return (<div className="d-flex pt-4 justify-content-between" >
-                          < UserRating requester={reservation.requester}/>
+                          
                           <div>
-                            <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                            < UserRating requester={reservation.requester}/>
+                            <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                             <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                           </div>
                           <Terminate reservation={reservation.id} onButtonClick={refresh} />
@@ -183,17 +187,17 @@ function ShowReservationsHost() {
 
                       case "Canceled":
                         return (<div className="d-flex justify-content-between pt-4" >
-                          <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                          <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                         </div>);
 
                       case "Terminated":
                         return (<div className="d-flex justify-content-between pt-4" >
-                          <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                          <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                         </div>);
 
                       case "Completed":
                         return (<div className="d-flex justify-content-between pt-4" >
-                          <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
+                          <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
                           <LeaveUserRating id={reservation.requester}/>
                           <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#host-rate-modal">Rate this user</button>
                         </div>);
@@ -224,14 +228,14 @@ function ShowReservationsHost() {
         }
       </p>
       <p>Page {query.page} out of {totalPages}.</p> */}
-        <div className="ms-auto me-auto" style={{maxWidth: "700px"}}>
-            <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
-                {previous ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page - 1 }) }}>Previous Page</button> : 
-                    <button className="btn btn-outline-secondary my-5" type="button" disabled>Previous Page</button>}
-                {next ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page + 1 }) }}>Next Page</button> :
-                    <button className="btn btn-outline-secondary my-5" type="button" disabled>Next Page</button>}
-            </div>
+      <div className="ms-auto me-auto" style={{ maxWidth: "700px" }}>
+        <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
+          {previous ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page - 1 }) }}>Previous Page</button> :
+            <button className="btn btn-outline-secondary my-5" type="button" disabled>Previous Page</button>}
+          {next ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page + 1 }) }}>Next Page</button> :
+            <button className="btn btn-outline-secondary my-5" type="button" disabled>Next Page</button>}
         </div>
+      </div>
     </div>
   );
 }
