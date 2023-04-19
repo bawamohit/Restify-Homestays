@@ -131,10 +131,9 @@ function ShowReservationsHost() {
                       case "Pending":
                         return (
                           <div className="d-flex pt-4 justify-content-between" >
-                            <div>
-                              < UserRating requester={reservation.requester}/>
+                            <div className="d-flex">
+                              <UserRating requester={reservation.requester}/>
                               <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
-                              <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                             </div>
                             <Accept reservation={reservation.id} onButtonClick={refresh} />
                             <Deny reservation={reservation.id} onButtonClick={refresh} />
@@ -148,10 +147,9 @@ function ShowReservationsHost() {
                         return (
                           <div className="d-flex pt-4 justify-content-between" >
                             
-                            <div>
+                            <div className="d-flex">
                               <UserRating requester={reservation.requester}/>
                               <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
-                              <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                             </div>
                             <DenyCancel reservation={reservation.id} onButtonClick={refresh} />
                             <AcceptCancel reservation={reservation.id} onButtonClick={refresh} />
@@ -174,10 +172,9 @@ function ShowReservationsHost() {
                       case "Approved":
                         return (<div className="d-flex pt-4 justify-content-between" >
                           
-                          <div>
+                          <div className="d-flex">
                             < UserRating requester={reservation.requester}/>
                             <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
-                            <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                           </div>
                           <Terminate reservation={reservation.id} onButtonClick={refresh} />
                           <div>
@@ -198,8 +195,7 @@ function ShowReservationsHost() {
                       case "Completed":
                         return (<div className="d-flex justify-content-between pt-4" >
                           <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
-                          <LeaveUserRating id={reservation.requester}/>
-                          <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target="#host-rate-modal">Rate this user</button>
+                          <LeaveUserRating id={reservation.requester} onButtonClick={refresh}/>
                         </div>);
 
                       default:

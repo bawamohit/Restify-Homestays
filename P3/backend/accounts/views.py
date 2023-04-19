@@ -127,7 +127,7 @@ class CommentListProperty (APIView):
             serializer = CommentSerializer(temp_array, many=True)
             big_array.append(serializer.data)
 
-        paginator = Paginator(big_array, api_settings.PAGE_SIZE)
+        paginator = Paginator(big_array, 1)
         page = paginator.page(self.request.GET.get('page', 1))
 
         previous_url = None

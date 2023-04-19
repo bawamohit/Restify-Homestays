@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import '../style.css'
+import Comment from "./comment";
 
 function UserRating(props) {
 
     const [userThatWasRated, setUserThatWasRated] = useState([])
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState({})
     const [loggedIn, setLoggedIn] = useState([])
     const [reviews, setReviews] = useState([])
     const [page, setPage] = useState(1)
@@ -23,19 +24,19 @@ function UserRating(props) {
                 setNext(json.next)
                 setPrevious(json.previous)
             })
-    }, [page])
+    }, [page, props.requester])
 
-    useEffect(() => {
-        if (Object.keys(reviews).length !== 0) {
-            fetch('http://localhost:8000/accounts/list-user/?page=' + reviews[0].user, {
-                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
-            })
-                .then(response => response.json())
-                .then(json => {
-                    setUsers(json.results)
-                })
-        }
-    }, [reviews])
+    // useEffect(() => {
+    //     if (Object.keys(reviews).length !== 0) {
+    //         fetch('http://localhost:8000/accounts/view-user/' + reviews[0].user +'/', {
+    //             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken') }
+    //         })
+    //             .then(response => response.json())
+    //             .then(json => {
+    //                 setUsers(json)
+    //             })
+    //     }
+    // }, [reviews])
 
     useEffect(() => {
             fetch('http://localhost:8000/accounts/view-user/' + props.requester + '/', {
@@ -47,7 +48,7 @@ function UserRating(props) {
                     setUserThatWasRated(json)
                 })
         
-    }, [props])
+    }, [props.requester])
 
     useEffect(() => {
         fetch('http://localhost:8000/accounts/see-logged-in-user', {
@@ -61,8 +62,8 @@ function UserRating(props) {
 
     return (
         <div>
-
-            <div class="modal fade" id="guests-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+            <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target={`#guests-modal-${props.requester}`}>User Rating</button>
+            <div class="modal fade" id={`guests-modal-${props.requester}`} tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -77,51 +78,17 @@ function UserRating(props) {
                             <div class="card card-body border-0">
                                 <div class="row">
                                     <div class="col-sm-2 col-3 p-0 ">
-
-                                        {(() => {
-                                            if (users.length !== 0) {
-                                                return (
-                                                    <img
-                                                        class="profile1css img-fluid rounded-circle" src={users[0].avatars} />
-                                                )
-                                            }
-                                        })()}
-
-
                                     </div>
                                     <div class="col-sm-10 col-9 p-0">
-                                        <div class="bold">
-
-                                            {(() => {
-                                                if (users.length !== 0) {
-                                                    // console.log(users[0][0].username)
-                                                    return (
-
-                                                        <div>  {users[0].first_name} {users[0].last_name}</div>
-                                                    )
-                                                }
-                                            })()}
-
-
-                                            {/* {users[0].first_name} */}
-                                        </div>
                                         <div class="text-secondary">
-
                                             {reviews.map(review =>
-                                                <div>Rating:  {review.rating} Stars</div>
+                                                //     <div>
+                                                // <div>Rating:  {review.rating} Stars</div>
+                                                // <div>{review.body}</div></div>
+                                                <Comment uid={review.user} hostid={null} position={0} body={review.body} rating={review.rating} />
                                             )}
-
-
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row pb-3">
-                                    {reviews.map(review =>
-                                        <div>{review.body}</div>
-                                    )}
-                                </div>
-                                <div class="row">
-
                                 </div>
                             </div>
 

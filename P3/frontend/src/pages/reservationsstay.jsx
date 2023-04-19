@@ -127,7 +127,7 @@ function ShowReservationsStay() {
                         <div className="d-flex pt-4 justify-content-between" >
                           <div>
                             <NavLink to={"/properties/view/" + reservation.property} style={{ background: '#85bded' }} className="btn float-left">Details</NavLink>
-                            <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
+                            {/* <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button> */}
                           </div>
                           <Cancel reservation={reservation.id} onButtonClick={refresh} />
                           <div>

@@ -28,7 +28,10 @@ function LeaveUserRating(props) {
             body: JSON.stringify(commentStuff)
         })
         // .then(response => response.json())
-        .then(response => console.log(response))
+        // .then(response => console.log(response))
+        .then(response => {
+            props.onButtonClick();
+        })
         
     }
 
@@ -40,14 +43,14 @@ function LeaveUserRating(props) {
             .then(json => {
                 setLoggedIn(json)
             })
-    }, [])
+    }, [props.id])
 
     
 
     return (
         <div>
-            
-            <div class="modal fade" id="host-rate-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+            <button className="btn btn-secondary float-right" data-bs-toggle="modal" data-bs-target={`#host-rate-modal-${props.id}`}>Rate this user</button>
+            <div class="modal fade" id={`host-rate-modal-${props.id}`} tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
