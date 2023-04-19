@@ -18,36 +18,39 @@ function Profile() {
     }
  
     return (<div className="container">
-        <h2 className="py-4 text-secondary text-center">My Profile</h2>
-        <input type="checkbox" className="btn-check" id="edit" autoComplete="off" onChange={() => {setEdit(!edit)}}/>
-        {edit ? <label className="btn btn-outline-primary" htmlFor="edit" onClick={handleSave}>Save</label> : 
-            <label className="btn btn-outline-primary" htmlFor="edit">Edit</label>}
+        <div className="text-center">
+            <h2 className="py-4 text-secondary text-center">My Profile</h2>
+            {edit ? <label className="btn btn-outline-primary" htmlFor="edit" onClick={handleSave}>Save</label> : 
+                <label className="btn btn-outline-primary" htmlFor="edit">Edit</label>}
+            <input type="checkbox" className="btn-check" id="edit" autoComplete="off" onChange={() => {setEdit(!edit)}}/>
+        </div>
+        
         <div className="d-flex justify-content-center gap-5 py-4">
             <div>
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    {edit ? <input type="text" class="form-control form-control-plaintext border" id="username" placeholder={user.username}></input>:
-                    <input type="text" class="form-control form-control-plaintext" id="username" value={user.username} disabled></input>} 
+                <div className="form-group">
+                    <label htmlFor="username">Username:</label>
+                    {edit ? <input type="text" className="form-control form-control-plaintext border" id="username" placeholder={user.username}></input>:
+                    <input type="text" className="form-control form-control-plaintext" id="username" value={user.username} disabled></input>} 
                 </div>
-                <div class="form-group">
-                    <label for="first-name">First Name:</label>
-                    {edit ? <input type="text" class="form-control form-control-plaintext border" id="first-name" value={user.first_name}></input>:
-                    <input type="text" class="form-control form-control-plaintext" id="first-name" value={user.first_name} disabled></input>}
+                <div className="form-group">
+                    <label htmlFor="first-name">First Name:</label>
+                    {edit ? <input type="text" className="form-control form-control-plaintext border" id="first-name" value={user.first_name}></input>:
+                    <input type="text" className="form-control form-control-plaintext" id="first-name" value={user.first_name} disabled></input>}
                 </div>
-                <div class="form-group">
-                    <label for="last-name">Last Name:</label>
-                    {edit ? <input type="text" class="form-control form-control-plaintext border" id="last-name" value={user.last_name}></input>:
-                    <input type="text" class="form-control form-control-plaintext" id="last-name" value={user.last_name} disabled></input>}
+                <div className="form-group">
+                    <label htmlFor="last-name">Last Name:</label>
+                    {edit ? <input type="text" className="form-control form-control-plaintext border" id="last-name" value={user.last_name}></input>:
+                    <input type="text" className="form-control form-control-plaintext" id="last-name" value={user.last_name} disabled></input>}
                 </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    {edit ? <input type="text" class="form-control form-control-plaintext border" id="email" value={user.email}></input>:
-                    <input type="text" class="form-control form-control-plaintext" id="email" value={user.email} disabled></input>}
+                <div className="form-group">
+                    <label htmlFor="email">Email:</label>
+                    {edit ? <input type="text" className="form-control form-control-plaintext border" id="email" value={user.email}></input>:
+                    <input type="text" className="form-control form-control-plaintext" id="email" value={user.email} disabled></input>}
                 </div>
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    {edit ? <input type="text" class="form-control form-control-plaintext border" id="phone" value={user.phoneNumber}></input>:
-                    <input type="text" class="form-control form-control-plaintext" id="phone" value={user.phoneNumber} disabled></input>}
+                <div className="form-group">
+                    <label htmlFor="phone">Phone:</label>
+                    {edit ? <input type="text" className="form-control form-control-plaintext border" id="phone" value={user.phoneNumber}></input>:
+                    <input type="text" className="form-control form-control-plaintext" id="phone" value={user.phoneNumber} disabled></input>}
                 </div>
             </div>
             <img src={user.avatars} alt="User" className="rounded-circle align-self-center" style={{}}></img>

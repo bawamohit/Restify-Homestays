@@ -10,7 +10,8 @@ var token = localStorage.getItem('accessToken')
 function ShowReservationsStay() {
   const [reservation, setReservation] = useState([]);
   const [query, setQuery] = useState({ search: "", page: 1 });
-  const [totalPages, setTotalPages] = useState(1);
+  const [next, setNext] = useState(null)
+  const [previous, setPrevious] = useState(null)
 
   useEffect(() => {
     if (query.page === 1) {
@@ -28,7 +29,8 @@ function ShowReservationsStay() {
         })
         .then(json => {
           setReservation(json.results);
-          setTotalPages(Math.max(Math.ceil(json.count / 3), 1));
+          setNext(json.next)
+          setPrevious(json.previous)
 
         }).catch(error => {
 
@@ -49,7 +51,8 @@ function ShowReservationsStay() {
         })
         .then(json => {
           setReservation(json.results);
-          setTotalPages(Math.max(Math.ceil(json.count / 3), 1));
+          setNext(json.next)
+          setPrevious(json.previous)
         }).catch(error => {
 
           console.log(error);
@@ -64,7 +67,9 @@ function ShowReservationsStay() {
 
   return (
     <div className="container text-center">
-      <div className="pt-5 pb-5 btn-group btn-group-md flex-wrap" role="group" aria-label="Button group with 7 buttons">
+        <h2 className="py-4 text-secondary text-center">Stays</h2>
+
+      <div className="pb-4 btn-group btn-group-md flex-wrap" role="group" aria-label="Button group with 7 buttons">
         <div className="btn-group">
           <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "", page: 1 })}>All</button>
           <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Pending", page: 1 })}>Pending</button>
@@ -82,7 +87,7 @@ function ShowReservationsStay() {
           <button type="button" className="btn btn-secondary" onClick={() => setQuery({ search: "Completed", page: 1 })}>Completed</button>
         </div>
       </div>
-      <h2 className="pt-5 pb-5 text-secondary text-center">Stays</h2>
+
       <div className="accordion" id="reservationList">
         {reservation.map(reservation => (
           <div className="accordion-item" key={reservation.id} >
@@ -183,7 +188,7 @@ function ShowReservationsStay() {
           </div>
         ))}
       </div>
-      <p className="pt-5">
+      {/* <p className="pt-5">
         {query.page > 1
           ? <button onClick={() => setQuery({
             ...query, page: query.page - 1
@@ -197,7 +202,15 @@ function ShowReservationsStay() {
           : <></>
         }
       </p>
-      <p>Page {query.page} out of {totalPages}.</p>
+      <p>Page {query.page} out of {totalPages}.</p> */}
+        <div className="ms-auto me-auto" style={{maxWidth: "700px"}}>
+            <div className="d-flex justify-content-between" style={{ maxWidth: "700px" }}>
+                {previous ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page - 1 }) }}>Previous Page</button> : 
+                    <button className="btn btn-outline-secondary my-5" type="button" disabled>Previous Page</button>}
+                {next ? <button className="btn btn-secondary my-5" type="button" onClick={() => { setQuery({ search: query.search, page: query.page + 1 }) }}>Next Page</button> :
+                    <button className="btn btn-outline-secondary my-5" type="button" disabled>Next Page</button>}
+            </div>
+        </div>
     </div>
   );
 }
