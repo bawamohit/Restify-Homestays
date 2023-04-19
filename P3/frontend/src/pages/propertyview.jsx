@@ -274,7 +274,7 @@ function PropertyView() {
                             {thread.map((comment, j) => {
                                 if (isReplyable(comment, thread)) {
                                     return <div key={`thread_${i}comment_${j}`}>
-                                            <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating} />
+                                            <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating} date={comment.date}/>
                                             <div className="input-group px-5">
                                                 <textarea id="reply-text" className="form-control" rows="1" placeholder="Leave a reply"></textarea>
                                                 <button className="btn btn-outline-secondary" type="button" onClick={() => {
@@ -287,7 +287,7 @@ function PropertyView() {
                                         </div>
                                 }
                                 return <div key={`thread_${i}comment_${j}`}>
-                                    <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating} />
+                                    <Comment uid={comment.user} hostid={property.owner} position={j} body={comment.body} rating={comment.rating} date={comment.date}/>
                                     </div>
                             })}    
                         </div>

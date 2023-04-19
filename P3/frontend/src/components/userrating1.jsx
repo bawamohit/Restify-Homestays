@@ -85,7 +85,7 @@ function UserRating(props) {
                                                 //     <div>
                                                 // <div>Rating:  {review.rating} Stars</div>
                                                 // <div>{review.body}</div></div>
-                                                <Comment uid={review.user} hostid={null} position={0} body={review.body} rating={review.rating} />
+                                                <Comment uid={review.user} hostid={null} position={0} body={review.body} rating={review.rating}  date={review.date} />
                                             )}
                                         </div>
                                     </div>

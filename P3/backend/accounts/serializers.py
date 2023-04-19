@@ -30,8 +30,8 @@ class CommentSerializer(ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['id', 'user','body', 'rating', "content_type", "commentID", "replyingTo", "endOfCommentChain"]
-        read_only_fields = ['content_type','user', "endOfCommentChain", "commentID"]
+        fields = ['id', 'user','body', 'rating', "content_type", "commentID", "replyingTo", "endOfCommentChain", "date"]
+        read_only_fields = ['content_type','user', "endOfCommentChain", "commentID", "date"]
 
     def validate(self, clean_data):
 
