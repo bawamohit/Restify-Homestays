@@ -8,6 +8,7 @@ import Terminate from "../components/terminate";
 import Addr from "../components/addr";
 import LeaveUserRating from "../components/leaveuserrating";
 import UserRating from "../components/userrating1";
+import Names from "../components/names";
 
 var token = localStorage.getItem('accessToken')
 
@@ -100,7 +101,7 @@ function ShowReservationsHost() {
                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <div>
                     <div class="col-12">
-                      Reservation at <Addr property={reservation.property} />
+                      Reservation at <Addr property={reservation.property} /> by <Names user_id={reservation.requester} />
                     </div>
                     <div class="col-12">
                       Status: {reservation.status}
@@ -145,8 +146,8 @@ function ShowReservationsHost() {
                       case "PendingCancel":
                         return (
                           <div className="d-flex pt-4 justify-content-between" >
-                            <UserRating />
                             <div>
+                              <UserRating />
                               <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
                               <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                             </div>
@@ -170,8 +171,9 @@ function ShowReservationsHost() {
 
                       case "Approved":
                         return (<div className="d-flex pt-4 justify-content-between" >
-                          < UserRating />
+                          
                           <div>
+                            < UserRating />
                             <button className="btn float-left" style={{ background: '#85bded' }}>Details</button>
                             <button className="btn float-right" style={{ background: '#85bded' }} data-bs-toggle="modal" data-bs-target="#guests-modal">User Rating</button>
                           </div>

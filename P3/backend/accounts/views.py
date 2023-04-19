@@ -9,7 +9,7 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView, \
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer, CommentSerializer, UserViewSerializer
 from .models import User
-from properties.models import Comment, Property
+from properties.models import Comment, Property, Notification
 from django.http import JsonResponse
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.pagination import PageNumberPagination
@@ -86,6 +86,15 @@ class CommentCreateProperty(CreateAPIView):
             comm = Comment.objects.get(commentID=instance.replyingTo)
             comm.endOfCommentChain = False
             comm.save()
+
+        message = "Your property has just received a new comment"
+        property = get_object_or_404(Property, id=self.kwargs['pk'])
+        notif = Notification.objects.create(
+                user= property.owner, 
+                message=message, 
+                content_type=ContentType.objects.get_for_model(Property),
+                object_id= self.kwargs['pk']
+            )
     
 class CommentListUser(ListAPIView):
     pagination_class = PageNumberPagination
